@@ -1,48 +1,22 @@
 <template>
 	<div class="root">
-		<canvas ref="world-canvas"></canvas>
+		<MapCanvas />
+		<MapPalette />
 	</div>
 </template>
 
 <script lang="ts">
 	import { Component, Vue } from 'vue-property-decorator';
-	import Map from '@/ts/graphics/Map';
+	import MapCanvas from './MapCanvs.vue';
+	import MapPalette from './MapPalette.vue';
 	@Component({
 		name: 'World',
-		components: {}
+		components: {
+			MapCanvas,
+			MapPalette
+		}
 	})
-	export default class World extends Vue {
-		private map!: Map;
-		private context!: CanvasRenderingContext2D;
-		private requestId!: number;
-		private lastTime!: number;
-
-		private mounted(): void {
-			const canvas = this.$refs['world-canvas'] as HTMLCanvasElement;
-			this.context = canvas.getContext('2d')!;
-			
-			this.context.canvas.width = this.context.canvas.clientWidth;
-			this.context.canvas.height = this.context.canvas.clientHeight;
-			window.addEventListener('resize', this.onResize.bind(this), { passive: true });
-			this.map = new Map(this.$store);
-			
-			this.lastTime = Date.now();
-			this.requestId = requestAnimationFrame(this.tick.bind(this));
-		}
-
-		private tick(time: number): void {
-			const dt = time - this.lastTime;
-			this.map.update(dt);
-			this.lastTime = time;
-			this.map.render(this.context);
-			this.requestId = requestAnimationFrame(this.tick.bind(this));
-		}
-
-		private onResize(event: UIEvent): void {
-			this.context.canvas.width = this.context.canvas.clientWidth;
-			this.context.canvas.height = this.context.canvas.clientHeight;
-		}
-	}
+	export default class World extends Vue {}
 </script>
 
 <style scoped>

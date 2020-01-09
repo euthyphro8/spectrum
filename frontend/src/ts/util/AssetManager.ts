@@ -4,6 +4,9 @@
 class AssetManager {
 	//#region [red] Constants
 	public static readonly TILE_SIZE = 64;
+	public static readonly ROCK_IMAGE = 'rock';
+	public static readonly COBBLE_IMAGE = 'cobble';
+	public static readonly GRASS_IMAGE = 'grass';
 	//#endregion
 
 	//#region [purple] Fields
@@ -15,7 +18,7 @@ class AssetManager {
 	constructor() {
 		this.images = new Map<string, HTMLImageElement>();
 		this.unloadedCount = 0;
-		this.loadImage(require('@/assets/map/cobble.png'));
+		this.initImages();
 	}
 	//#endregion
 
@@ -24,33 +27,40 @@ class AssetManager {
 		return this.unloadedCount === 0;
 	}
 
-	public loadImage(src: string): HTMLImageElement {
-		console.log(src);
-		let name = src;
-		let reg = /[\/][i][m][g][\/]([\w]+)/g;
-		let matches = reg.exec(src);
-		for (let match of matches!) console.log(match);
-		if (matches && matches.length > 0) {
-			name = matches[1];
-		}
+	public getImage(name: string): HTMLImageElement {
+		const img = this.images.get(name);
+		if (img) return img;
+		throw new Error(`Image ${name} has not been loaded.`);
+	}
+
+	public loadImage(name: string, src: string): void {
+		//Check to see if it's loaded.
 		if (this.images.has(name)) {
-			return this.images.get(name)!;
-		}
-		if (name === src) {
-			throw new Error(
-				'Tried to load an image from the common name before it had been created.'
-			);
+			return;
 		}
 		this.unloadedCount += 1;
 		let sprite = new Image(AssetManager.TILE_SIZE, AssetManager.TILE_SIZE);
-		sprite.src = src;
 		sprite.onload = this.onImageLoaded.bind(this);
+		sprite.src = src;
 		this.images.set(name, sprite);
-		return sprite;
 	}
 	//#endregion
 
 	//#region [yellow] Private
+	private initImages(): void {
+		this.loadImage(
+			AssetManager.ROCK_IMAGE,
+			require('@/assets/map/rock.png')
+		);
+		this.loadImage(
+			AssetManager.COBBLE_IMAGE,
+			require('@/assets/map/cobble.png')
+		);
+		this.loadImage(
+			AssetManager.GRASS_IMAGE,
+			require('@/assets/map/grass.png')
+		);
+	}
 	private onImageLoaded(): void {
 		this.unloadedCount -= 1;
 	}

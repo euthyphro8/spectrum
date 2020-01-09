@@ -25,6 +25,7 @@ class Map {
 		this.width = 16;
 		this.height = 16;
 		this.tiles = [];
+		this.initTiles();
 		this.controller.registerEvents();
 	}
 	//#endregion
@@ -60,10 +61,10 @@ class Map {
 			}
 		}
 	}
-	private createTile(src: string, x: number, y: number): Tile {
+	private createTile(imgName: string, x: number, y: number): Tile {
 		// TODO hava a resource map so the same image never gets loaded twice.
 		let tile: Tile = {
-			sprite: this.store.state.assets.loadImage(src),
+			sprite: this.store.state.assets.getImage(imgName),
 			x,
 			y
 		};

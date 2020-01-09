@@ -5,6 +5,9 @@ import Camera from './Camera';
 
 class Controller {
 	//#region [purple] Fields
+	public mx: number;
+	public my: number;
+
 	private upPressed: boolean;
 	private downPressed: boolean;
 	private leftPressed: boolean;
@@ -29,6 +32,8 @@ class Controller {
 		this.mlx = 0;
 		this.mly = 0;
 		this.ds = 0;
+		this.mx = 0;
+		this.my = 0;
 	}
 	//#endregion
 
@@ -120,6 +125,8 @@ class Controller {
 	}
 
 	private onMouseMove(event: MouseEvent): void {
+		this.mx = event.screenX;
+		this.my = event.screenY;
 		if (this.panPressed) {
 			this.mdx += this.mlx - event.screenX;
 			this.mdy += this.mly - event.screenY;
@@ -138,7 +145,7 @@ class Controller {
 		// } else if (event.deltaY < 0) {
 		// 	this.ds = -0.1;
 		// }
-		this.ds += event.deltaY / 1000;
+		this.ds -= event.deltaY / 1000;
 	}
 	//#endregion
 }
