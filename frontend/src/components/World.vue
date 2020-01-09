@@ -17,20 +17,30 @@
 		private requestId!: number;
 		private lastTime!: number;
 
-		mounted(): void {
+		private mounted(): void {
 			const canvas = this.$refs['world-canvas'] as HTMLCanvasElement;
 			this.context = canvas.getContext('2d')!;
-			this.map = new Map();
+			
+			this.context.canvas.width = this.context.canvas.clientWidth;
+			this.context.canvas.height = this.context.canvas.clientHeight;
+			window.addEventListener('resize', this.onResize.bind(this), { passive: true });
+			this.map = new Map(this.$store);
+			
 			this.lastTime = Date.now();
 			this.requestId = requestAnimationFrame(this.tick.bind(this));
 		}
 
-		tick(time: number): void {
+		private tick(time: number): void {
 			const dt = time - this.lastTime;
 			this.map.update(dt);
 			this.lastTime = time;
 			this.map.render(this.context);
 			this.requestId = requestAnimationFrame(this.tick.bind(this));
+		}
+
+		private onResize(event: UIEvent): void {
+			this.context.canvas.width = this.context.canvas.clientWidth;
+			this.context.canvas.height = this.context.canvas.clientHeight;
 		}
 	}
 </script>
