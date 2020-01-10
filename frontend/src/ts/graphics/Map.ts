@@ -4,6 +4,7 @@ import Screen from './Screen';
 import Controller from './Controller';
 import { Store } from 'vuex';
 import IStore from '../interfaces/IStore';
+import AssetManager from '../util/AssetManager';
 //#endregion
 
 class Map {
@@ -45,8 +46,27 @@ class Map {
 				this.screen.renderTile(this.tiles[y][x]);
 			}
 		}
+		let point = this.screen.renderTileOutline(
+			this.controller.mx,
+			this.controller.my
+		);
+		if (this.controller.getClick()) {
+			console.log(`${point.tx}, ${point.ty}`);
+			if (point.ty < this.tiles.length) {
+				if (point.tx < this.tiles[point.ty].length) {
+					console.log('in bounds');
+					if (this.store.state.selected) {
+						this.tiles[point.ty][point.tx] = this.createTile(
+							this.store.state.selected,
+							point.tx,
+							point.ty
+						);
+					}
+				}
+			}
+		}
 		// Close the canvas context
-		this.screen.end(context);
+		this.screen.end();
 	}
 
 	public close() {}
@@ -57,7 +77,7 @@ class Map {
 		for (let y = 0; y < this.height; y++) {
 			this.tiles[y] = [];
 			for (let x = 0; x < this.width; x++) {
-				this.tiles[y][x] = this.createTile('cobble', x, y);
+				this.tiles[y][x] = this.createTile('grass', x, y);
 			}
 		}
 	}

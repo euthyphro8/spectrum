@@ -13,6 +13,7 @@ class Controller {
 	private leftPressed: boolean;
 	private rightPressed: boolean;
 	private panPressed: boolean;
+	private clickDown: boolean;
 	private mdx: number;
 	private mdy: number;
 	private mlx: number;
@@ -38,6 +39,14 @@ class Controller {
 	//#endregion
 
 	//#region [green] Public
+	public getClick(): boolean {
+		if (this.clickDown) {
+			this.clickDown = false;
+			return true;
+		}
+		return false;
+	}
+
 	public update(dt: number, camera: Camera): void {
 		const speed = 5;
 		let dx = this.leftPressed
@@ -122,11 +131,12 @@ class Controller {
 			this.mlx = event.screenX;
 			this.mly = event.screenY;
 		}
+		this.clickDown = true;
 	}
 
 	private onMouseMove(event: MouseEvent): void {
-		this.mx = event.screenX;
-		this.my = event.screenY;
+		this.mx = event.clientX;
+		this.my = event.clientY;
 		if (this.panPressed) {
 			this.mdx += this.mlx - event.screenX;
 			this.mdy += this.mly - event.screenY;

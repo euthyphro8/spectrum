@@ -10,7 +10,7 @@ class AssetManager {
 	//#endregion
 
 	//#region [purple] Fields
-	private images: Map<string, HTMLImageElement>;
+	public images: Map<string, HTMLImageElement>;
 	private unloadedCount: number;
 	//#endregion
 
