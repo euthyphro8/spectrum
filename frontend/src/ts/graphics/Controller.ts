@@ -28,6 +28,7 @@ class Controller {
 		this.leftPressed = false;
 		this.rightPressed = false;
 		this.panPressed = false;
+		this.clickDown = false;
 		this.mdx = 0;
 		this.mdy = 0;
 		this.mlx = 0;
@@ -40,11 +41,12 @@ class Controller {
 
 	//#region [green] Public
 	public getClick(): boolean {
-		if (this.clickDown) {
-			this.clickDown = false;
-			return true;
-		}
-		return false;
+		// if (this.clickDown) {
+		// 	this.clickDown = false;
+		// 	return true;
+		// }
+		// return false;
+		return this.clickDown;
 	}
 
 	public update(dt: number, camera: Camera): void {
