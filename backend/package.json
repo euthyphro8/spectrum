@@ -1,0 +1,11 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "description": "",
+  "main": "main.ts",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Josh Hess",
+  "license": "UNLICENSED"
+}
