@@ -33,6 +33,8 @@ export default class Editor {
 					this.lastTileEdited = tile;
 				}
 			}
+		} else {
+			this.lastTileEdited = undefined;
 		}
 		screen.indexToScreenSpace(this.cursorLocation);
 	}

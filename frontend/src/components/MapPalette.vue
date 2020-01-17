@@ -20,10 +20,9 @@
 		components: {}
 	})
 	export default class MapPalette extends Vue {
-		@Prop()
-		public onTop: boolean = true;
-		@Prop()
-		public sprites!: string[];
+		@Prop({ default: true })
+		public onTop!: boolean;
+		public sprites: string[] = [];
 
 		mounted(): void {
 			const store: Store<IStore> = this.$store;

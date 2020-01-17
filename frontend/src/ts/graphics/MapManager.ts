@@ -25,6 +25,7 @@ export default class MapManager {
 		this.controller = new Controller();
 		this.screen = new Screen();
 		this.map = new Map(16, 16);
+		this.map.initTiles(this.store);
 		this.editor = new Editor(this.store);
 		this.controller.registerEvents();
 	}

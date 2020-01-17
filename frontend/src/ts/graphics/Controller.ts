@@ -149,6 +149,7 @@ class Controller {
 
 	private onMouseUp(event: MouseEvent): void {
 		this.panPressed = false;
+		this.clickDown = false;
 	}
 
 	private onScroll(event: WheelEvent): void {

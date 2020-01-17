@@ -63,7 +63,6 @@ class Screen {
 				AssetManager.TILE_SIZE * this.camera.s,
 				AssetManager.TILE_SIZE * this.camera.s
 			);
-			this.context.rect(x, y, 16, 16);
 		} else {
 			console.log('[ Screen ] Begin has not been called yet this frame.');
 		}

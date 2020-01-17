@@ -6,14 +6,14 @@
 
 <script lang="ts">
 	import { Component, Vue } from 'vue-property-decorator';
-	import Map from '../ts/graphics/Map';
+	import MapManager from '../ts/graphics/MapManager';
 
 	@Component({
 		name: 'MapCanvas',
 		components: {}
 	})
 	export default class MapCanvas extends Vue {
-		private map!: Map;
+		private map!: MapManager;
 		private context!: CanvasRenderingContext2D;
 		private requestId!: number;
 		private lastTime!: number;
@@ -21,12 +21,14 @@
 		private mounted(): void {
 			const canvas = this.$refs['map-canvas'] as HTMLCanvasElement;
 			this.context = canvas.getContext('2d')!;
-			
+
 			this.context.canvas.width = this.context.canvas.clientWidth;
 			this.context.canvas.height = this.context.canvas.clientHeight;
-			window.addEventListener('resize', this.onResize.bind(this), { passive: true });
-			this.map = new Map(this.$store);
-			
+			window.addEventListener('resize', this.onResize.bind(this), {
+				passive: true
+			});
+			this.map = new MapManager(this.$store);
+
 			this.lastTime = Date.now();
 			this.requestId = requestAnimationFrame(this.tick.bind(this));
 		}
