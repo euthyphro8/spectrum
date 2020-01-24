@@ -11,9 +11,15 @@
 				<div class="nav-dropdown-content">
 					<div
 						class="nav-text nav-dropdown-item"
-						@click="onClick('/contract')"
+						@click="onClick('/contract-v1')"
 					>
 						V1
+					</div>
+					<div
+						class="nav-text nav-dropdown-item"
+						@click="onClick('/contract-v2')"
+					>
+						V2
 					</div>
 				</div>
 			</div>

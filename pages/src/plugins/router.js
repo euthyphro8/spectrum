@@ -2,9 +2,10 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
-import Contract from '../views/contracts/Contract.v1.vue';
+import Contract1 from '../views/contracts/Contract.v1.vue';
+import Contract2 from '../views/contracts/Contract.v2.vue';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [{
         path: '/',
@@ -23,11 +24,19 @@ const routes = [{
         }
     },
     {
-        path: '/contract',
+        path: '/contract-v1',
         name: 'contract',
-        component: Contract,
+        component: Contract1,
         meta: {
-            title: 'Spectrum | Contract'
+            title: 'Spectrum | Contract v1'
+        }
+    },
+    {
+        path: '/contract-v2',
+        name: 'contract',
+        component: Contract2,
+        meta: {
+            title: 'Spectrum | Contract v2'
         }
     }
 ]
