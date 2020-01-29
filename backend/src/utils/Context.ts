@@ -1,8 +1,8 @@
-import ConnectionService from '../services/ConnectionService';
-import FileService from '../services/FileService';
-import WebService from '../services/WebService';
-import LoggerService from '../services/LoggerService';
-import Configuration from '../utils/Configuration';
+import ConnectionService from '@/services/ConnectionService';
+import FileService from '@/services/FileService';
+import WebService from '@/services/WebService';
+import LoggerService from '@/services/LoggerService';
+import Configuration from '@/utils/Configuration';
 
 export default class Context {
 	private _Config!: Configuration;

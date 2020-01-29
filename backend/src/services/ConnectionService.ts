@@ -4,14 +4,14 @@ import http from 'http';
 import io from 'socket.io';
 
 // Internal Dependencies
-import AmbientContext from '../utils/AmbientContext';
+import AmbientContext from '@/utils/Context';
 import MessageTypes from '../utils/MessageTypes';
 
 class ConnectionService {
 	public ioServer: io.Server;
+	public expressApp: express.Express;
 
 	private context: AmbientContext;
-	private expressApp: express.Express;
 	private httpServer: http.Server;
 	private sockets: Map<string, io.Socket>;
 

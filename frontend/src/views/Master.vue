@@ -31,7 +31,17 @@
 			SmallMapCard
 		}
 	})
-	export default class Master extends Vue {}
+	export default class Master extends Vue {
+
+		private requestMaps(): void {
+
+		}
+
+		private requestTemplates(): void {
+			
+		}
+
+	}
 </script>
 
 <style scoped>

@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-import AmbientContext from './utils/AmbientContext';
+import AmbientContext from '@/utils/Context';
 import Configuration from './utils/Configuration';
 import LoggerService from './services/LoggerService';
 import ConnectionService from './services/ConnectionService';
