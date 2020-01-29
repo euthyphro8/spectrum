@@ -17,5 +17,6 @@ export default class WebService {
 
 	private onMapRequest(req: Request, res: Response): void {
 		let filter = req.body.filter as string;
+		this.context.
 	}
 }

@@ -27,8 +27,7 @@ export default class FileService {
 					for(let file of files) {
 						this.context.Logger.info(`[ FILE SVC ] Found file ${file} for ${groupId}.`);
 						// TODO this might benefit from async call instead of sync call
-						let mapFile = fs.readFileSync(`${this.getMapPath(groupId)}\\${file}`, 
-							{ encoding: 'utf8' });
+						let mapFile = fs.readFileSync(`${this.getMapPath(groupId)}\\${file}`, { encoding: 'utf8' });
 						if(mapFile) {
 							let map = JSON.parse(mapFile);
 							if(map as IMap) {
