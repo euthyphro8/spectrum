@@ -3,6 +3,9 @@ import Router from 'vue-router';
 
 import Home from '@/views/Home.vue';
 import About from '@/views/About.vue';
+import Master from '@/views/Master.vue';
+import Player from '@/views/Player.vue';
+import Spectator from '@/views/Spectator.vue';
 
 Vue.use(Router);
 
@@ -17,6 +20,21 @@ export default new Router({
 			path: '/about',
 			name: 'about',
 			component: About
+		},
+		{
+			path: '/master',
+			name: 'master',
+			component: Master
+		},
+		{
+			path: '/player',
+			name: 'player',
+			component: Player
+		},
+		{
+			path: '/spectator',
+			name: 'spectator',
+			component: Spectator
 		}
 	]
 });

@@ -160,9 +160,9 @@
 				A forum to allow users to share creations with a wider
 				community.
 			</li>
-			<br />
 
 			<h2>Submissible Items</h2>
+			Items shall be defined as follows:
 			<li>
 				All source code for the backend, frontend, and website repos.
 			</li>
@@ -173,6 +173,19 @@
 				A link to a publically hosted web server.
 			</li>
 			<br />
+
+			<h2>Rights & Reservations</h2>
+			<p>
+				All rights to any intellectual property created as a result of
+				this project will go to the sole beneficiary, Josh Hess. Any
+				items given up for review at any point during the project's
+				development shall not be considered the act of forfeiting claim
+				over any intellectual property. Hence, any such items remain
+				subject to copyright laws and may not be redistributed without
+				permission of the sole beneficiary.
+			</p>
+			<br />
+
 			<p>
 				I will assess the final project based on the goals and
 				submissabiles outlined in this document.

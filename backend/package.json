@@ -1,11 +1,43 @@
 {
-  "name": "backend",
-  "version": "0.1.0",
-  "description": "",
-  "main": "main.ts",
-  "scripts": {
-    "test": "jest"
-  },
-  "author": "Josh Hess",
-  "license": "UNLICENSED"
+	"name": "backend",
+	"version": "0.1.0",
+	"description": "Backend web server for spectrum software.",
+	"main": "dist/main.js",
+	"author": "Josh Hess",
+	"license": "UNLICENSED",
+	"scripts": {
+		"pack": "cd ../frontend && npm run build && cd ../backend && cp -r ../frontend/dist/* public",
+		"build": "tsc",
+		"start": "npm run build && node .",
+		"test": "npx jest",
+		"hotbuild": "npx nodemon --watch src --watch public --ext ts,js --exec npm start",
+		"hotpack": "npx nodemon --watch ../frontend/src --ext vue,ts --exec npm run pack"
+	},
+	"keywords": [
+		"server"
+	],
+	"dependencies": {
+		"babel-jest": "^24.9.0",
+		"bcrypt": "^3.0.6",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"mongodb": "^3.3.3",
+		"socket.io": "^2.2.0",
+		"winston": "^3.2.1"
+	},
+	"devDependencies": {
+		"@types/bcrypt": "^3.0.0",
+		"@types/express": "^4.17.1",
+		"@types/jest": "^24.0.22",
+		"@types/mongodb": "^3.3.8",
+		"@types/node": "^12.11.7",
+		"@types/socket.io": "^2.1.4",
+		"eslint": "^6.3.0",
+		"jest": "^24.9.0",
+		"jshint": "^2.10.2",
+		"nodemon": "^1.19.4",
+		"ts-jest": "^24.1.0",
+		"tslint": "^5.20.0",
+		"typescript": "^3.7.2"
+	}
 }

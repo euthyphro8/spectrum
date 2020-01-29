@@ -36,6 +36,7 @@ export default class Editor {
 		} else {
 			this.lastTileEdited = undefined;
 		}
+
 		screen.indexToScreenSpace(this.cursorLocation);
 	}
 	public render(screen: Screen): void {

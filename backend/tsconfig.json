@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "strict": true,
+        "esModuleInterop": true,
+        "baseUrl": "./",
+        "outDir": "dist",
+        "sourceMap": true,
+        "removeComments": true,
+        "experimentalDecorators": true,
+        "target": "es6",
+        "emitDecoratorMetadata": true,
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        },
+        "types": [
+            "node",
+            "express"
+        ],
+        "typeRoots": [
+            "node_modules/@types"
+        ]
+    },
+    "include": [
+        "src/**/*",
+        "public"
+    ]
+}
