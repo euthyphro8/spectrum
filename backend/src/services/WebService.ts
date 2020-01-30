@@ -17,7 +17,7 @@ export default class WebService {
 		this.app.get('/maps', this.onMapRequest.bind(this));
 		
 		// For github webhook
-		this.app.post('/webhook', this.onWebhookPayload.bind(this));
+		this.app.post('/payload', this.onWebhookPayload.bind(this));
 	}
 
 	private onMapRequest(req: Request, res: Response): void {
