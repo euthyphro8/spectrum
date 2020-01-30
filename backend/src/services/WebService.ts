@@ -30,7 +30,7 @@ export default class WebService {
 
 	private onWebhookPayload(req: Request, res: Response): void {
 		this.context.Logger.info(
-			`[ WEB SVC  ] Got webhook payload for ref ${req.body}.`
+			`[ WEB SVC  ] Got webhook payload for ref ${req.body}!`
 		);
 		res.sendStatus(200);
 	}
