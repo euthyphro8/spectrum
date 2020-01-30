@@ -6,12 +6,11 @@
 	"author": "Josh Hess",
 	"license": "UNLICENSED",
 	"scripts": {
-		"pack": "cd ../frontend && npm run build && cd ../backend && rm -r public && mkdir public && cp -r ../frontend/dist/* public",
+		"prebuild": "cd ../frontend && npm run build && cd ../backend && rm -r public && mkdir public && cp -r ../frontend/dist/* public",
 		"build": "tsc",
 		"start": "npm run build && node .",
 		"test": "npx jest",
-		"hotbuild": "npx nodemon --watch src --watch public -e js,html,css --exec npm start",
-		"hotpack": "npx nodemon --watch ../frontend/src --ext vue,ts --exec npm run pack"
+		"hotload": "npx nodemon --watch ../frontend/src --watch src --ext vue,ts --exec npm start"
 	},
 	"keywords": [
 		"server"

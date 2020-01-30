@@ -1,6 +1,5 @@
 import Vue from 'vue';
 
-import './plugin/registerServiceWorker';
 import App from './App.vue';
 import router from './plugin/router';
 import store from './plugin/store';

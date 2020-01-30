@@ -43,4 +43,5 @@ logger.notice(
 
 (async () => {
 	server.start();
+	web.start();
 })();

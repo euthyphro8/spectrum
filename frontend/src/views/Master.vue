@@ -45,17 +45,28 @@
 	export default class Master extends Vue {
 		private templates: string[] = [];
 		private maps: string[] = [];
-		mounted(): void {
-			this.templates.push('New Map');
-			this.maps.push('Dungeon');
+		async mounted(): Promise<void> {
+			// this.templates.push('New Map');
+			// this.maps.push('Dungeon');
+			this.requestMaps('Example')
+				.then(() => {
+					this.requestTemplates();
+				})
+				.catch((error) => {
+					console.log(`[ Master ] Error:\${error}`);
+				});
 		}
 
 		private async requestMaps(groupId: string): Promise<void> {
 			try {
 				console.log(`[ Master ] Requesting maps for group ${groupId}.`);
-				let res = await axios.get('requestMaps');
-				if (res.data && res.data.templates) {
-					this.templates = res.data.templates;
+				let res = await axios.get('/requestMaps', {
+					data: {
+						groupId
+					}
+				});
+				if (res.data && res.data.maps) {
+					this.maps = res.data.maps;
 				}
 			} catch (error) {}
 		}
@@ -64,8 +75,13 @@
 				console.log(
 					`[ Master ] Got load ${map} map request for ${groupId}.`
 				);
-				let res = await axios.get('loadMap');
-				if (res.data && res.data.templates) {
+				let res = await axios.get('/loadMap', {
+					data: {
+						groupId,
+						map
+					}
+				});
+				if (res.data && res.data.map) {
 					this.templates = res.data.templates;
 				}
 			} catch (error) {}
@@ -74,7 +90,7 @@
 		private async requestTemplates(): Promise<void> {
 			try {
 				console.log(`[ Master ] Got request templates.`);
-				let res = await axios.get('requestTemplates');
+				let res = await axios.get('/requestTemplates');
 				if (res.data && res.data.templates) {
 					this.templates = res.data.templates;
 				}

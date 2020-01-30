@@ -1,5 +1,5 @@
 <template>
-	<div class="map-card" @click="$emit('map')">
+	<div class="map-card" @click="$emit('load')">
 		<div class="thumb"></div>
 		<h1>{{ title }}</h1>
 	</div>
