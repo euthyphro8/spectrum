@@ -16,7 +16,7 @@ export default class WebService {
 		this.app.get('/maps', this.onMapRequest.bind(this));
 		
 		// For github webhook
-		this.app.post('/push', this.onWebhookPayload.bind(this));
+		this.app.post('/webhook', this.onWebhookPayload.bind(this));
 	}
 
 	private onMapRequest(req: Request, res: Response): void {
@@ -29,9 +29,9 @@ export default class WebService {
 	
 
 	private onWebhookPayload(req: Request, res: Response): void {
-		let ref = req.body.ref as string;
 		this.context.Logger.info(
-			`[ WEB SVC  ] Got webhook payload for ref ${ref}.`
+			`[ WEB SVC  ] Got webhook payload for ref ${req.body}.`
 		);
+		res.sendStatus(200);
 	}
 }
