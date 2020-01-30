@@ -4,18 +4,18 @@ import http from 'http';
 import io from 'socket.io';
 
 // Internal Dependencies
-import AmbientContext from '@/utils/Context';
+import Context from '../utils/Context';
 import MessageTypes from '../utils/MessageTypes';
 
 class ConnectionService {
 	public ioServer: io.Server;
 	public expressApp: express.Express;
 
-	private context: AmbientContext;
+	private context: Context;
 	private httpServer: http.Server;
 	private sockets: Map<string, io.Socket>;
 
-	constructor(context: AmbientContext) {
+	constructor(context: Context) {
 		this.context = context;
 		this.sockets = new Map<string, io.Socket>();
 		this.expressApp = express();

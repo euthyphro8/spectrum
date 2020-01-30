@@ -4,7 +4,7 @@ import { json } from 'body-parser';
 
 export default class WebService {
 	private context: Context;
-	private app!: express.Express; 
+	private app!: express.Express;
 
 	public constructor(context: Context) {
 		this.context = context;
@@ -17,6 +17,8 @@ export default class WebService {
 
 	private onMapRequest(req: Request, res: Response): void {
 		let filter = req.body.filter as string;
-		this.context.
+		this.context.Logger.info(
+			`[ WEB SVC  ] Got maps request for ${filter}.`
+		);
 	}
 }

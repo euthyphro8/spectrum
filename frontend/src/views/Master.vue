@@ -6,13 +6,23 @@
 				<h1>Start a new map</h1>
 			</div>
 			<div class="templates">
-				<SmallMapCard :title="'New Map'" />
+				<TemplateCard
+					v-for="template in templates"
+					:key="template"
+					:title="template"
+					@load="loadTemplate(template)"
+				/>
 			</div>
 			<div class="body-header">
 				<h1>Recent maps</h1>
 			</div>
 			<div class="body">
-				<MapCard />
+				<MapCard
+					v-for="map in maps"
+					:key="map"
+					:title="map"
+					@load="loadMap(map)"
+				/>
 			</div>
 		</div>
 	</div>
@@ -22,25 +32,65 @@
 	import { Component, Vue } from 'vue-property-decorator';
 	import InfoBar from '../components/master/InfoBar.vue';
 	import MapCard from '../components/master/MapCard.vue';
-	import SmallMapCard from '../components/master/SmallMapCard.vue';
+	import TemplateCard from '../components/master/TemplateCard.vue';
+	import axios from 'axios';
 	@Component({
 		name: 'Master',
 		components: {
 			InfoBar,
 			MapCard,
-			SmallMapCard
+			TemplateCard
 		}
 	})
 	export default class Master extends Vue {
-
-		private requestMaps(): void {
-
+		private templates: string[] = [];
+		private maps: string[] = [];
+		mounted(): void {
+			this.templates.push('New Map');
+			this.maps.push('Dungeon');
 		}
 
-		private requestTemplates(): void {
-			
+		private async requestMaps(groupId: string): Promise<void> {
+			try {
+				console.log(`[ Master ] Requesting maps for group ${groupId}.`);
+				let res = await axios.get('requestMaps');
+				if (res.data && res.data.templates) {
+					this.templates = res.data.templates;
+				}
+			} catch (error) {}
+		}
+		private async loadMap(groupId: string, map: string): Promise<void> {
+			try {
+				console.log(
+					`[ Master ] Got load ${map} map request for ${groupId}.`
+				);
+				let res = await axios.get('loadMap');
+				if (res.data && res.data.templates) {
+					this.templates = res.data.templates;
+				}
+			} catch (error) {}
 		}
 
+		private async requestTemplates(): Promise<void> {
+			try {
+				console.log(`[ Master ] Got request templates.`);
+				let res = await axios.get('requestTemplates');
+				if (res.data && res.data.templates) {
+					this.templates = res.data.templates;
+				}
+			} catch (error) {}
+		}
+		private async loadTemplate(template: string): Promise<void> {
+			try {
+				console.log(
+					`[ Master ] Got load template request for ${template}.`
+				);
+				let res = await axios.get('loadTemplate');
+				if (res.data && res.data.templates) {
+					this.templates = res.data.templates;
+				}
+			} catch (error) {}
+		}
 	}
 </script>
 
@@ -61,9 +111,15 @@
 	}
 	.templates {
 		background-color: #1e1e1e;
+		width: calc(100% - 160px);
 		height: auto;
+		width: auto;
 		padding: 20px 80px;
-		padding-top: 0px;
+		padding-top: 0;
+
+		display: flex;
+		flex-direction: row;
+		overflow-x: auto;
 	}
 	.body-header {
 		height: 48px;
