@@ -28,15 +28,14 @@ export default class WebService {
 	}
 
 	private onWebhookPayload(req: Request, res: Response): void {
-		try {
-			this.context.Logger.info(
-				`[ WEB SVC  ] Got webhook payload for ref ${JSON.stringify(req.body)}!`
-			);
-			res.sendStatus(200);
+		const ref = req.body.ref;
+		this.context.Logger.info(
+			`[ WEB SVC  ] Got webhook payload for ref ${ref}!`
+		);
 
-		} catch {
-			this.context.Logger.error(`[ WEB SVC  ] Error in webhook!`);
-			res.sendStatus(500);
+		if(ref === 'refs/heads/master') {
+			this.context.Logger.info(`[ WEB SVC  ] Got webhook on master branch, updating.`);
 		}
+		res.sendStatus(200);
 	}
 }
