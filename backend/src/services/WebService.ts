@@ -58,7 +58,6 @@ export default class WebService {
 			);
 			System.RestartUpdate();
 		}
-
 		res.sendStatus(200);
 	}
 }

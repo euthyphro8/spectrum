@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-import AmbientContext from './utils/Context';
+import Context from './utils/Context';
 import Configuration from './utils/Configuration';
 import LoggerService from './services/LoggerService';
 import ConnectionService from './services/ConnectionService';
@@ -10,7 +10,7 @@ import WebService from './services/WebService';
 config();
 
 // Initialization of all Micro Services
-var context = new AmbientContext();
+var context = new Context();
 const configuration = new Configuration();
 const logger = new LoggerService(
 	'Spectrum',
@@ -42,6 +42,7 @@ logger.notice(
 );
 
 (async () => {
+	file.start();
 	server.start();
 	web.start();
 })();
