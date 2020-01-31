@@ -38,7 +38,7 @@ logger.notice(
 		`CPU Architecture:\t\t${process.arch}\n` +
 		`Current Platform:\t\t${process.platform}\n` +
 		`Process ID:\t\t\t${process.pid}\n` +
-		`----------------------------------------------------------\n`
+		`----------------------------------------------------------`
 );
 
 (async () => {
