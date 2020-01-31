@@ -4,14 +4,13 @@
 	"description": "Backend web server for spectrum software.",
 	"main": "dist/main.js",
 	"author": "Josh Hess",
-	"license": "UNLICENSED",
 	"scripts": {
 		"prebuild": "cd ../frontend && npm run build && cd ../backend && rm -r public && mkdir public && cp -r ../frontend/dist/* public",
 		"build": "tsc",
 		"start": "npm run build && node .",
 		"test": "npx jest",
 		"hotload": "npx nodemon --watch ../frontend/src --watch src --ext vue,ts --exec npm start",
-		"update": "git pull && npm start"
+		"update": "git pull && tsc && node ."
 	},
 	"keywords": [
 		"server"
