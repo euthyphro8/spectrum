@@ -10,14 +10,14 @@
 		"build": "tsc",
 		"start": "npm run build && node .",
 		"test": "npx jest",
-		"hotload": "npx nodemon --watch ../frontend/src --watch src --ext vue,ts --exec npm start"
+		"hotload": "npx nodemon --watch ../frontend/src --watch src --ext vue,ts --exec npm start",
+		"update": "git pull && npm start"
 	},
 	"keywords": [
 		"server"
 	],
 	"dependencies": {
 		"babel-jest": "^24.9.0",
-		"bcrypt": "^3.0.6",
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
 		"mongodb": "^3.3.3",
@@ -25,7 +25,6 @@
 		"winston": "^3.2.1"
 	},
 	"devDependencies": {
-		"@types/bcrypt": "^3.0.0",
 		"@types/express": "^4.17.1",
 		"@types/jest": "^24.0.22",
 		"@types/mongodb": "^3.3.8",
