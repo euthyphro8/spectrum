@@ -2,6 +2,6 @@
 
 git pull
 
-npm run build
+tsc
 
 pm2 restart spectrum
