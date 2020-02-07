@@ -13,7 +13,14 @@ export default class Configuration {
 		this.AppDir =
 			process.platform === 'linux'
 				? '/var/lib/spectrum/'
-				: path.join(process.env.APPDATA!, 'Spectrum');
+				: path.join(
+						process.env.userprofile!,
+						'AppData',
+						'Local',
+						'Spectrum'
+				  );
+		// : path.join(process.env.APPDATA!, 'Spectrum');
+		// :'C:\\Users\\Josh\\AppData\\Roaming\\Spectrum';
 		this.LogDir = path.join(this.AppDir, 'Logs');
 		this.StoreDir = path.join(this.AppDir, 'Store');
 		this.WebPort = process.env.WebPort || '16661';

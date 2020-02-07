@@ -8,8 +8,9 @@
 			<div class="templates">
 				<TemplateCard
 					v-for="template in templates"
-					:key="template"
-					:title="template"
+					:key="template.id"
+					:title="template.name"
+					:thumbnail="template.thumbnail"
 					@load="loadTemplate(template)"
 				/>
 			</div>
@@ -33,6 +34,7 @@
 	import InfoBar from '../components/master/InfoBar.vue';
 	import MapCard from '../components/master/MapCard.vue';
 	import TemplateCard from '../components/master/TemplateCard.vue';
+	import IMap from '../ts/interfaces/IMap';
 	import axios from 'axios';
 	@Component({
 		name: 'Master',
@@ -43,15 +45,11 @@
 		}
 	})
 	export default class Master extends Vue {
-		private templates: string[] = [];
+		private templates: IMap[] = [];
 		private maps: string[] = [];
 		async mounted(): Promise<void> {
-			// this.templates.push('New Map');
-			// this.maps.push('Dungeon');
 			this.requestMaps('Example')
-				.then(() => {
-					this.requestTemplates();
-				})
+				.then(() => this.requestTemplates())
 				.catch((error) => {
 					console.log(`[ Master ] Error:\${error}`);
 				});
@@ -96,16 +94,12 @@
 				}
 			} catch (error) {}
 		}
-		private async loadTemplate(template: string): Promise<void> {
-			try {
-				console.log(
-					`[ Master ] Got load template request for ${template}.`
-				);
-				let res = await axios.get('loadTemplate');
-				if (res.data && res.data.templates) {
-					this.templates = res.data.templates;
-				}
-			} catch (error) {}
+		private async loadTemplate(template: IMap): Promise<void> {
+			console.log(
+				`[ Master ] Got load template request for ${template.name}.`
+			);
+			this.$store.state.currentMap = template;
+			this.$router.push('editor');
 		}
 	}
 </script>

@@ -6,6 +6,7 @@ import About from '@/views/About.vue';
 import Master from '@/views/Master.vue';
 import Player from '@/views/Player.vue';
 import Spectator from '@/views/Spectator.vue';
+import Editor from '@/views/Editor.vue';
 
 Vue.use(Router);
 
@@ -35,6 +36,11 @@ export default new Router({
 			path: '/spectator',
 			name: 'spectator',
 			component: Spectator
+		},
+		{
+			path: '/editor',
+			name: 'editor',
+			component: Editor
 		}
 	]
 });

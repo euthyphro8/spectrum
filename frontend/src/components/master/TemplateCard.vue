@@ -1,6 +1,8 @@
 <template>
 	<div class="template-card" @click="$emit('load')">
-		<div class="thumb"></div>
+		<div class="thumb">
+			<img :src="thumbnail" :alt="title" />
+		</div>
 		<h1>{{ title }}</h1>
 	</div>
 </template>
@@ -11,7 +13,8 @@
 		name: 'TemplateCard',
 		components: {},
 		props: {
-			title: String
+			title: String,
+			thumbnail: String
 		}
 	})
 	export default class TemplateCard extends Vue {}
@@ -43,5 +46,10 @@
 		font-weight: 300;
 		letter-spacing: 0.06em;
 		color: #cccccc;
+	}
+	img {
+		margin: 8px;
+		width: calc(100% - 16px);
+		height: calc(100% - 16px);
 	}
 </style>

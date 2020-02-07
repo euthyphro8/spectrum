@@ -18,7 +18,7 @@ export default class WebService {
 		this.app.get('/requestMaps', this.onMapsRequest.bind(this));
 		this.app.get('/requestTemplates', this.onTemplatesRequest.bind(this));
 		this.app.get('/loadMap', this.onMapLoad.bind(this));
-		this.app.get('/loadTemplate', this.onTemplateLoad.bind(this));
+		// this.app.get('/loadTemplate', this.onTemplateLoad.bind(this));
 
 		this.app.post('/webhook', this.onWebhookPayload.bind(this));
 	}
@@ -29,20 +29,21 @@ export default class WebService {
 			`[ WEB SVC  ] Got maps request for ${groupId}.`
 		);
 		res.status(200).send({ maps: ['Dungeon-01', 'Dunegon-02'] });
+		// this.context.Files.getAvailableMap();
 	}
 	private onTemplatesRequest(req: Request, res: Response): void {
 		this.context.Logger.info(`[ WEB SVC  ] Got templates request.`);
-		res.status(200).send({ templates: [''] });
+		// res.status(200).send({ templates: ['New Map'] });
+		this.context.Files.getAvailableTemplates()
+			.then(templates => {
+				res.status(200).send({ templates });
+			})
+			.catch(() => res.status(500));
 	}
 	private onMapLoad(req: Request, res: Response): void {
 		let groupId = req.body.groupId as string;
 		let map = req.body.groupId as string;
 		this.context.Logger.info(`[ WEB SVC  ] Got map load.`);
-		// res.status(200).send({ maps: ['New map'] });
-	}
-	private onTemplateLoad(req: Request, res: Response): void {
-		let template = req.body.template as string;
-		this.context.Logger.info(`[ WEB SVC  ] Got template load ${template}.`);
 		// res.status(200).send({ maps: ['New map'] });
 	}
 

@@ -2,7 +2,6 @@ import path from 'path';
 import { promises as fs } from 'fs';
 import Context from '../utils/Context';
 import IMap, { instanceOfIMap } from '../interfaces/IMap';
-import ITemplate, { instanceOfITemplate } from '../interfaces/ITemplate';
 import FileHelper from '../utils/FileHelper';
 import { DefaultTemplate } from '../assets/DefaultTemplate';
 import { DefaultTileRegistry } from '../assets/DefaultTileRegistry';
@@ -15,22 +14,25 @@ export default class FileService {
 
 	public start(): void {
 		this.context.Logger.info(
-			`Attempting to verify store directory ${this.context.Config.StoreDir}.`
+			`[ FILE SVC ] Attempting to verify store directory ${this.context.Config.StoreDir}.`
 		);
-		FileHelper.VerifyFolderExists(this.context.Config.StoreDir)
-			.then(() =>
-				FileHelper.VerifyFolderExists(
-					path.join(this.context.Config.StoreDir, 'Campaigns')
-				)
-			)
-			.then(() =>
-				FileHelper.VerifyFolderExists(
-					path.join(this.context.Config.StoreDir, 'Templates')
-				)
-			)
-			.then(created => {
-				if (created) this.generateDefaults();
-			});
+
+		var created = FileHelper.VerifyFolderExists(
+			this.context.Config.StoreDir
+		);
+		created =
+			created ||
+			FileHelper.VerifyFolderExists(
+				path.join(this.context.Config.StoreDir, 'Campaigns')
+			);
+		created =
+			created ||
+			FileHelper.VerifyFolderExists(
+				path.join(this.context.Config.StoreDir, 'Templates')
+			);
+		if (created) {
+			this.generateDefaults();
+		}
 	}
 
 	private generateDefaults(): void {
@@ -67,10 +69,10 @@ export default class FileService {
 		return maps;
 	}
 
-	public async getAvailableTemplates(): Promise<ITemplate[]> {
+	public async getAvailableTemplates(): Promise<IMap[]> {
 		const path = this.getTemplateDir();
 		const files = await fs.readdir(path);
-		let templates: ITemplate[] = [];
+		let templates: IMap[] = [];
 		for (let file of files) {
 			this.context.Logger.info(
 				`[ FILE SVC ] Found template file ${file}.`
@@ -79,7 +81,7 @@ export default class FileService {
 				encoding: 'utf8'
 			});
 			const template = JSON.parse(data);
-			if (instanceOfITemplate(template)) {
+			if (instanceOfIMap(template)) {
 				templates.push(template);
 			} else {
 				this.context.Logger.warn(

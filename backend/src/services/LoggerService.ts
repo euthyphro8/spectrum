@@ -1,4 +1,6 @@
 import Winston from 'winston';
+import FileHelper from '../utils/FileHelper';
+import path from 'path';
 
 /**
  * Log levels in accordance with the Syslog Protocol
@@ -57,6 +59,7 @@ class LoggerService {
 		maxSize: number
 	) {
 		console.log('\n-- LOGGER INITIALIZED --');
+		FileHelper.VerifyFolderExists(filename);
 		const customLevels = {
 			levels: {
 				// Levels in accordance with rfc5424 https://tools.ietf.org/html/rfc5424
@@ -86,32 +89,32 @@ class LoggerService {
 				let msg = level;
 				msg = msg.replace(
 					'emerg',
-					`[${timestamp}][ ${label} ][ EMERG ] ${message}`
+					`[${timestamp}][ ${label} ][ EMERG ]${message}`
 				);
 				msg = msg.replace(
 					'alert',
-					`[${timestamp}][ ${label} ][ ALERT ] ${message}`
+					`[${timestamp}][ ${label} ][ ALERT ]${message}`
 				);
 				msg = msg.replace(
 					'crit',
-					`[${timestamp}][ ${label} ][ CRIT  ] ${message}`
+					`[${timestamp}][ ${label} ][ CRIT  ]${message}`
 				);
 				msg = msg.replace(
 					'error',
-					`[${timestamp}][ ${label} ][ ERROR ] ${message}`
+					`[${timestamp}][ ${label} ][ ERROR ]${message}`
 				);
 				msg = msg.replace(
 					'warn',
-					`[${timestamp}][ ${label} ][ WARN  ] ${message}`
+					`[${timestamp}][ ${label} ][ WARN  ]${message}`
 				);
 				msg = msg.replace('notice', `${message}`);
 				msg = msg.replace(
 					'info',
-					`[${timestamp}][ ${label} ][ INFO  ] ${message}`
+					`[${timestamp}][ ${label} ][ INFO  ]${message}`
 				);
 				msg = msg.replace(
 					'debug',
-					`[${timestamp}][ ${label} ][ DEBUG ] ${message}`
+					`[${timestamp}][ ${label} ][ DEBUG ]${message}`
 				);
 				return msg;
 			}
@@ -125,7 +128,7 @@ class LoggerService {
 			},
 			transports: [
 				new Winston.transports.File({
-					filename: filename,
+					filename: path.resolve(filename, `${logName}.log`),
 					maxFiles: maxFiles,
 					maxsize: maxSize,
 					handleExceptions: false,
