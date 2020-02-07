@@ -10,7 +10,7 @@
 		"start": "npm run build && node .",
 		"test": "npx jest",
 		"hotload": "npx nodemon --watch ../frontend/src --watch src --ext vue,ts --exec npm start",
-		"update": "git pull"
+		"update": "./scripts/update.sh"
 	},
 	"keywords": [
 		"server"
