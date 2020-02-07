@@ -2,6 +2,6 @@
 
 git pull
 
-tsc
+npx tsc
 
 pm2 restart spectrum
