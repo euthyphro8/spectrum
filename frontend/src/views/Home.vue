@@ -9,16 +9,26 @@
 		<div class="spectator-selection" @click="onSelection('/spectator')">
 			<h1>Spectator</h1>
 		</div>
+		<DialogueBox
+			:title="'Welcome'"
+			:message="
+				'Spectrum is currently in pre-alpha. Expect things to break. ' +
+					'If you have any suggestions or feedback feel free to email ' +
+					'joshhess13@gmail.com.'
+			"
+		/>
 	</div>
 </template>
 
 <script lang="ts">
 	import { Component, Vue } from 'vue-property-decorator';
 	import World from '../components/World.vue';
+	import DialogueBox from '../components/DialogueBox.vue';
 	@Component({
 		name: 'Home',
 		components: {
-			World
+			World,
+			DialogueBox
 		}
 	})
 	export default class Home extends Vue {
