@@ -3,7 +3,13 @@
 		<div class="dialogue-box">
 			<h1>{{ title }}</h1>
 			<h2>{{ message }}</h2>
-			<div class="dialogue-button" @click="hidden = true">
+			<div
+				class="dialogue-button"
+				@click="
+					hidden = true;
+					$emit('confirmed');
+				"
+			>
 				<h2>Confirm</h2>
 			</div>
 		</div>

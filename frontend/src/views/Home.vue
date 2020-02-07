@@ -16,6 +16,8 @@
 					'If you have any suggestions or feedback feel free to email ' +
 					'joshhess13@gmail.com.'
 			"
+			:hidden="showDialogue"
+			@confirmed="onDialogue"
 		/>
 	</div>
 </template>
@@ -32,6 +34,14 @@
 		}
 	})
 	export default class Home extends Vue {
+		private showDialogue = false;
+		mounted(): void {
+			this.showDialogue = this.$store.state.welcomeMessage;
+		}
+		onDialogue(): void {
+			this.$store.state.welcomeMessage = true;
+			this.showDialogue = true;
+		}
 		onSelection(path: string) {
 			this.$router.push(path);
 		}

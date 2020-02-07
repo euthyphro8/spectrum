@@ -8,6 +8,7 @@ Vue.use(Vuex);
 
 export default new Store<IStore>({
 	state: {
+		welcomeMessage: false,
 		currentMap: getDefault(),
 		assets: new AssetManager(),
 		selected: ''
