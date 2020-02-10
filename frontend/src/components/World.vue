@@ -21,6 +21,6 @@
 
 <style scoped>
 	.root {
-		background-color: #1e1e1e;
+		background-color: #222222;
 	}
 </style>

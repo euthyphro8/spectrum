@@ -1,6 +1,7 @@
 <template>
 	<div id="app">
 		<router-view />
+		<div id="version">Alpha v0.1.6</div>
 	</div>
 </template>
 
@@ -28,5 +29,17 @@
 		-moz-osx-font-smoothing: grayscale;
 		text-align: center;
 		color: #2c3e50;
+	}
+
+	#version {
+		position: absolute;
+		color: #999999;
+		bottom: 10px;
+		right: 10px;
+		height: auto;
+		width: auto;
+		background-color: #1e1e1e88;
+		padding: 6px 12px;
+		border-radius: 6px;
 	}
 </style>

@@ -1,26 +1,25 @@
 <template>
-	<div class="root">
+	<div class="editor">
+		<TabBar />
 		<MapCanvas />
-		<MapPalette :onTop="false" />
 	</div>
 </template>
 
 <script lang="ts">
 	import { Component, Vue } from 'vue-property-decorator';
 	import MapCanvas from '../components/MapCanvas.vue';
-	import MapPalette from '../components/MapPalette.vue';
+	import TabBar from '../components/editor/TabBar.vue';
 	@Component({
 		name: 'Editor',
 		components: {
 			MapCanvas,
-			MapPalette
+			TabBar
 		}
 	})
 	export default class Editor extends Vue {}
 </script>
 
 <style scoped>
-	.root {
-		background-color: #1e1e1e;
+	.editor {
 	}
 </style>

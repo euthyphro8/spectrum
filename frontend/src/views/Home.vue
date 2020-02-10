@@ -12,7 +12,7 @@
 		<DialogueBox
 			:title="'Welcome'"
 			:message="
-				'Spectrum is currently in pre-alpha. Expect things to break. ' +
+				'Spectrum is currently in alpha. Expect things to break or not work in the first place. ' +
 					'If you have any suggestions or feedback feel free to email ' +
 					'joshhess13@gmail.com.'
 			"
