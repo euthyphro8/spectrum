@@ -87,8 +87,12 @@
 
 		private async requestTemplates(): Promise<void> {
 			try {
-				console.log(`[ Master ] Got request templates.`);
 				let res = await axios.get('/requestTemplates');
+				console.log(
+					`[ Master ] Got request templates. ${JSON.stringify(
+						res.data
+					)}`
+				);
 				if (res.data && res.data.templates) {
 					this.templates = res.data.templates;
 				}
