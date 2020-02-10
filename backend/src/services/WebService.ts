@@ -36,6 +36,11 @@ export default class WebService {
 		// res.status(200).send({ templates: ['New Map'] });
 		this.context.Files.getAvailableTemplates()
 			.then(templates => {
+				this.context.Logger.info(
+					`[ WEB SVC  ] Sending templates back: ${JSON.stringify(
+						templates
+					)}`
+				);
 				res.status(200).send({ templates });
 			})
 			.catch(() => res.status(500));
