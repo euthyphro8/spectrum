@@ -36,14 +36,23 @@ export default class FileService {
 	}
 
 	private generateDefaults(): void {
-		fs.writeFile(
-			this.getTemplatePath('Default.json'),
-			JSON.stringify(DefaultTemplate)
+		this.context.Logger.info(
+			`[ FILE SVC ] Generating default store files...`
 		);
-		fs.writeFile(
-			this.getStorePath('TileRegistry.json'),
-			JSON.stringify(DefaultTileRegistry)
-		);
+		try {
+			fs.writeFile(
+				this.getTemplatePath('Default.json'),
+				JSON.stringify(DefaultTemplate)
+			);
+			fs.writeFile(
+				this.getStorePath('TileRegistry.json'),
+				JSON.stringify(DefaultTileRegistry)
+			);
+		} catch (error) {
+			this.context.Logger.error(
+				`[ FILE SVC ] Failed to generate defaults.\n${error}`
+			);
+		}
 	}
 
 	public async getAvailableMap(groupId: string): Promise<IMap[]> {

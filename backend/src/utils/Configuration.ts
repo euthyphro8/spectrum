@@ -12,7 +12,7 @@ export default class Configuration {
 		// According to Linux hierarchy standard at http://www.pathname.com/fhs/pub/fhs-2.3.html#THEVARHIERARCHY
 		this.AppDir =
 			process.platform === 'linux'
-				? '/var/lib/spectrum/'
+				? '/var/lib/spectrum'
 				: path.join(
 						process.env.userprofile!,
 						'AppData',
