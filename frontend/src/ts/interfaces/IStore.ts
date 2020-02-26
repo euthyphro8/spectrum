@@ -1,10 +1,10 @@
-import AssetManager from '../util/AssetManager';
 import IMap from './IMap';
+import TileRegistry from '../util/TileRegistry';
 
 interface IStore {
 	welcomeMessage: boolean;
 	currentMap: IMap;
-	assets: AssetManager;
-	selected: string;
+	tiles: TileRegistry;
+	selected: number;
 }
 export default IStore;

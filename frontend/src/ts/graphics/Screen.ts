@@ -1,12 +1,12 @@
 //#region [white] Imports
 import Tile from './Tile';
 import Camera from './Camera';
-import AssetManager from '../util/AssetManager';
 import Vector2 from '../interfaces/Vector2';
 //#endregion
 
-class Screen {
+export default class Screen {
 	//#region [red] Constants
+	public static readonly TILE_SIZE = 64;
 	//#endregion
 
 	//#region [purple] Fields
@@ -42,12 +42,10 @@ class Screen {
 		if (this.context) {
 			this.context.drawImage(
 				tile.sprite,
-				(tile.x * AssetManager.TILE_SIZE + this.camera.x) *
-					this.camera.s,
-				(tile.y * AssetManager.TILE_SIZE + this.camera.y) *
-					this.camera.s,
-				AssetManager.TILE_SIZE * this.camera.s,
-				AssetManager.TILE_SIZE * this.camera.s
+				(tile.x * Screen.TILE_SIZE + this.camera.x) * this.camera.s,
+				(tile.y * Screen.TILE_SIZE + this.camera.y) * this.camera.s,
+				Screen.TILE_SIZE * this.camera.s,
+				Screen.TILE_SIZE * this.camera.s
 			);
 		} else {
 			console.log('[ Screen ] Begin has not been called yet this frame.');
@@ -60,8 +58,8 @@ class Screen {
 			this.context.rect(
 				x,
 				y,
-				AssetManager.TILE_SIZE * this.camera.s,
-				AssetManager.TILE_SIZE * this.camera.s
+				Screen.TILE_SIZE * this.camera.s,
+				Screen.TILE_SIZE * this.camera.s
 			);
 		} else {
 			console.log('[ Screen ] Begin has not been called yet this frame.');
@@ -85,12 +83,12 @@ class Screen {
 		return v
 			.divide(this.camera.s)
 			.sub(this.camera.x, this.camera.y)
-			.floorDivide(AssetManager.TILE_SIZE);
+			.floorDivide(Screen.TILE_SIZE);
 	}
 
 	public indexToScreenSpace(v: Vector2): Vector2 {
 		return v
-			.multiply(AssetManager.TILE_SIZE)
+			.multiply(Screen.TILE_SIZE)
 			.add(this.camera.x, this.camera.y)
 			.multiply(this.camera.s);
 	}
@@ -99,4 +97,3 @@ class Screen {
 	//#region [yellow] Private
 	//#endregion
 }
-export default Screen;

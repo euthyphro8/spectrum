@@ -26,12 +26,12 @@
 
 		mounted(): void {
 			const store: Store<IStore> = this.$store;
-			this.sprites = [...store.state.assets.images.keys()];
+			// this.sprites = [...store.state.tiles.images.keys()];
 		}
 
 		onClick(event: MouseEvent, name: string): void {
 			const store: Store<IStore> = this.$store;
-			store.state.selected = name;
+			// store.state.selected = name;
 		}
 	}
 </script>

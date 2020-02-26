@@ -4,8 +4,6 @@ import Screen from './Screen';
 import Controller from './Controller';
 import { Store } from 'vuex';
 import IStore from '../interfaces/IStore';
-import AssetManager from '../util/AssetManager';
-import TileUtils from '../util/TileUtils';
 import Map from '../world/Map';
 import Editor from './Editor';
 //#endregion
@@ -24,8 +22,7 @@ export default class MapManager {
 		this.store = store;
 		this.controller = new Controller();
 		this.screen = new Screen();
-		this.map = new Map(16, 16);
-		this.map.initTiles(this.store);
+		this.map = new Map(this.store);
 		this.editor = new Editor(this.store);
 		this.controller.registerEvents();
 	}
@@ -38,7 +35,7 @@ export default class MapManager {
 	}
 
 	public render(context: CanvasRenderingContext2D) {
-		if (!this.store.state.assets.hasLoaded()) return;
+		if (!this.store.state.tiles.hasLoaded()) return;
 		// Begin the render context
 		this.screen.begin(context);
 		// Render all tiles

@@ -10,6 +10,7 @@ export default class Editor {
 	private lastTileEdited?: Tile;
 	private store: Store<IStore>;
 	private cursorLocation: Vector2;
+
 	constructor(store: Store<IStore>) {
 		this.store = store;
 		this.cursorLocation = new Vector2();
@@ -27,7 +28,8 @@ export default class Editor {
 			);
 			if (tile && this.store.state.selected) {
 				if (this.lastTileEdited !== tile) {
-					tile.sprite = this.store.state.assets.getImage(
+					tile.id = this.store.state.selected;
+					tile.sprite = this.store.state.tiles.getImage(
 						this.store.state.selected
 					);
 					this.lastTileEdited = tile;

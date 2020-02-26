@@ -1,29 +1,31 @@
 import Vector2 from '../interfaces/Vector2';
 import Tile from '../graphics/Tile';
 import Screen from '../graphics/Screen';
+import IMap, { coordToTileId } from '../interfaces/IMap';
+import TileRegistry from '../util/TileRegistry';
 import IStore from '../interfaces/IStore';
 import { Store } from 'vuex';
-import TileUtils from '../util/TileUtils';
 export default class Map {
 	private tiles: Tile[];
 	private width: number;
 	private height: number;
 
-	constructor(width: number, height: number) {
-		this.width = width;
-		this.height = height;
-		this.tiles = new Array<Tile>(width * height);
-	}
+	constructor(store: Store<IStore>) {
+		let map = store.state.currentMap;
+		let registry = store.state.tiles;
+		this.width = map.width;
+		this.height = map.height;
+		this.tiles = new Array<Tile>(this.width * this.height);
 
-	public initTiles(store: Store<IStore>) {
 		for (let y = 0; y < this.height; y++) {
 			for (let x = 0; x < this.width; x++) {
-				this.tiles[this.width * y + x] = TileUtils.createTile(
-					store,
-					'grass',
-					x,
-					y
-				);
+				let tileId = coordToTileId(map, x, y);
+				this.tiles[this.width * y + x] = {
+					id: tileId,
+					sprite: registry.getImage(tileId),
+					x: x,
+					y: y
+				};
 			}
 		}
 	}

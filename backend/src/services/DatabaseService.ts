@@ -2,8 +2,8 @@ import { MongoClient, Db, Collection } from 'mongodb';
 import Context from '../utils/Context';
 import IMap, { instanceOfIMap } from '../interfaces/IMap';
 import { DefaultTemplate } from '../assets/DefaultTemplate';
-import ITile, { instanceOfITile } from '@/interfaces/ITile';
-import { DefaultTileRegistry } from '@/assets/DefaultTileRegistry';
+import ITile, { instanceOfITile } from '../interfaces/ITile';
+import { DefaultTileRegistry } from '../assets/DefaultTileRegistry';
 
 export default class DatabaseService {
 	private context: Context;

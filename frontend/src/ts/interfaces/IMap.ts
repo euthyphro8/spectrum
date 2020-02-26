@@ -12,6 +12,10 @@ export function instanceOfIMap(object: any): object is IMap {
 	return object.discriminator === 'spectrum.map';
 }
 
+export function coordToTileId(map: IMap, x: number, y: number): number {
+	return map.tiles[y * map.width + x];
+}
+
 export function getDefault(): IMap {
 	return {
 		discriminator: 'spectrum.map',
