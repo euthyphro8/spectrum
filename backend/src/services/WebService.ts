@@ -15,41 +15,47 @@ export default class WebService {
 		this.app.use(bodyParser.json());
 		this.app.use(bodyParser.urlencoded({ extended: true }));
 
+		this.app.get('/requestTiles', this.onTilesRequest.bind(this));
 		this.app.get('/requestMaps', this.onMapsRequest.bind(this));
 		this.app.get('/requestTemplates', this.onTemplatesRequest.bind(this));
-		this.app.get('/loadMap', this.onMapLoad.bind(this));
-		// this.app.get('/loadTemplate', this.onTemplateLoad.bind(this));
-
 		this.app.post('/webhook', this.onWebhookPayload.bind(this));
 	}
 
+	private onTilesRequest(req: Request, res: Response): void {
+		this.context.Logger.info(`[ WEB SVC  ] Got tiles request.`);
+		this.context.Db.getAllTiles()
+			.then((tiles) => {
+				this.context.Logger.info(`[ WEB SVC  ] Sending tiles back.`);
+				res.status(200).send({ tiles });
+			})
+			.catch(() => res.status(500));
+	}
+
 	private onMapsRequest(req: Request, res: Response): void {
-		let groupId = req.body.groupId as string;
+		let groupId = req.query.groupId as string;
 		this.context.Logger.info(
 			`[ WEB SVC  ] Got maps request for ${groupId}.`
 		);
-		res.status(200).send({ maps: ['Dungeon-01', 'Dunegon-02'] });
-		// this.context.Files.getAvailableMap();
+		// this.context.Files.getAvailableMaps(groupId)
+		this.context.Db.getAllMaps()
+			.then((maps) => {
+				this.context.Logger.info(`[ WEB SVC  ] Sending maps back.`);
+				res.status(200).send({ maps });
+			})
+			.catch(() => res.status(500));
 	}
+
 	private onTemplatesRequest(req: Request, res: Response): void {
 		this.context.Logger.info(`[ WEB SVC  ] Got templates request.`);
-		// res.status(200).send({ templates: ['New Map'] });
-		this.context.Files.getAvailableTemplates()
-			.then(templates => {
+		// this.context.Files.getAvailableTemplates()
+		this.context.Db.getAllTemplates()
+			.then((templates) => {
 				this.context.Logger.info(
-					`[ WEB SVC  ] Sending templates back: ${JSON.stringify(
-						templates
-					)}`
+					`[ WEB SVC  ] Sending templates back.`
 				);
 				res.status(200).send({ templates });
 			})
 			.catch(() => res.status(500));
-	}
-	private onMapLoad(req: Request, res: Response): void {
-		let groupId = req.body.groupId as string;
-		let map = req.body.groupId as string;
-		this.context.Logger.info(`[ WEB SVC  ] Got map load.`);
-		// res.status(200).send({ maps: ['New map'] });
 	}
 
 	private onWebhookPayload(req: Request, res: Response): void {

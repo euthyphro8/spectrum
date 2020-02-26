@@ -3,6 +3,7 @@ import Context from './utils/Context';
 import Configuration from './utils/Configuration';
 import LoggerService from './services/LoggerService';
 import ConnectionService from './services/ConnectionService';
+import DatabaseService from './services/DatabaseService';
 import FileService from './services/FileService';
 import WebService from './services/WebService';
 
@@ -19,11 +20,12 @@ const logger = new LoggerService(
 	10 * 1024 * 1024
 );
 const server = new ConnectionService(context);
+const db = new DatabaseService(context);
 const file = new FileService(context);
 const web = new WebService(context);
 
 // Add all micro-services to the ambient context
-context.inject(configuration, logger, server, file, web);
+context.inject(configuration, logger, server, db, file, web);
 
 logger.notice(
 	`\n ::::::::  :::::::::  :::::::::: :::::::: ::::::::::: :::::::::  :::    ::: ::::    ::::  \n` +
@@ -42,6 +44,8 @@ logger.notice(
 );
 
 (async () => {
+	await db.connect();
+	await db.verifyIntegrity();
 	file.start();
 	server.start();
 	web.start();

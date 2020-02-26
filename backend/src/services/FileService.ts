@@ -55,7 +55,7 @@ export default class FileService {
 		}
 	}
 
-	public async getAvailableMap(groupId: string): Promise<IMap[]> {
+	public async getAvailableMaps(groupId: string): Promise<IMap[]> {
 		const path = this.getMapDir(groupId);
 		const files = await fs.readdir(path);
 		let maps: IMap[] = [];

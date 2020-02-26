@@ -22,6 +22,7 @@
 	import ITab from '@/ts/interfaces/ui/ITab';
 	import FileBar from './FileBar.vue';
 	import TileBar from './TileBar.vue';
+	import AssetBar from './AssetBar.vue';
 	@Component({
 		name: 'TabBar',
 		components: {
@@ -42,22 +43,22 @@
 					component: FileBar
 				},
 				{
-					name: 'Assets',
-					active: false,
-					image: 'A',
-					component: TileBar
-				},
-				{
 					name: 'Tiles',
 					active: false,
 					image: 'T',
 					component: TileBar
 				},
 				{
+					name: 'Assets',
+					active: false,
+					image: 'A',
+					component: AssetBar
+				},
+				{
 					name: 'Forum',
 					active: false,
 					image: 'C',
-					component: TileBar
+					component: AssetBar
 				}
 			];
 		}

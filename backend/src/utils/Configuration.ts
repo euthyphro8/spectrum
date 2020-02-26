@@ -2,6 +2,7 @@ import path from 'path';
 export default class Configuration {
 	public readonly Host: string;
 	public readonly DbUri: string;
+	public readonly DbName: string;
 	public readonly LogDir: string;
 	public readonly AppDir: string;
 	public readonly StoreDir: string;
@@ -9,6 +10,7 @@ export default class Configuration {
 	public constructor() {
 		this.Host = process.env.Host || '127.0.0.1';
 		this.DbUri = process.env.DbUri || 'mongodb://localhost:27017';
+		this.DbName = process.env.DbName || 'spectrum';
 		// According to Linux hierarchy standard at http://www.pathname.com/fhs/pub/fhs-2.3.html#THEVARHIERARCHY
 		this.AppDir =
 			process.platform === 'linux'
@@ -19,8 +21,6 @@ export default class Configuration {
 						'Local',
 						'Spectrum'
 				  );
-		// : path.join(process.env.APPDATA!, 'Spectrum');
-		// :'C:\\Users\\Josh\\AppData\\Roaming\\Spectrum';
 		this.LogDir = path.join(this.AppDir, 'Logs');
 		this.StoreDir = path.join(this.AppDir, 'Store');
 		this.WebPort = process.env.WebPort || '16661';

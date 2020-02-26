@@ -16,17 +16,18 @@
 		"server"
 	],
 	"dependencies": {
+		"axios": "^0.19.2",
 		"babel-jest": "^24.9.0",
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
-		"mongodb": "^3.3.3",
+		"mongodb": "^3.5.4",
 		"socket.io": "^2.2.0",
 		"winston": "^3.2.1"
 	},
 	"devDependencies": {
 		"@types/express": "^4.17.1",
 		"@types/jest": "^24.0.22",
-		"@types/mongodb": "^3.3.8",
+		"@types/mongodb": "^3.3.16",
 		"@types/node": "^12.11.7",
 		"@types/socket.io": "^2.1.4",
 		"eslint": "^6.3.0",

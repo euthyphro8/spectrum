@@ -11,7 +11,7 @@
 					:key="template.id"
 					:title="template.name"
 					:thumbnail="template.thumbnail"
-					@load="loadTemplate(template)"
+					@load="load(template)"
 				/>
 			</div>
 			<div class="body-header">
@@ -22,7 +22,7 @@
 					v-for="map in maps"
 					:key="map"
 					:title="map"
-					@load="loadMap(map)"
+					@load="load(map)"
 				/>
 			</div>
 		</div>
@@ -36,6 +36,7 @@
 	import TemplateCard from '../components/master/TemplateCard.vue';
 	import IMap from '../ts/interfaces/IMap';
 	import axios from 'axios';
+
 	@Component({
 		name: 'Master',
 		components: {
@@ -47,7 +48,8 @@
 	export default class Master extends Vue {
 		private templates: IMap[] = [];
 		private maps: string[] = [];
-		async mounted(): Promise<void> {
+
+		private async mounted(): Promise<void> {
 			this.requestMaps('Example')
 				.then(() => this.requestTemplates())
 				.catch((error) => {
@@ -56,31 +58,15 @@
 		}
 
 		private async requestMaps(groupId: string): Promise<void> {
+			console.log(`[ Master ] Requesting maps for group ${groupId}.`);
 			try {
-				console.log(`[ Master ] Requesting maps for group ${groupId}.`);
 				let res = await axios.get('/requestMaps', {
-					data: {
-						groupId
+					params: {
+						groupId: groupId
 					}
 				});
 				if (res.data && res.data.maps) {
 					this.maps = res.data.maps;
-				}
-			} catch (error) {}
-		}
-		private async loadMap(groupId: string, map: string): Promise<void> {
-			try {
-				console.log(
-					`[ Master ] Got load ${map} map request for ${groupId}.`
-				);
-				let res = await axios.get('/loadMap', {
-					data: {
-						groupId,
-						map
-					}
-				});
-				if (res.data && res.data.map) {
-					this.templates = res.data.templates;
 				}
 			} catch (error) {}
 		}
@@ -98,11 +84,12 @@
 				}
 			} catch (error) {}
 		}
-		private async loadTemplate(template: IMap): Promise<void> {
+
+		private load(map: IMap): void {
 			console.log(
-				`[ Master ] Got load template request for ${template.name}.`
+				`[ Master ] Got load template request for ${map.name}.`
 			);
-			this.$store.state.currentMap = template;
+			this.$store.state.currentMap = map;
 			this.$router.push('editor');
 		}
 	}
