@@ -1,6 +1,8 @@
 <template>
 	<div class="map-card" @click="$emit('load')">
-		<div class="thumb"></div>
+		<div class="thumb">
+			<img :src="thumbnail" :alt="title" />
+		</div>
 		<h1>{{ title }}</h1>
 	</div>
 </template>
@@ -11,7 +13,8 @@
 		name: 'MapCard',
 		components: {},
 		props: {
-			title: String
+			title: String,
+			thumbnail: String
 		}
 	})
 	export default class MapCard extends Vue {}

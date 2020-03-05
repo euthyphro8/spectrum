@@ -20,8 +20,9 @@
 			<div class="body">
 				<MapCard
 					v-for="map in maps"
-					:key="map"
-					:title="map"
+					:key="map.id"
+					:title="map.name"
+					:thumbnail="map.thumbnail"
 					@load="load(map)"
 				/>
 			</div>
@@ -47,7 +48,7 @@
 	})
 	export default class Master extends Vue {
 		private templates: IMap[] = [];
-		private maps: string[] = [];
+		private maps: IMap[] = [];
 
 		private async mounted(): Promise<void> {
 			this.requestMaps('Example')
