@@ -22,15 +22,22 @@ export default class Editor {
 		screen.screenToIndexSpace(this.cursorLocation);
 
 		if (controller.getClick()) {
+			// Gets the current tile being hovered over from the map
 			let tile = map.getTile(
 				this.cursorLocation.x,
 				this.cursorLocation.y
 			);
+			// Checks if the tile exists and something in the palette is selected
 			if (tile && this.store.state.selected) {
 				if (this.lastTileEdited !== tile) {
-					tile.id = this.store.state.selected;
-					tile.sprite = this.store.state.tiles.getImage(
-						this.store.state.selected
+					// Updates the map with the selected palette tile
+					map.updateTile(
+						this.cursorLocation.x,
+						this.cursorLocation.y,
+						this.store.state.selected,
+						this.store.state.tiles.getImage(
+							this.store.state.selected
+						)
 					);
 					this.lastTileEdited = tile;
 				}

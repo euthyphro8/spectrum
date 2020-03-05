@@ -136,6 +136,33 @@ export default class DatabaseService {
 		}
 	}
 
+	public async saveMap(map: IMap): Promise<boolean> {
+		try {
+			this.context.Logger.info(
+				`[ DTBS SVC ] Add account map for ${JSON.stringify(map.name)}`
+			);
+			// No checks here since this will overwrite any existing version.
+			const r = await this.maps.replaceOne(
+				{
+					name: map.name
+				},
+				map,
+				{
+					upsert: true
+				}
+			);
+			if (r.matchedCount + r.modifiedCount + r.upsertedCount > 0) {
+				return true;
+			}
+		} catch (generalError) {
+			this.context.Logger.error(
+				`[ DTBS SVC ] There was a general error with the insert. ${generalError.message ||
+					generalError}`
+			);
+		}
+		return false;
+	}
+
 	// /**
 	//  * Simply adds in a new user account provided one with the same username or email cannot be found.
 	//  * @param user The user info to be added.

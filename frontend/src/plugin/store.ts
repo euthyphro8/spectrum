@@ -4,6 +4,7 @@ import AssetManager from '@/ts/util/AssetManager';
 import IStore from '@/ts/interfaces/IStore';
 import { getDefault } from '@/ts/interfaces/IMap';
 import TileRegistry from '@/ts/util/TileRegistry';
+import axios from 'axios';
 
 Vue.use(Vuex);
 let registry = new TileRegistry();
@@ -17,6 +18,13 @@ export default new Store<IStore>({
 		selected: 0
 	},
 	mutations: {},
-	actions: {},
+	actions: {
+		saveMap(context) {
+			console.log('Saving map...');
+			axios.post('/saveMap', {
+				map: context.state.currentMap
+			});
+		}
+	},
 	modules: {}
 });

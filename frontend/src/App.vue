@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
 		<router-view />
-		<div id="version">Alpha v0.1.6</div>
+		<div id="version">Alpha v0.1.8</div>
 	</div>
 </template>
 

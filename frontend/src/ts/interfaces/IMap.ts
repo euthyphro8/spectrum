@@ -16,6 +16,15 @@ export function coordToTileId(map: IMap, x: number, y: number): number {
 	return map.tiles[y * map.width + x];
 }
 
+export function updateTileId(
+	map: IMap,
+	x: number,
+	y: number,
+	newId: number
+): void {
+	map.tiles[y * map.width + x] = newId;
+}
+
 export function getDefault(): IMap {
 	return {
 		discriminator: 'spectrum.map',

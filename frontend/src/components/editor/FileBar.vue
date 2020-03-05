@@ -2,7 +2,7 @@
 	<div class="file-bar">
 		<div class="title">- FILE -</div>
 		<div class="button">New</div>
-		<div class="button">Save</div>
+		<div class="button" @click="onSave()">Save</div>
 		<div class="button">Save As</div>
 		<div class="button">Load</div>
 	</div>
@@ -15,7 +15,11 @@
 		name: 'FileBar',
 		components: {}
 	})
-	export default class FileBar extends Vue {}
+	export default class FileBar extends Vue {
+		onSave(): void {
+			this.$store.dispatch('saveMap');
+		}
+	}
 </script>
 
 <style scoped>
