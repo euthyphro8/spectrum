@@ -44,7 +44,6 @@ export default class Map {
 		id: number,
 		sprite: HTMLImageElement
 	): void {
-		console.log('updating tile');
 		let tile = this.getTile(xi, yi);
 		if (tile) {
 			tile.id = id;

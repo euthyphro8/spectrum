@@ -1,7 +1,7 @@
 <template>
 	<div class="editor">
-		<TabBar />
 		<MapCanvas />
+		<TabBar />
 	</div>
 </template>
 

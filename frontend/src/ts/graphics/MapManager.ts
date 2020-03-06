@@ -1,5 +1,4 @@
 //#region [white] Imports
-import Tile from './Tile';
 import Screen from './Screen';
 import Controller from './Controller';
 import { Store } from 'vuex';
@@ -29,7 +28,12 @@ export default class MapManager {
 	//#endregion
 
 	//#region [green] Public
+	public setFocus(hasFocus: boolean): void {
+		this.controller.setFocus(hasFocus);
+	}
+
 	public update(dt: number) {
+		// console.log('update');
 		this.controller.update(dt, this.screen.camera);
 		this.editor.update(this.screen, this.controller, this.map);
 	}

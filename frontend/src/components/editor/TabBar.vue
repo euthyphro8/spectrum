@@ -19,7 +19,7 @@
 <script lang="ts">
 	import { Component, Vue } from 'vue-property-decorator';
 	import Tab from './Tab.vue';
-	import ITab from '@/ts/interfaces/ui/ITab';
+	import ITab from '../../ts/interfaces/ui/ITab';
 	import FileBar from './FileBar.vue';
 	import TileBar from './TileBar.vue';
 	import AssetBar from './AssetBar.vue';
@@ -64,7 +64,6 @@
 		}
 
 		onClick(tab: ITab): void {
-			console.log(`got tab: ${tab.name}`);
 			this.tabs.forEach((t) => {
 				if (tab.name !== t.name) t.active = false;
 			});

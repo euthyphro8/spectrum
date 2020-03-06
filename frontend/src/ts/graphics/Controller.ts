@@ -42,6 +42,26 @@ class Controller {
 	//#endregion
 
 	//#region [green] Public
+	public setFocus(hasFocus: boolean): void {
+		this.hasFocus = hasFocus;
+		if (!this.hasFocus) {
+			this.hasFocus = false;
+			this.upPressed = false;
+			this.downPressed = false;
+			this.leftPressed = false;
+			this.rightPressed = false;
+			this.panPressed = false;
+			this.clickDown = false;
+			this.mdx = 0;
+			this.mdy = 0;
+			this.mlx = 0;
+			this.mly = 0;
+			this.ds = 0;
+			this.mx = 0;
+			this.my = 0;
+		}
+	}
+
 	public getClick(): boolean {
 		// if (this.clickDown) {
 		// 	this.clickDown = false;
@@ -52,6 +72,7 @@ class Controller {
 	}
 
 	public update(dt: number, camera: Camera): void {
+		if (!this.hasFocus) return;
 		const speed = 5;
 		let dx = this.leftPressed
 			? this.rightPressed
@@ -93,12 +114,6 @@ class Controller {
 		document.addEventListener('mouseup', this.onMouseUp.bind(this), {
 			passive: true
 		});
-		document.addEventListener('mouseover', this.onMouseOver.bind(this), {
-			passive: true
-		});
-		document.addEventListener('mouseout', this.onMouseOut.bind(this), {
-			passive: true
-		});
 		document.addEventListener('wheel', this.onScroll.bind(this), {
 			passive: true
 		});
@@ -112,6 +127,7 @@ class Controller {
 
 	//#region [yellow] Private
 	private onKeyDown(event: KeyboardEvent): void {
+		if (!this.hasFocus) return;
 		if (event.keyCode === 65 || event.keyCode === 37) {
 			this.leftPressed = true;
 		} else if (event.keyCode === 87 || event.keyCode === 38) {
@@ -124,6 +140,7 @@ class Controller {
 	}
 
 	private onKeyUp(event: KeyboardEvent): void {
+		if (!this.hasFocus) return;
 		if (event.keyCode === 65 || event.keyCode === 37) {
 			this.leftPressed = false;
 		} else if (event.keyCode === 87 || event.keyCode === 38) {
@@ -136,15 +153,19 @@ class Controller {
 	}
 
 	private onMouseDown(event: MouseEvent): void {
+		if (!this.hasFocus) return;
 		if (event.shiftKey || event.button === 1) {
 			this.panPressed = true;
 			this.mlx = event.screenX;
 			this.mly = event.screenY;
 		}
-		this.clickDown = true;
+		if (event.button != 1) {
+			this.clickDown = true;
+		}
 	}
 
 	private onMouseMove(event: MouseEvent): void {
+		if (!this.hasFocus) return;
 		this.mx = event.clientX;
 		this.my = event.clientY;
 		if (this.panPressed) {
@@ -156,21 +177,13 @@ class Controller {
 	}
 
 	private onMouseUp(event: MouseEvent): void {
+		if (!this.hasFocus) return;
 		this.panPressed = false;
 		this.clickDown = false;
 	}
 
-	private onMouseOver(event: MouseEvent): void {
-		console.log('over');
-		this.hasFocus = true;
-	}
-
-	private onMouseOut(event: MouseEvent): void {
-		console.log('out');
-		this.hasFocus = false;
-	}
-
 	private onScroll(event: WheelEvent): void {
+		if (!this.hasFocus) return;
 		// if (event.deltaY > 0) {
 		// 	this.ds = 0.1;
 		// } else if (event.deltaY < 0) {

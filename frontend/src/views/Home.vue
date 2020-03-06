@@ -24,12 +24,10 @@
 
 <script lang="ts">
 	import { Component, Vue } from 'vue-property-decorator';
-	import World from '../components/World.vue';
 	import DialogueBox from '../components/DialogueBox.vue';
 	@Component({
 		name: 'Home',
 		components: {
-			World,
 			DialogueBox
 		}
 	})

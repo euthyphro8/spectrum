@@ -7,6 +7,7 @@
 <script lang="ts">
 	import { Component, Vue } from 'vue-property-decorator';
 	import MapManager from '../ts/graphics/MapManager';
+	import IStore from '../ts/interfaces/IStore';
 
 	@Component({
 		name: 'MapCanvas',
@@ -31,9 +32,11 @@
 
 			this.lastTime = Date.now();
 			this.requestId = requestAnimationFrame(this.tick.bind(this));
+			this.register();
 		}
 
 		private tick(time: number): void {
+			// console.log('tick');
 			const dt = time - this.lastTime;
 			this.map.update(dt);
 			this.lastTime = time;
@@ -44,6 +47,27 @@
 		private onResize(event: UIEvent): void {
 			this.context.canvas.width = this.context.canvas.clientWidth;
 			this.context.canvas.height = this.context.canvas.clientHeight;
+		}
+
+		protected register(): void {
+			this.$el.addEventListener('mouseover', this.onFocus.bind(this), {
+				passive: true
+			});
+			this.$el.addEventListener('mouseout', this.onBlur.bind(this), {
+				passive: true
+			});
+		}
+
+		protected unregister(): void {
+			this.$el.removeEventListener('mouseover', this.onFocus.bind(this));
+			this.$el.removeEventListener('mouseout', this.onBlur.bind(this));
+		}
+
+		private onFocus(): void {
+			this.map.setFocus(true);
+		}
+		private onBlur(): void {
+			this.map.setFocus(false);
 		}
 	}
 </script>
