@@ -8,6 +8,7 @@ class Controller {
 	public mx: number;
 	public my: number;
 
+	private hasFocus: boolean;
 	private upPressed: boolean;
 	private downPressed: boolean;
 	private leftPressed: boolean;
@@ -23,6 +24,7 @@ class Controller {
 
 	//#region [blue] Constructor
 	constructor() {
+		this.hasFocus = false;
 		this.upPressed = false;
 		this.downPressed = false;
 		this.leftPressed = false;
@@ -91,6 +93,12 @@ class Controller {
 		document.addEventListener('mouseup', this.onMouseUp.bind(this), {
 			passive: true
 		});
+		document.addEventListener('mouseover', this.onMouseOver.bind(this), {
+			passive: true
+		});
+		document.addEventListener('mouseout', this.onMouseOut.bind(this), {
+			passive: true
+		});
 		document.addEventListener('wheel', this.onScroll.bind(this), {
 			passive: true
 		});
@@ -150,6 +158,16 @@ class Controller {
 	private onMouseUp(event: MouseEvent): void {
 		this.panPressed = false;
 		this.clickDown = false;
+	}
+
+	private onMouseOver(event: MouseEvent): void {
+		console.log('over');
+		this.hasFocus = true;
+	}
+
+	private onMouseOut(event: MouseEvent): void {
+		console.log('out');
+		this.hasFocus = false;
 	}
 
 	private onScroll(event: WheelEvent): void {

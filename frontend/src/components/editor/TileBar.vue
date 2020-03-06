@@ -1,15 +1,17 @@
 <template>
-	<div class="tile-bar">
-		<div
-			class="tile"
-			v-for="id in Array.from(tiles().names.keys())"
-			:key="id"
-		>
-			<img
-				:src="tiles().getImage(id).src"
-				:alt="tiles().getName(id)"
-				@click="onClick(id)"
-			/>
+	<div class="scrollable">
+		<div class="tile-bar">
+			<div
+				class="tile"
+				v-for="id in Array.from(tiles().names.keys())"
+				:key="id"
+			>
+				<img
+					:src="tiles().getImage(id).src"
+					:alt="tiles().getName(id)"
+					@click="onClick(id)"
+				/>
+			</div>
 		</div>
 	</div>
 </template>
@@ -37,11 +39,29 @@
 </script>
 
 <style scoped>
+	.scrollable {
+		overflow-y: auto;
+	}
+	.scrollable::-webkit-scrollbar-track {
+		-webkit-box-shadow: inset 0 0 6px rgb(0, 0, 0.3);
+		background-color: #f5f5f5;
+	}
+
+	.scrollable::-webkit-scrollbar {
+		width: 10px;
+		background-color: #f5f5f5;
+	}
+
+	.scrollable::-webkit-scrollbar-thumb {
+		background-color: #000000;
+		border: 2px solid #555555;
+	}
 	.tile-bar {
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
 		align-items: center;
+		height: auto;
 	}
 	.tile {
 		background-color: #2c2c2c;

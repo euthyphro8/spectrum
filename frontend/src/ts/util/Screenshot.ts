@@ -18,8 +18,8 @@ export default class Screenshot {
 		const context = Screenshot.Canvas.getContext('2d');
 		if (context) {
 			// Draw all tiles scaled to the size of the thumbnail
-			const xs = (Screen.TILE_SIZE * map.width) / w;
-			const ys = (Screen.TILE_SIZE * map.height) / h;
+			const xs = w / map.width;
+			const ys = h / map.height;
 			for (let y = 0; y < map.height; y++) {
 				for (let x = 0; x < map.width; x++) {
 					const id = coordToTileId(map, x, y);
