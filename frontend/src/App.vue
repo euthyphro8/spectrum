@@ -1,7 +1,9 @@
 <template>
 	<div id="app">
-		<router-view />
-		<div id="version">Alpha v0.1.8</div>
+		<v-app>
+			<router-view />
+			<div id="version">Alpha v0.1.8</div>
+		</v-app>
 	</div>
 </template>
 
@@ -9,19 +11,20 @@
 	import { Component, Vue } from 'vue-property-decorator';
 
 	@Component({
+		name: 'App',
 		components: {}
 	})
 	export default class App extends Vue {}
 </script>
 
 <style>
-	* {
+	/* * {
 		overflow: hidden;
 		height: 100%;
 		width: 100%;
 		margin: 0;
 		padding: 0;
-	}
+	} */
 
 	#app {
 		font-family: 'Montserrat', sans-serif;

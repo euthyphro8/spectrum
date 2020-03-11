@@ -47,6 +47,13 @@
 </script>
 
 <style scoped>
+	* {
+		overflow: hidden;
+		height: 100%;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+	}
 	.home {
 		background-color: #1e1e1e;
 		display: flex;

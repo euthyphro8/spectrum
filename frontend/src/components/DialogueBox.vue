@@ -17,17 +17,19 @@
 </template>
 
 <script lang="ts">
-	import { Component, Vue } from 'vue-property-decorator';
+	import { Prop, Component, Vue } from 'vue-property-decorator';
 	@Component({
 		name: 'DialogueBox',
-		components: {},
-		props: {
-			title: String,
-			message: String,
-			hidden: String
-		}
+		components: {}
 	})
-	export default class DialogueBox extends Vue {}
+	export default class DialogueBox extends Vue {
+		@Prop()
+		private title!: string;
+		@Prop()
+		private message!: string;
+		@Prop()
+		private hidden!: string;
+	}
 </script>
 
 <style scoped>

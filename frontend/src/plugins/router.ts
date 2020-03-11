@@ -7,6 +7,7 @@ import Master from '@/views/Master.vue';
 import Player from '@/views/Player.vue';
 import Spectator from '@/views/Spectator.vue';
 import Editor from '@/views/Editor.vue';
+import Selection from '@/views/Selection.vue';
 
 Vue.use(Router);
 
@@ -21,6 +22,11 @@ export default new Router({
 			path: '/about',
 			name: 'about',
 			component: About
+		},
+		{
+			path: '/selection',
+			name: 'selection',
+			component: Selection
 		},
 		{
 			path: '/master',
