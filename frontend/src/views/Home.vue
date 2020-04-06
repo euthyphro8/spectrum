@@ -1,12 +1,12 @@
 <template>
 	<div class="home">
-		<div class="master-selection" @click="onSelection('/master')">
+		<div class="master-selection" @click="onSelection('/selection')">
 			<h1>Game Master</h1>
 		</div>
-		<div class="player-selection" @click="onSelection('/player')">
+		<div class="player-selection" @click="onSelection('/session')">
 			<h1>Player</h1>
 		</div>
-		<div class="spectator-selection" @click="onSelection('/spectator')">
+		<div class="spectator-selection" @click="onSelection('/session')">
 			<h1>Spectator</h1>
 		</div>
 		<DialogueBox
@@ -33,13 +33,16 @@
 	})
 	export default class Home extends Vue {
 		private showDialogue = false;
+
 		mounted(): void {
 			this.showDialogue = this.$store.state.welcomeMessage;
 		}
+
 		onDialogue(): void {
 			this.$store.state.welcomeMessage = true;
 			this.showDialogue = true;
 		}
+
 		onSelection(path: string) {
 			this.$router.push(path);
 		}

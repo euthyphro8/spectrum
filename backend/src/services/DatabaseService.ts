@@ -4,6 +4,7 @@ import IMap, { instanceOfIMap } from '../interfaces/IMap';
 import { DefaultTemplate } from '../assets/DefaultTemplate';
 import ITile, { instanceOfITile } from '../interfaces/ITile';
 import { DefaultTileRegistry } from '../assets/DefaultTileRegistry';
+import ICampaign, { instanceOfICampaign } from '../interfaces/ICampaign';
 
 export default class DatabaseService {
 	private context: Context;
@@ -13,6 +14,7 @@ export default class DatabaseService {
 	// Collections
 	private templates!: Collection;
 	private tiles!: Collection;
+	private campaigns!: Collection;
 	private maps!: Collection;
 	private users!: Collection;
 
@@ -30,7 +32,7 @@ export default class DatabaseService {
 					this.context.Config.DbUri,
 					{
 						useNewUrlParser: true,
-						useUnifiedTopology: true
+						useUnifiedTopology: true,
 					}
 				);
 				this.context.Logger.info(
@@ -40,6 +42,7 @@ export default class DatabaseService {
 				this.context.Logger.info(`[ DTBS SVC ] Got database instance.`);
 
 				this.templates = this.database.collection('templates');
+				this.campaigns = this.database.collection('campaigns');
 				this.maps = this.database.collection('maps');
 				this.tiles = this.database.collection('tiles');
 				this.users = this.database.collection('users');
@@ -113,6 +116,60 @@ export default class DatabaseService {
 	}
 
 	/**
+	 * Gets all the campaigns from the Campaign database.
+	 */
+	public async getAllCampaigns(user: string): Promise<ICampaign[]> {
+		try {
+			const raw = await this.campaigns!.find({}).toArray();
+			const campaigns: ICampaign[] = [];
+			for (const campaign of raw) {
+				if (instanceOfICampaign(campaign)) campaigns.push(campaign);
+				else
+					throw new Error(
+						`[ DTBS SVC ] Got non-campaign back from campaigns database.`
+					);
+			}
+			return campaigns;
+		} catch (generalError) {
+			this.context.Logger.error(
+				`[ DTBS SVC ] There was a general error with getting campaigns. 
+                    ${generalError.message || generalError}`
+			);
+			throw generalError;
+		}
+	}
+
+	public async createCampaign(campaign: ICampaign): Promise<boolean> {
+		try {
+			this.context.Logger.info(
+				`[ DTBS SVC ] Adding campaign for ${JSON.stringify(
+					campaign.name
+				)}`
+			);
+			// No checks here since this will overwrite any existing version.
+			const r = await this.campaigns.replaceOne(
+				{
+					id: campaign.id,
+				},
+				campaign,
+				{
+					upsert: true,
+				}
+			);
+			if (r.modifiedCount + r.upsertedCount > 0) {
+				return true;
+			}
+		} catch (generalError) {
+			this.context.Logger.error(
+				`[ DTBS SVC ] There was a general error with the insert. ${
+					generalError.message || generalError
+				}`
+			);
+		}
+		return false;
+	}
+
+	/**
 	 * Gets all the maps from the Maps database.
 	 */
 	public async getAllMaps(): Promise<IMap[]> {
@@ -139,16 +196,16 @@ export default class DatabaseService {
 	public async saveMap(map: IMap): Promise<boolean> {
 		try {
 			this.context.Logger.info(
-				`[ DTBS SVC ] Add account map for ${JSON.stringify(map.name)}`
+				`[ DTBS SVC ] Add map for ${JSON.stringify(map.name)}`
 			);
 			// No checks here since this will overwrite any existing version.
 			const r = await this.maps.replaceOne(
 				{
-					name: map.name
+					name: map.name,
 				},
 				map,
 				{
-					upsert: true
+					upsert: true,
 				}
 			);
 			if (r.matchedCount + r.modifiedCount + r.upsertedCount > 0) {
@@ -156,8 +213,9 @@ export default class DatabaseService {
 			}
 		} catch (generalError) {
 			this.context.Logger.error(
-				`[ DTBS SVC ] There was a general error with the insert. ${generalError.message ||
-					generalError}`
+				`[ DTBS SVC ] There was a general error with the insert. ${
+					generalError.message || generalError
+				}`
 			);
 		}
 		return false;

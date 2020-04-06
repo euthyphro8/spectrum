@@ -1,10 +1,8 @@
 <template>
-	<div id="app">
-		<v-app>
-			<router-view />
-			<div id="version">Alpha v0.1.8</div>
-		</v-app>
-	</div>
+	<v-app id="app">
+		<router-view />
+		<div id="version">Alpha</div>
+	</v-app>
 </template>
 
 <script lang="ts">
@@ -18,20 +16,13 @@
 </script>
 
 <style>
-	/* * {
-		overflow: hidden;
-		height: 100%;
-		width: 100%;
-		margin: 0;
-		padding: 0;
-	} */
-
 	#app {
 		font-family: 'Montserrat', sans-serif;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		text-align: center;
 		color: #2c3e50;
+		overflow: hidden;
 	}
 
 	#version {

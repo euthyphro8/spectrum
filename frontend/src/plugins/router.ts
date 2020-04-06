@@ -7,7 +7,9 @@ import Master from '@/views/Master.vue';
 import Player from '@/views/Player.vue';
 import Spectator from '@/views/Spectator.vue';
 import Editor from '@/views/Editor.vue';
+import Campaign from '@/views/Campaign.vue';
 import Selection from '@/views/Selection.vue';
+import Session from '@/views/Session.vue';
 
 Vue.use(Router);
 
@@ -24,9 +26,19 @@ export default new Router({
 			component: About
 		},
 		{
+			path: '/campaign',
+			name: 'campaign',
+			component: Campaign
+		},
+		{
 			path: '/selection',
 			name: 'selection',
 			component: Selection
+		},
+		{
+			path: '/session',
+			name: 'session',
+			component: Session
 		},
 		{
 			path: '/master',

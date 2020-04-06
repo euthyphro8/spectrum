@@ -1,91 +1,136 @@
 <template>
-	<div class="selection">
-		<div class="font-weight-light" size="100px">
-			Campaigns
-		</div>
-		<v-card max-width="800" class="mx-auto">
-			<v-btn block dark x-large>New Campaign</v-btn>
-			<v-text-field label="Search" solo @input="onFilter"></v-text-field>
-			<v-list>
-				<v-list-item
-					v-for="item in items"
-					:key="item.title"
-					@click="onClick(item)"
-				>
-					<v-list-item-avatar>
-						<v-btn icon>
-							<v-icon>{{ swordSvg }}</v-icon>
-						</v-btn>
-					</v-list-item-avatar>
+	<v-content>
+		<v-app-bar color="primary">
+			<span class="title mx-3">Spectrum</span>
+			<v-spacer />
+			<v-text-field
+				@input="onSearch"
+				clearable
+				solo-inverted
+				hide-details
+				label="Search"
+			/>
+			<v-spacer />
+			<span class="title mx-3">Campaigns</span>
+			<v-btn class="mx-2" fab small>
+				<v-icon>{{ mdiPlus }}</v-icon>
+			</v-btn>
+		</v-app-bar>
+		<v-list v-if="sortedCampaigns().length > 0">
+			<v-list-item
+				v-for="c in sortedCampaigns()"
+				:key="c.id"
+				@click="onSelection(c)"
+			>
+				<v-list-item-avatar>
+					<v-icon>{{ mdiSwordCross }}</v-icon>
+				</v-list-item-avatar>
 
-					<v-list-item-content>
-						<v-list-item-title
-							v-text="item.title"
-						></v-list-item-title>
-						<v-list-item-subtitle
-							v-text="item.subtitle"
-						></v-list-item-subtitle>
-					</v-list-item-content>
+				<v-list-item-content>
+					<v-list-item-title v-text="c.name"></v-list-item-title>
+					<v-list-item-subtitle
+						v-text="
+							'This is the test campaign. A campaign full of fake adventurers and not real maps.'
+						"
+					></v-list-item-subtitle>
+				</v-list-item-content>
 
-					<v-list-item-action>
-						<v-btn icon>
-							<v-icon>{{ infoSvg }}</v-icon>
-						</v-btn>
-					</v-list-item-action>
-				</v-list-item>
-			</v-list>
-		</v-card>
-	</div>
+				<v-list-item-action>
+					<v-list-item-action-text
+						v-text="getRecentDateTimeString(c.dateModified)"
+					>
+					</v-list-item-action-text>
+				</v-list-item-action>
+			</v-list-item>
+		</v-list>
+		<v-list v-else>
+			<div class="my-4">- No Campaigns Here -</div>
+		</v-list>
+	</v-content>
 </template>
 
 <script lang="ts">
 	import { Component, Vue } from 'vue-property-decorator';
-	import { mdiInformation, mdiSwordCross } from '@mdi/js';
+	import { mdiInformation, mdiSwordCross, mdiPlus } from '@mdi/js';
+	import ICampaign from '../ts/interfaces/ICampaign';
+	import axios from 'axios';
 
 	@Component({
-		components: {}
+		data: () => {
+			return {
+				mdiInformation,
+				mdiSwordCross,
+				mdiPlus
+			};
+		}
 	})
+	/**
+	 * Campaign selection view, should arrive from Main View
+	 * and lead to Campaign View upon selection.
+	 */
 	export default class Selection extends Vue {
-		public items = [
+		public campaigns: ICampaign[] = [
 			{
-				title: 'First',
-				subtitle: 'Subtitle1'
-			},
-			{
-				title: 'Second',
-				subtitle: 'Subtitle2'
-			},
-			{
-				title: 'Third',
-				subtitle: 'Subtitle3'
-			},
-			{
-				title: 'Third2',
-				subtitle: 'Subtitle4'
+				id: 'test',
+				discriminator: 'spectrum.campaign',
+				name: 'Test Campaign',
+				user: 'TestUser',
+				dateModified: new Date(Date.now())
 			}
 		];
-		public infoSvg = mdiInformation;
-		public swordSvg = mdiSwordCross;
+		private searchTerm: string = '';
 
-		private filter: String;
-
-		constructor() {
-			super();
-			this.filter = '';
+		private async mounted(): Promise<void> {
+			this.requestCampaigns('TestUser').catch((error) => {
+				console.log(`[ Selection ] Error:\ ${error}`);
+			});
 		}
 
-		onFilter() {}
+		private async requestCampaigns(user: string): Promise<void> {
+			console.log(`[ Selection ] Requesting campaigns for user ${user}.`);
+			try {
+				let res = await axios.get('/requestCampaigns', {
+					params: {
+						user: user
+					}
+				});
+				if (res.data && res.data.campaigns) {
+					this.campaigns = res.data.campaigns;
+				}
+			} catch (error) {
+				console.log(`[ Selection ] Error:\ ${error}`);
+			}
+		}
 
-		onSelection(item) {
-			// console.log(`${item.title}`);
+		private sortedCampaigns() {
+			return this.campaigns
+				.filter((value: ICampaign) => {
+					return value.name
+						.toLowerCase()
+						.startsWith(this.searchTerm.toLowerCase());
+				})
+				.sort((a: ICampaign, b: ICampaign) => {
+					return a.dateModified.getTime() - b.dateModified.getTime();
+				});
+		}
+
+		private getRecentDateTimeString(date: Date): string {
+			let now = new Date(Date.now()).toLocaleDateString();
+			return date.toLocaleDateString() === now
+				? date.toLocaleTimeString()
+				: date.toLocaleDateString();
+		}
+
+		private onSearch(input: any) {
+			if (input) this.searchTerm = input;
+			else this.searchTerm = '';
+		}
+
+		private onSelection(item: any) {
+			//TODO Load campaign view
+			console.log(`${item.title}`);
 		}
 	}
 </script>
 
-<style scoped>
-	.selection {
-		background-color: #333333;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+<style scoped></style>

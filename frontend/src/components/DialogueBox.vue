@@ -48,17 +48,16 @@
 	.dialogue-box {
 		background-color: #444444;
 		position: absolute;
-		width: 40%;
-		height: 24%;
-		left: 30%;
-		top: 38%;
+		width: 500px;
+		height: 300px;
+		margin-left: calc(50% - 250px);
+		margin-top: calc(10%);
+
 		display: flex;
 		flex-direction: column;
 		justify-content: space-evenly;
 		align-items: center;
 		border: 2px solid #bbbbbb;
-		min-width: 400px;
-		max-width: 800px;
 	}
 	.dialogue-button {
 		background-color: #333333;
