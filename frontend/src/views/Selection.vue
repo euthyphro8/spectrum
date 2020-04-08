@@ -89,10 +89,11 @@
 	import { Component, Vue } from 'vue-property-decorator';
 	import { mdiInformation, mdiSwordCross, mdiPlus } from '@mdi/js';
 	import ICampaign from '../ts/interfaces/ICampaign';
-	import axios from 'axios';
+	import axios, { AxiosResponse } from 'axios';
 	import { getDefaultCampaign } from '../../../Backend/src/interfaces/ICampaign';
 	import { Store } from 'vuex';
 	import IStore from '../ts/interfaces/IStore';
+	import { v1 as uuidV1 } from 'uuid';
 
 	@Component({
 		data: () => {
@@ -116,24 +117,30 @@
 		private newCampaignDescription: string = '';
 
 		private async mounted(): Promise<void> {
-			this.requestCampaigns('TestUser').catch((error) => {
-				console.log(`[ Selection ] Error:\ ${error}`);
-			});
+			this.requestCampaigns();
 		}
 
-		private async requestCampaigns(user: string): Promise<void> {
-			console.log(`[ Selection ] Requesting campaigns for user ${user}.`);
+		private async requestCampaigns(): Promise<void> {
+			const store: IStore = this.$store.state;
+			const user = store.currentUser;
+			console.log(
+				`[ Selection ] Requesting campaigns for user ${user.name}.`
+			);
 			try {
 				let res = await axios.get('/requestCampaigns', {
 					params: {
-						user: user
+						user: user.id
 					}
 				});
 				if (res.data && res.data.campaigns) {
 					this.campaigns = res.data.campaigns;
+					for (let c of this.campaigns) {
+						// Restores the prototype of each date object
+						c.dateModified = new Date(c.dateModified);
+					}
 				}
 			} catch (error) {
-				console.log(`[ Selection ] Error:\ ${error}`);
+				console.log(`[ Selection ] Error getting campaigns:\ ${error}`);
 				this.campaigns = [getDefaultCampaign()];
 			}
 		}
@@ -146,7 +153,7 @@
 						.startsWith(this.searchTerm.toLowerCase());
 				})
 				.sort((a: ICampaign, b: ICampaign) => {
-					return a.dateModified.getTime() - b.dateModified.getTime();
+					return b.dateModified.getTime() - a.dateModified.getTime();
 				});
 		}
 
@@ -171,18 +178,32 @@
 		private async onCampaignCreate(): Promise<void> {
 			if (this.newCampaignName && this.newCampaignDescription) {
 				const store: IStore = this.$store.state;
+				console.log(
+					`[ Selection ] Creating campaign with name ${this.newCampaignName} ` +
+						`and description "${this.newCampaignDescription}".`
+				);
 				const newCampaign: ICampaign = {
 					discriminator: 'spectrum.campaign',
-					id: '',
+					id: uuidV1(),
 					name: this.newCampaignName,
 					description: this.newCampaignDescription,
 					user: store.currentUser.id,
 					dateModified: new Date(Date.now())
 				};
 				this.clearNewCampaignForm();
-				let result = axios.post('/createCampaign', {
-					campaign: newCampaign
-				});
+				let result = axios
+					.post('/createCampaign', {
+						campaign: newCampaign
+					})
+					.then((status: AxiosResponse<any>) => {
+						if (status.status === 500) {
+							console.log(
+								`[ Selection ] Failed to add campaign. Reason ${status.statusText}.`
+							);
+						} else {
+							this.requestCampaigns();
+						}
+					});
 			}
 		}
 

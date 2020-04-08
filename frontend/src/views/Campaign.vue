@@ -52,6 +52,7 @@
 	import IMap from '../ts/interfaces/IMap';
 	import IStore from '../ts/interfaces/IStore';
 	import { Store } from 'vuex';
+	import { getDefaultMap } from '../ts/interfaces/IMap';
 
 	@Component({
 		components: {
@@ -98,6 +99,7 @@
 				}
 			} catch (error) {
 				console.log(`[ Campaign ] Error:\ ${error}`);
+				this.maps = [getDefaultMap()];
 			}
 		}
 
@@ -112,7 +114,10 @@
 				if (res.data && res.data.templates) {
 					this.templates = res.data.templates;
 				}
-			} catch (error) {}
+			} catch (error) {
+				console.log(`[ Campaign ] Error:\ ${error}`);
+				this.templates = [getDefaultMap()];
+			}
 		}
 
 		private load(map: IMap): void {

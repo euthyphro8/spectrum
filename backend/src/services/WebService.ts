@@ -46,8 +46,7 @@ export default class WebService {
 	}
 
 	private onCampaignCreation(req: Request, res: Response): void {
-		let campaign = req.query.campaign as ICampaign;
-
+		let campaign = req.body.campaign as ICampaign;
 		if (instanceOfICampaign(campaign)) {
 			this.context.Logger.info(
 				`[ WEB SVC  ] Got add campaign request for ${campaign.name}.`
@@ -81,11 +80,11 @@ export default class WebService {
 	}
 
 	private onMapsRequest(req: Request, res: Response): void {
-		let groupId = req.query.groupId as string;
+		let campaignId = req.query.campaignId as string;
 		this.context.Logger.info(
-			`[ WEB SVC  ] Got maps request for ${groupId}.`
+			`[ WEB SVC  ] Got maps request for ${campaignId}.`
 		);
-		this.context.Db.getAllMaps()
+		this.context.Db.getAllMaps(campaignId)
 			.then((maps) => {
 				this.context.Logger.info(`[ WEB SVC  ] Sending maps back.`);
 				res.status(200).send({ maps });
@@ -94,11 +93,10 @@ export default class WebService {
 	}
 
 	private onSaveMap(req: Request, res: Response): void {
-		let groupId = req.body.groupId as string;
 		let map = req.body.map;
 		if (instanceOfIMap(map)) {
 			this.context.Logger.info(
-				`[ WEB SVC  ] Got add map request for ${groupId}.`
+				`[ WEB SVC  ] Got add map request for ${map.name}.`
 			);
 			this.context.Db.saveMap(map)
 				.then(() => {
@@ -110,7 +108,9 @@ export default class WebService {
 				.catch(() => res.sendStatus(500));
 		} else {
 			this.context.Logger.warn(
-				`[ WEB SVC  ] Got malformed map request for ${groupId}.`
+				`[ WEB SVC  ] Got malformed map request for ${
+					map ? map.name : 'UNKNOWN'
+				}.`
 			);
 			res.sendStatus(300);
 		}

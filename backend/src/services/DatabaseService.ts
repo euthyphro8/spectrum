@@ -1,10 +1,13 @@
 import { MongoClient, Db, Collection } from 'mongodb';
 import Context from '../utils/Context';
-import IMap, { instanceOfIMap } from '../interfaces/IMap';
-import { DefaultTemplate } from '../assets/DefaultTemplate';
+import IMap, { instanceOfIMap, getDefaultMap } from '../interfaces/IMap';
 import ITile, { instanceOfITile } from '../interfaces/ITile';
 import { DefaultTileRegistry } from '../assets/DefaultTileRegistry';
-import ICampaign, { instanceOfICampaign } from '../interfaces/ICampaign';
+import ICampaign, {
+	instanceOfICampaign,
+	getDefaultCampaign
+} from '../interfaces/ICampaign';
+import IUser, { getDefaultUser, instanceOfIUser } from '../interfaces/IUser';
 
 export default class DatabaseService {
 	private context: Context;
@@ -32,7 +35,7 @@ export default class DatabaseService {
 					this.context.Config.DbUri,
 					{
 						useNewUrlParser: true,
-						useUnifiedTopology: true,
+						useUnifiedTopology: true
 					}
 				);
 				this.context.Logger.info(
@@ -41,10 +44,10 @@ export default class DatabaseService {
 				this.database = this.client.db(this.context.Config.DbName);
 				this.context.Logger.info(`[ DTBS SVC ] Got database instance.`);
 
-				this.templates = this.database.collection('templates');
-				this.campaigns = this.database.collection('campaigns');
-				this.maps = this.database.collection('maps');
 				this.tiles = this.database.collection('tiles');
+				this.templates = this.database.collection('templates');
+				this.maps = this.database.collection('maps');
+				this.campaigns = this.database.collection('campaigns');
 				this.users = this.database.collection('users');
 				this.context.Logger.info(
 					`[ DTBS SVC ] Got collection instances.`
@@ -60,11 +63,20 @@ export default class DatabaseService {
 	// Setup database if it's the first time
 	public async verifyIntegrity(): Promise<void> {
 		// Add defaults if none exist
-		var temps = await this.getAllTemplates();
-		if (temps.length <= 0) this.templates.insertOne(DefaultTemplate);
-
 		var tiles = await this.getAllTiles();
 		if (tiles.length <= 0) this.tiles.insertMany(DefaultTileRegistry.tiles);
+
+		var temps = await this.getAllTemplates();
+		if (temps.length <= 0) this.templates.insertOne(getDefaultMap());
+
+		var maps = await this.getAllMaps('*');
+		if (temps.length <= 0) this.maps.insertOne(getDefaultMap());
+
+		var camps = await this.getAllCampaigns('*');
+		if (camps.length <= 0) this.campaigns.insertOne(getDefaultCampaign());
+
+		var users = await this.getAllUsers();
+		if (users.length <= 0) this.users.insertOne(getDefaultUser());
 	}
 
 	/**
@@ -116,11 +128,38 @@ export default class DatabaseService {
 	}
 
 	/**
-	 * Gets all the campaigns from the Campaign database.
+	 * Gets all the users from the user database.
 	 */
-	public async getAllCampaigns(user: string): Promise<ICampaign[]> {
+	public async getAllUsers(): Promise<IUser[]> {
 		try {
-			const raw = await this.campaigns!.find({}).toArray();
+			const raw = await this.users!.find({}).toArray();
+			const users: IUser[] = [];
+			for (const user of raw) {
+				if (instanceOfIUser(user)) users.push(user);
+				else
+					throw new Error(
+						`[ DTBS SVC ] Got non-user back from users database.`
+					);
+			}
+			return users;
+		} catch (generalError) {
+			this.context.Logger.error(
+				`[ DTBS SVC ] There was a general error with getting campaigns. 
+                    ${generalError.message || generalError}`
+			);
+			throw generalError;
+		}
+	}
+
+	/**
+	 * Gets all the campaigns associated to the user id given.
+	 * @param userId The user uuid, can take wildcard to get all campaigns regardless
+	 * of user association.
+	 */
+	public async getAllCampaigns(userId: string): Promise<ICampaign[]> {
+		try {
+			const query = userId === '*' ? {} : { user: userId };
+			const raw = await this.campaigns!.find(query).toArray();
 			const campaigns: ICampaign[] = [];
 			for (const campaign of raw) {
 				if (instanceOfICampaign(campaign)) campaigns.push(campaign);
@@ -146,14 +185,16 @@ export default class DatabaseService {
 					campaign.name
 				)}`
 			);
-			// No checks here since this will overwrite any existing version.
+			// TODO: This will overwrite any campaign with an ID that happens to match
+			// obviously this could be terrible. Unlikely to happen, but a safeguard
+			// should eventually be put into place.
 			const r = await this.campaigns.replaceOne(
 				{
-					id: campaign.id,
+					id: campaign.id
 				},
 				campaign,
 				{
-					upsert: true,
+					upsert: true
 				}
 			);
 			if (r.modifiedCount + r.upsertedCount > 0) {
@@ -161,20 +202,22 @@ export default class DatabaseService {
 			}
 		} catch (generalError) {
 			this.context.Logger.error(
-				`[ DTBS SVC ] There was a general error with the insert. ${
-					generalError.message || generalError
-				}`
+				`[ DTBS SVC ] There was a general error with the insert. ${generalError.message ||
+					generalError}`
 			);
 		}
 		return false;
 	}
 
 	/**
-	 * Gets all the maps from the Maps database.
+	 * Gets all the maps associated to the campaign id given.
+	 * @param campaignId The campaign uuid, can take wildcard to get all maps regardless
+	 * of campaign association.
 	 */
-	public async getAllMaps(): Promise<IMap[]> {
+	public async getAllMaps(campaignId: string): Promise<IMap[]> {
 		try {
-			const raw = await this.maps!.find({}).toArray();
+			const query = campaignId === '*' ? {} : { campaign: campaignId };
+			const raw = await this.maps!.find(query).toArray();
 			const maps: IMap[] = [];
 			for (const map of raw) {
 				if (instanceOfIMap(map)) maps.push(map);
@@ -201,11 +244,11 @@ export default class DatabaseService {
 			// No checks here since this will overwrite any existing version.
 			const r = await this.maps.replaceOne(
 				{
-					name: map.name,
+					name: map.name
 				},
 				map,
 				{
-					upsert: true,
+					upsert: true
 				}
 			);
 			if (r.matchedCount + r.modifiedCount + r.upsertedCount > 0) {
@@ -213,147 +256,10 @@ export default class DatabaseService {
 			}
 		} catch (generalError) {
 			this.context.Logger.error(
-				`[ DTBS SVC ] There was a general error with the insert. ${
-					generalError.message || generalError
-				}`
+				`[ DTBS SVC ] There was a general error with the insert. ${generalError.message ||
+					generalError}`
 			);
 		}
 		return false;
 	}
-
-	// /**
-	//  * Simply adds in a new user account provided one with the same username or email cannot be found.
-	//  * @param user The user info to be added.
-	//  */
-	// public async addAccount(user: IAccountInfo): Promise<DatabaseReturnStatus> {
-	// 	if (!this.client) {
-	// 		await this.connect();
-	// 	}
-	// 	try {
-	// 		this.context.Logger.info(
-	// 			`[ DTBS SVC ] Add account request for ${JSON.stringify(user)}`
-	// 		);
-	// 		// If an account with the same username already exists
-	// 		const usernameQuery = await this.collection!.findOne({
-	// 			username: user.username
-	// 		});
-	// 		if (usernameQuery) {
-	// 			this.context.Logger.info(
-	// 				`[ DTBS SVC ] Found account with same username ${JSON.stringify(
-	// 					usernameQuery
-	// 				)}`
-	// 			);
-	// 			return DatabaseReturnStatus.UsernameTaken;
-	// 		}
-	// 		// If an account with the same email already exists
-	// 		const emailQuery = await this.collection!.findOne({
-	// 			email: user.email
-	// 		});
-	// 		if (emailQuery) {
-	// 			this.context.Logger.info(
-	// 				`[ DTBS SVC ] Found account with same email ${
-	// 					(emailQuery as IAccountInfo).email
-	// 				}`
-	// 			);
-	// 			return DatabaseReturnStatus.EmailTaken;
-	// 		}
-	// 		// Otherwise insert into the database
-	// 		const insertResult = await this.collection!.insertOne(user);
-	// 		if (insertResult.insertedCount === 1) {
-	// 			return DatabaseReturnStatus.Success;
-	// 		}
-	// 	} catch (generalError) {
-	// 		this.context.Logger.error(
-	// 			`[ DTBS SVC ] There was a general error with the insert. ${generalError.message ||
-	// 				generalError}`
-	// 		);
-	// 	}
-	// 	return DatabaseReturnStatus.Failure;
-	// }
-
-	// /**
-	//  * Finds a user account based on the provided email, and updates it.
-	//  * @param user The user info to be updated.
-	//  */
-	// public async updateAccount(
-	// 	user: IAccountInfo
-	// ): Promise<DatabaseReturnStatus> {
-	// 	if (!this.client) {
-	// 		await this.connect();
-	// 	}
-	// 	try {
-	// 		const replaceResult = await this.collection!.findOneAndReplace(
-	// 			{ email: user.email },
-	// 			user
-	// 		);
-	// 		if (replaceResult.ok) {
-	// 			return DatabaseReturnStatus.Success;
-	// 		}
-	// 	} catch (generalError) {
-	// 		this.context.Logger.error(
-	// 			`[ DTBS SVC ] There was a general error with the insert. ${generalError.message ||
-	// 				generalError}`
-	// 		);
-	// 	}
-	// 	return DatabaseReturnStatus.Failure;
-	// }
-
-	// /**
-	//  * Finds a user account based on the provided email, and returns it.
-	//  * @param humanId The username or email.
-	//  * @param isEmail Whether the human id is an email address, if not username will be assumed.
-	//  */
-	// public async getAccount(
-	// 	humanId: string,
-	// 	isEmail: boolean
-	// ): Promise<IAccountInfo | null> {
-	// 	if (!this.client) {
-	// 		await this.connect();
-	// 	}
-	// 	try {
-	// 		// Create the filter for our query
-	// 		const filter = {} as any;
-	// 		if (isEmail) {
-	// 			filter.email = humanId;
-	// 		} else {
-	// 			filter.username = humanId;
-	// 		}
-	// 		// Return whatever comes back, the caller should handle null exceptions
-	// 		return (await this.collection!.findOne(filter)) as IAccountInfo;
-	// 	} catch (generalError) {
-	// 		this.context.Logger.error(
-	// 			`[ DTBS SVC ] There was a general error with the insert. ${generalError.message ||
-	// 				generalError}`
-	// 		);
-	// 		return null;
-	// 	}
-	// }
-
-	// public async getAllAccounts(): Promise<IAccountInfo[] | null> {
-	// 	if (!this.client) {
-	// 		await this.connect();
-	// 	}
-	// 	try {
-	// 		const raw = await this.collection!.find({}).toArray();
-	// 		const accounts: IAccountInfo[] = [];
-	// 		for (const account of raw) {
-	// 			if (account as IAccountInfo) {
-	// 				accounts.push(account as IAccountInfo);
-	// 			} else {
-	// 				this.context.Logger.warn(
-	// 					`[ DTBS SVC ] Found an non AccountInfo entry while getting all accounts. ${JSON.stringify(
-	// 						account
-	// 					)}`
-	// 				);
-	// 			}
-	// 		}
-	// 		return accounts;
-	// 	} catch (generalError) {
-	// 		this.context.Logger.error(
-	// 			`[ DTBS SVC ] There was a general error with the insert. ${generalError.message ||
-	// 				generalError}`
-	// 		);
-	// 		return null;
-	// 	}
-	// }
 }

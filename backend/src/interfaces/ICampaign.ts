@@ -16,7 +16,7 @@ export function getDefaultCampaign(): ICampaign {
 		id: 'ce9116b1-bad9-4469-b67f-b770eb6db1d1',
 		discriminator: 'spectrum.campaign',
 		name: 'Sample Campaign',
-		user: 'SampleUser',
+		user: 'f06fa64c-c947-4a4e-9700-2cbcd55b27e3',
 		description: 'This is a sample campaign.',
 		dateModified: new Date(1577862000000) //Wed Jan 01 2020 00:00:00 GMT-0700
 	};

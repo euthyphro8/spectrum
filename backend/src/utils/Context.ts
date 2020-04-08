@@ -1,5 +1,4 @@
 import ConnectionService from '@/services/ConnectionService';
-import FileService from '@/services/FileService';
 import WebService from '@/services/WebService';
 import LoggerService from '@/services/LoggerService';
 import Configuration from '@/utils/Configuration';
@@ -11,12 +10,6 @@ export default class Context {
 		if (this.injected) return this._Config;
 		else throw new Error('Accessing ambient context before injection.');
 	}
-
-	// private _File!: FileService;
-	// get Files(): FileService {
-	// 	if (this.injected) return this._File;
-	// 	else throw new Error('Accessing ambient context before injection.');
-	// }
 
 	private _Db!: DatabaseService;
 	get Db(): DatabaseService {
@@ -53,14 +46,12 @@ export default class Context {
 		logger: LoggerService,
 		connection: ConnectionService,
 		db: DatabaseService,
-		// file: FileService,
 		web: WebService
 	): void {
 		this._Config = config;
 		this._Logger = logger;
 		this._Connection = connection;
 		this._Db = db;
-		// this._File = file;
 		this._Web = web;
 		this.injected = true;
 	}

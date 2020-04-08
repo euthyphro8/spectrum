@@ -4,7 +4,6 @@ import Configuration from './utils/Configuration';
 import LoggerService from './services/LoggerService';
 import ConnectionService from './services/ConnectionService';
 import DatabaseService from './services/DatabaseService';
-// import FileService from './services/FileService';
 import WebService from './services/WebService';
 
 // Gets the env vars from the .env file
@@ -21,7 +20,6 @@ const logger = new LoggerService(
 );
 const server = new ConnectionService(context);
 const db = new DatabaseService(context);
-// const file = new FileService(context);
 const web = new WebService(context);
 
 // Add all micro-services to the ambient context
@@ -46,7 +44,6 @@ logger.notice(
 (async () => {
 	await db.connect();
 	await db.verifyIntegrity();
-	// file.start();
 	server.start();
 	web.start();
 })();
