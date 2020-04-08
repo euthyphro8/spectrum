@@ -11,7 +11,7 @@
 				label="Search"
 			/>
 			<v-spacer />
-			<span class="title mx-3">{{ campaignName }}</span>
+			<span class="title mx-3">{{ campaign.name }}</span>
 		</v-app-bar>
 		<div class="content">
 			<div class="template-header">
@@ -50,6 +50,8 @@
 	import TemplateCard from '../components/master/TemplateCard.vue';
 	import ICampaign from '../ts/interfaces/ICampaign';
 	import IMap from '../ts/interfaces/IMap';
+	import IStore from '../ts/interfaces/IStore';
+	import { Store } from 'vuex';
 
 	@Component({
 		components: {
@@ -58,7 +60,7 @@
 			TemplateCard
 		}
 	})
-	export default class Master extends Vue {
+	export default class Campaign extends Vue {
 		@Prop({
 			default: {
 				id: 'f091e44b-ae8b-41d3-8c3d-715ab75c8b9f',
@@ -66,13 +68,16 @@
 				user: 'TestUser'
 			}
 		})
-		private campaign!: ICampaign;
+		private get campaign(): ICampaign {
+			const store: Store<IStore> = this.$store;
+			return store.state.currentCampaign;
+		}
 		private templates: IMap[] = [];
 		private maps: IMap[] = [];
 
 		private async mounted(): Promise<void> {
-			this.requestMaps(this.campaign.id)
-				.then(() => this.requestTemplates())
+			this.requestTemplates()
+				.then(() => this.requestMaps(this.campaign.id))
 				.catch((error) => {
 					console.log(`[ Campaign ] Error:\ ${error}`);
 				});

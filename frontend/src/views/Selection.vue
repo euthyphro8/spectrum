@@ -1,9 +1,10 @@
 <template>
 	<v-content>
 		<v-app-bar color="primary">
-			<span class="title mx-3">Spectrum</span>
+			<span class="title ml-4">Spectrum</span>
 			<v-spacer />
 			<v-text-field
+				dense
 				@input="onSearch"
 				clearable
 				solo-inverted
@@ -11,12 +12,12 @@
 				label="Search"
 			/>
 			<v-spacer />
-			<span class="title mx-3">Campaigns</span>
-			<v-btn class="mx-2" fab small>
+			<span class="title mr-6">Campaigns</span>
+			<v-btn class="mr-2" fab small @click="dialog = true">
 				<v-icon>{{ mdiPlus }}</v-icon>
 			</v-btn>
 		</v-app-bar>
-		<v-list v-if="sortedCampaigns().length > 0">
+		<v-list v-if="sortedCampaigns().length > 0" :three-line="false">
 			<v-list-item
 				v-for="c in sortedCampaigns()"
 				:key="c.id"
@@ -29,23 +30,58 @@
 				<v-list-item-content>
 					<v-list-item-title v-text="c.name"></v-list-item-title>
 					<v-list-item-subtitle
-						v-text="
-							'This is the test campaign. A campaign full of fake adventurers and not real maps.'
-						"
+						v-text="c.description"
 					></v-list-item-subtitle>
 				</v-list-item-content>
 
 				<v-list-item-action>
 					<v-list-item-action-text
 						v-text="getRecentDateTimeString(c.dateModified)"
-					>
-					</v-list-item-action-text>
+					></v-list-item-action-text>
 				</v-list-item-action>
 			</v-list-item>
 		</v-list>
 		<v-list v-else>
 			<div class="my-4">- No Campaigns Here -</div>
 		</v-list>
+		<v-row justify="center">
+			<v-dialog v-model="dialog" max-width="600px">
+				<v-card>
+					<v-card-title>
+						<span class="headline">Create a Campaign</span>
+					</v-card-title>
+					<v-card-text>
+						<v-container>
+							<v-row>
+								<v-col cols="12">
+									<v-text-field
+										v-model="newCampaignName"
+										label="Name"
+										required
+									></v-text-field>
+								</v-col>
+								<v-col cols="12">
+									<v-text-field
+										v-model="newCampaignDescription"
+										label="Description"
+										required
+									></v-text-field>
+								</v-col>
+							</v-row>
+						</v-container>
+					</v-card-text>
+					<v-card-actions>
+						<v-spacer></v-spacer>
+						<v-btn color="accent" text @click="clearNewCampaignForm"
+							>Cancel</v-btn
+						>
+						<v-btn color="accent" text @click="onCampaignCreate"
+							>Create</v-btn
+						>
+					</v-card-actions>
+				</v-card>
+			</v-dialog>
+		</v-row>
 	</v-content>
 </template>
 
@@ -54,6 +90,9 @@
 	import { mdiInformation, mdiSwordCross, mdiPlus } from '@mdi/js';
 	import ICampaign from '../ts/interfaces/ICampaign';
 	import axios from 'axios';
+	import { getDefaultCampaign } from '../../../Backend/src/interfaces/ICampaign';
+	import { Store } from 'vuex';
+	import IStore from '../ts/interfaces/IStore';
 
 	@Component({
 		data: () => {
@@ -69,16 +108,12 @@
 	 * and lead to Campaign View upon selection.
 	 */
 	export default class Selection extends Vue {
-		public campaigns: ICampaign[] = [
-			{
-				id: 'test',
-				discriminator: 'spectrum.campaign',
-				name: 'Test Campaign',
-				user: 'TestUser',
-				dateModified: new Date(Date.now())
-			}
-		];
+		public campaigns: ICampaign[] = [];
+		public dialog: boolean = false;
+
 		private searchTerm: string = '';
+		private newCampaignName: string = '';
+		private newCampaignDescription: string = '';
 
 		private async mounted(): Promise<void> {
 			this.requestCampaigns('TestUser').catch((error) => {
@@ -99,10 +134,11 @@
 				}
 			} catch (error) {
 				console.log(`[ Selection ] Error:\ ${error}`);
+				this.campaigns = [getDefaultCampaign()];
 			}
 		}
 
-		private sortedCampaigns() {
+		private sortedCampaigns(): ICampaign[] {
 			return this.campaigns
 				.filter((value: ICampaign) => {
 					return value.name
@@ -121,14 +157,39 @@
 				: date.toLocaleDateString();
 		}
 
-		private onSearch(input: any) {
+		private onSearch(input: string): void {
 			if (input) this.searchTerm = input;
 			else this.searchTerm = '';
 		}
 
-		private onSelection(item: any) {
-			//TODO Load campaign view
-			console.log(`${item.title}`);
+		private onSelection(campaign: ICampaign): void {
+			console.log(`[ Selection ] Got selection, ${campaign.name}.`);
+			this.$store.state.currentCampaign = campaign;
+			this.$router.push('campaign');
+		}
+
+		private async onCampaignCreate(): Promise<void> {
+			if (this.newCampaignName && this.newCampaignDescription) {
+				const store: IStore = this.$store.state;
+				const newCampaign: ICampaign = {
+					discriminator: 'spectrum.campaign',
+					id: '',
+					name: this.newCampaignName,
+					description: this.newCampaignDescription,
+					user: store.currentUser.id,
+					dateModified: new Date(Date.now())
+				};
+				this.clearNewCampaignForm();
+				let result = axios.post('/createCampaign', {
+					campaign: newCampaign
+				});
+			}
+		}
+
+		private clearNewCampaignForm(): void {
+			this.newCampaignName = '';
+			this.newCampaignDescription = '';
+			this.dialog = false;
 		}
 	}
 </script>
