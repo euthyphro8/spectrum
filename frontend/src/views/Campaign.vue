@@ -1,5 +1,5 @@
 <template>
-	<div class="master">
+	<v-content>
 		<v-app-bar color="primary">
 			<span class="title mx-3">Spectrum</span>
 			<v-spacer />
@@ -19,7 +19,7 @@
 			</div>
 			<div class="templates">
 				<TemplateCard
-					v-for="template in templates"
+					v-for="template in sortedTemplates()"
 					:key="template.id"
 					:title="template.name"
 					:thumbnail="template.thumbnail"
@@ -31,7 +31,7 @@
 			</div>
 			<div class="body">
 				<MapCard
-					v-for="map in maps"
+					v-for="map in sortedMaps()"
 					:key="map.id"
 					:title="map.name"
 					:thumbnail="map.thumbnail"
@@ -39,7 +39,7 @@
 				/>
 			</div>
 		</div>
-	</div>
+	</v-content>
 </template>
 
 <script lang="ts">
@@ -53,6 +53,7 @@
 	import IStore from '../ts/interfaces/IStore';
 	import { Store } from 'vuex';
 	import { getDefaultMap } from '../ts/interfaces/IMap';
+	import { getDefaultCampaign } from '../../../Backend/src/interfaces/ICampaign';
 
 	@Component({
 		components: {
@@ -62,19 +63,19 @@
 		}
 	})
 	export default class Campaign extends Vue {
-		@Prop({
-			default: {
-				id: 'f091e44b-ae8b-41d3-8c3d-715ab75c8b9f',
-				name: 'Test Campaign',
-				user: 'TestUser'
-			}
-		})
+		private templates: IMap[] = [];
+		private maps: IMap[] = [];
+		private searchTerm: string = '';
+
 		private get campaign(): ICampaign {
 			const store: Store<IStore> = this.$store;
 			return store.state.currentCampaign;
 		}
-		private templates: IMap[] = [];
-		private maps: IMap[] = [];
+
+		private onSearch(input: string): void {
+			if (input) this.searchTerm = input;
+			else this.searchTerm = '';
+		}
 
 		private async mounted(): Promise<void> {
 			this.requestTemplates()
@@ -96,6 +97,9 @@
 				});
 				if (res.data && res.data.maps) {
 					this.maps = res.data.maps;
+					for (let m of this.maps) {
+						m.dateModified = new Date(m.dateModified);
+					}
 				}
 			} catch (error) {
 				console.log(`[ Campaign ] Error:\ ${error}`);
@@ -127,13 +131,34 @@
 			this.$store.state.currentMap = map;
 			this.$router.push('editor');
 		}
+
+		private sortedMaps(): IMap[] {
+			return this.maps
+				.filter((value: IMap) => {
+					return value.name
+						.toLowerCase()
+						.startsWith(this.searchTerm.toLowerCase());
+				})
+				.sort((a: IMap, b: IMap) => {
+					return b.dateModified.getTime() - a.dateModified.getTime();
+				});
+		}
+
+		private sortedTemplates(): IMap[] {
+			return this.templates
+				.filter((value: IMap) => {
+					return value.name
+						.toLowerCase()
+						.startsWith(this.searchTerm.toLowerCase());
+				})
+				.sort((a: IMap, b: IMap) => {
+					return b.dateModified.getTime() - a.dateModified.getTime();
+				});
+		}
 	}
 </script>
 
 <style scoped>
-	.master {
-		background-color: #222222;
-	}
 	.content {
 		overflow-y: auto;
 		height: calc(100% - 48px);
