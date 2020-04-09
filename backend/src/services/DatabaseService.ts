@@ -5,7 +5,7 @@ import ITile, { instanceOfITile } from '../interfaces/ITile';
 import { DefaultTileRegistry } from '../assets/DefaultTileRegistry';
 import ICampaign, {
 	instanceOfICampaign,
-	getDefaultCampaign
+	getDefaultCampaign,
 } from '../interfaces/ICampaign';
 import IUser, { getDefaultUser, instanceOfIUser } from '../interfaces/IUser';
 
@@ -35,7 +35,7 @@ export default class DatabaseService {
 					this.context.Config.DbUri,
 					{
 						useNewUrlParser: true,
-						useUnifiedTopology: true
+						useUnifiedTopology: true,
 					}
 				);
 				this.context.Logger.info(
@@ -190,11 +190,11 @@ export default class DatabaseService {
 			// should eventually be put into place.
 			const r = await this.campaigns.replaceOne(
 				{
-					id: campaign.id
+					id: campaign.id,
 				},
 				campaign,
 				{
-					upsert: true
+					upsert: true,
 				}
 			);
 			if (r.modifiedCount + r.upsertedCount > 0) {
@@ -202,8 +202,9 @@ export default class DatabaseService {
 			}
 		} catch (generalError) {
 			this.context.Logger.error(
-				`[ DTBS SVC ] There was a general error with the insert. ${generalError.message ||
-					generalError}`
+				`[ DTBS SVC ] There was a general error with the insert. ${
+					generalError.message || generalError
+				}`
 			);
 		}
 		return false;
@@ -220,6 +221,7 @@ export default class DatabaseService {
 			const raw = await this.maps!.find(query).toArray();
 			const maps: IMap[] = [];
 			for (const map of raw) {
+				delete map._id;
 				if (instanceOfIMap(map)) maps.push(map);
 				else
 					throw new Error(
@@ -244,11 +246,11 @@ export default class DatabaseService {
 			// No checks here since this will overwrite any existing version.
 			const r = await this.maps.replaceOne(
 				{
-					name: map.name
+					id: map.id,
 				},
 				map,
 				{
-					upsert: true
+					upsert: true,
 				}
 			);
 			if (r.matchedCount + r.modifiedCount + r.upsertedCount > 0) {
@@ -256,8 +258,9 @@ export default class DatabaseService {
 			}
 		} catch (generalError) {
 			this.context.Logger.error(
-				`[ DTBS SVC ] There was a general error with the insert. ${generalError.message ||
-					generalError}`
+				`[ DTBS SVC ] There was a general error with the insert. ${
+					generalError.message || generalError
+				}`
 			);
 		}
 		return false;

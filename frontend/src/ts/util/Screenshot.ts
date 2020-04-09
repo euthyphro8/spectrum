@@ -4,6 +4,9 @@ import Screen from '../graphics/Screen';
 
 export default class Screenshot {
 	public static Canvas: HTMLCanvasElement;
+	public static Init(): void {
+		Screenshot.Canvas = document.createElement('canvas');
+	}
 	public static CreateThumbnail(
 		w: number,
 		h: number,

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { instanceOfITile } from '../interfaces/ITile';
 
 export default class TileRegistry {
-	private names: string[];
+	public names: string[];
 	private images: HTMLImageElement[];
 	private loaded: boolean;
 

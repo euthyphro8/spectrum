@@ -90,7 +90,7 @@
 	import { mdiInformation, mdiSwordCross, mdiPlus } from '@mdi/js';
 	import ICampaign from '../ts/interfaces/ICampaign';
 	import axios, { AxiosResponse } from 'axios';
-	import { getDefaultCampaign } from '../../../Backend/src/interfaces/ICampaign';
+	import { getDefaultCampaign } from '../ts/interfaces/ICampaign';
 	import { Store } from 'vuex';
 	import IStore from '../ts/interfaces/IStore';
 	import { v1 as uuidV1 } from 'uuid';

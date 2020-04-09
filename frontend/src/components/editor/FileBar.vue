@@ -9,10 +9,10 @@
 			dense
 			@change="onNameChanged"
 		></v-text-field>
-		<div class="button">New</div>
+		<div class="button" @click="onNew()">New</div>
 		<div class="button" @click="onSave()">Save</div>
-		<div class="button">Duplicate</div>
-		<div class="button">Load</div>
+		<div class="button" @click="onDuplicate()">Duplicate</div>
+		<div class="button" @click="onLoad()">Load</div>
 	</div>
 </template>
 
@@ -25,18 +25,44 @@
 		components: {}
 	})
 	export default class FileBar extends Vue {
-		private mapName: string;
+		private mapName: string = '';
 
 		mounted(): void {
 			const state: IStore = this.$store.state;
 			this.mapName = state.currentMap.name;
 		}
-		onSave(): void {
-			console.log(`Saving map as: ${this.mapName}.`);
-			// this.$store.dispatch('saveMap');
-		}
+
 		onNameChanged(): void {
 			console.log(`Changing name to: ${this.mapName}.`);
+			const state: IStore = this.$store.state;
+			state.currentMap.name = this.mapName;
+			this.$store.dispatch('renameMap');
+		}
+
+		onNew(): void {
+			console.log(`Loading a new map...`);
+			this.$store.dispatch('newMap');
+			this.$router.go(0);
+		}
+
+		onSave(): void {
+			console.log(`Saving map as: ${this.mapName}.`);
+			const state: IStore = this.$store.state;
+			state.currentMap.name = this.mapName;
+			this.$store.dispatch('saveMap');
+		}
+
+		onDuplicate(): void {
+			console.log(`Duplicating map...`);
+			this.$store.dispatch('duplicateMap');
+			this.$store.dispatch('saveMap');
+			const state: IStore = this.$store.state;
+			this.mapName = state.currentMap.name;
+		}
+
+		onLoad(): void {
+			console.log(`Going to loading screen...`);
+			this.$router.push('/campaign');
 		}
 	}
 </script>

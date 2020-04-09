@@ -53,7 +53,7 @@
 	import IStore from '../ts/interfaces/IStore';
 	import { Store } from 'vuex';
 	import { getDefaultMap } from '../ts/interfaces/IMap';
-	import { getDefaultCampaign } from '../../../Backend/src/interfaces/ICampaign';
+	import { getDefaultCampaign } from '../ts/interfaces/ICampaign';
 
 	@Component({
 		components: {
