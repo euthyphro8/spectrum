@@ -89,14 +89,17 @@
 		left: 0;
 		display: flex;
 		flex-direction: row;
+		height: 100%;
 	}
 	.tabs {
 		background-color: #333333;
 		width: 46px;
+		height: 100%;
 	}
 	.content {
 		background-color: #252526;
 		width: 196px;
+		height: 100%;
 	}
 	.hidden {
 		visibility: hidden;

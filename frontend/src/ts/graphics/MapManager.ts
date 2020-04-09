@@ -1,7 +1,6 @@
 //#region [white] Imports
 import Screen from './Screen';
 import Controller from './Controller';
-import { Store } from 'vuex';
 import IStore from '../interfaces/IStore';
 import Map from '../world/Map';
 import Editor from './Editor';
@@ -9,7 +8,7 @@ import Editor from './Editor';
 
 export default class MapManager {
 	//#region [purple] Fields
-	private store: Store<IStore>;
+	private store: IStore;
 	private screen: Screen;
 	private controller: Controller;
 	private editor: Editor;
@@ -17,7 +16,7 @@ export default class MapManager {
 	//#endregion
 
 	//#region [blue] Constructor
-	constructor(store: Store<IStore>) {
+	constructor(store: IStore) {
 		this.store = store;
 		this.controller = new Controller();
 		this.screen = new Screen();
@@ -39,7 +38,7 @@ export default class MapManager {
 	}
 
 	public render(context: CanvasRenderingContext2D) {
-		if (!this.store.state.tiles.hasLoaded()) return;
+		if (!this.store.tiles.hasLoaded()) return;
 		// Begin the render context
 		this.screen.begin(context);
 		// Render all tiles

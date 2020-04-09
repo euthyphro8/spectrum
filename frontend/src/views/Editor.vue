@@ -20,13 +20,10 @@
 </script>
 
 <style scoped>
-	* {
-		overflow: hidden;
-		height: 100%;
+	.editor {
 		width: 100%;
+		height: 100%;
 		margin: 0;
 		padding: 0;
-	}
-	.editor {
 	}
 </style>

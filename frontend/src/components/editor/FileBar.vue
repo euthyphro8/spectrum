@@ -1,23 +1,42 @@
 <template>
 	<div class="file-bar">
 		<div class="title">- FILE -</div>
+		<v-text-field
+			color="primary"
+			class="mx-2"
+			v-model="mapName"
+			filled
+			dense
+			@change="onNameChanged"
+		></v-text-field>
 		<div class="button">New</div>
 		<div class="button" @click="onSave()">Save</div>
-		<div class="button">Save As</div>
+		<div class="button">Duplicate</div>
 		<div class="button">Load</div>
 	</div>
 </template>
 
 <script lang="ts">
 	import { Component, Vue } from 'vue-property-decorator';
+	import IStore from '../../ts/interfaces/IStore';
 
 	@Component({
 		name: 'FileBar',
 		components: {}
 	})
 	export default class FileBar extends Vue {
+		private mapName: string;
+
+		mounted(): void {
+			const state: IStore = this.$store.state;
+			this.mapName = state.currentMap.name;
+		}
 		onSave(): void {
-			this.$store.dispatch('saveMap');
+			console.log(`Saving map as: ${this.mapName}.`);
+			// this.$store.dispatch('saveMap');
+		}
+		onNameChanged(): void {
+			console.log(`Changing name to: ${this.mapName}.`);
 		}
 	}
 </script>

@@ -1,20 +1,17 @@
-import Vector2 from '../interfaces/Vector2';
 import Tile from '../graphics/Tile';
 import Screen from '../graphics/Screen';
-import IMap, { coordToTileId, updateTileId } from '../interfaces/IMap';
-import TileRegistry from '../util/TileRegistry';
+import { coordToTileId, updateTileId } from '../interfaces/IMap';
 import IStore from '../interfaces/IStore';
-import { Store } from 'vuex';
 export default class Map {
-	private store: Store<IStore>;
+	private store: IStore;
 	private tiles: Tile[];
 	private width: number;
 	private height: number;
 
-	constructor(store: Store<IStore>) {
+	constructor(store: IStore) {
 		this.store = store;
-		let registry = store.state.tiles;
-		let map = store.state.currentMap;
+		let registry = store.tiles;
+		let map = store.currentMap;
 		this.width = map.width;
 		this.height = map.height;
 		this.tiles = new Array<Tile>(this.width * this.height);
@@ -48,7 +45,7 @@ export default class Map {
 		if (tile) {
 			tile.id = id;
 			tile.sprite = sprite;
-			updateTileId(this.store.state.currentMap, xi, yi, id);
+			updateTileId(this.store.currentMap, xi, yi, id);
 		}
 	}
 

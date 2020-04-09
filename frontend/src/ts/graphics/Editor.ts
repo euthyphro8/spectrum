@@ -1,6 +1,5 @@
 import Controller from './Controller';
 import Tile from './Tile';
-import { Store } from 'vuex';
 import Vector2 from '../interfaces/Vector2';
 import IStore from '../interfaces/IStore';
 import Screen from './Screen';
@@ -8,10 +7,10 @@ import Map from '../world/Map';
 
 export default class Editor {
 	private lastTileEdited?: Tile;
-	private store: Store<IStore>;
+	private store: IStore;
 	private cursorLocation: Vector2;
 
-	constructor(store: Store<IStore>) {
+	constructor(store: IStore) {
 		this.store = store;
 		this.cursorLocation = new Vector2();
 	}
@@ -28,16 +27,14 @@ export default class Editor {
 				this.cursorLocation.y
 			);
 			// Checks if the tile exists and something in the palette is selected
-			if (tile && this.store.state.selected) {
+			if (tile && this.store.selected) {
 				if (this.lastTileEdited !== tile) {
 					// Updates the map with the selected palette tile
 					map.updateTile(
 						this.cursorLocation.x,
 						this.cursorLocation.y,
-						this.store.state.selected,
-						this.store.state.tiles.getImage(
-							this.store.state.selected
-						)
+						this.store.selected,
+						this.store.tiles.getImage(this.store.selected)
 					);
 					this.lastTileEdited = tile;
 				}

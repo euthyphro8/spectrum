@@ -1,6 +1,6 @@
 <template>
 	<div class="root">
-		<canvas ref="map-canvas"></canvas>
+		<canvas class="screen" ref="map-canvas"></canvas>
 	</div>
 </template>
 
@@ -28,7 +28,7 @@
 			window.addEventListener('resize', this.onResize.bind(this), {
 				passive: true
 			});
-			this.map = new MapManager(this.$store);
+			this.map = new MapManager(this.$store.state);
 
 			this.lastTime = Date.now();
 			this.requestId = requestAnimationFrame(this.tick.bind(this));
@@ -75,5 +75,17 @@
 <style scoped>
 	.root {
 		background-color: #1e1e1e;
+		overflow: hidden;
+		height: 100%;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+	}
+	.screen {
+		overflow: hidden;
+		height: 100%;
+		width: 100%;
+		margin: 0;
+		padding: 0;
 	}
 </style>

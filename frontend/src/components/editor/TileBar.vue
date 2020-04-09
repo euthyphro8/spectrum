@@ -7,6 +7,7 @@
 				:key="id"
 			>
 				<img
+					class="icon"
 					:src="tiles().getImage(id).src"
 					:alt="tiles().getName(id)"
 					@click="onClick(id)"
@@ -45,11 +46,13 @@
 	.scrollable::-webkit-scrollbar-track {
 		-webkit-box-shadow: inset 0 0 6px rgb(0, 0, 0.3);
 		background-color: #f5f5f5;
+		height: 100%;
 	}
 
 	.scrollable::-webkit-scrollbar {
 		width: 10px;
 		background-color: #f5f5f5;
+		height: 100%;
 	}
 
 	.scrollable::-webkit-scrollbar-thumb {
@@ -71,5 +74,9 @@
 	}
 	.tile:hover {
 		background-color: #e4f03d;
+	}
+	.icon {
+		height: 100%;
+		width: 100%;
 	}
 </style>
