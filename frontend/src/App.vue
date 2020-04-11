@@ -1,5 +1,5 @@
 <template>
-	<v-app id="app">
+	<v-app id="spectrum" class="overflow-hidden">
 		<router-view />
 		<div id="version">Alpha</div>
 	</v-app>
@@ -16,7 +16,7 @@
 </script>
 
 <style>
-	#app {
+	#spectrum {
 		font-family: 'Montserrat', sans-serif;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;

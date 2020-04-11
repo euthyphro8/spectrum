@@ -41,6 +41,8 @@
 	.dialogue-background {
 		background-color: #111111bb;
 		position: absolute;
+		height: 100%;
+		width: 100%;
 	}
 	.dialogue-background:hover {
 		background-color: #111111bb !important;

@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-	import { Component, Vue } from 'vue-property-decorator';
+	import { Component, Vue, Prop } from 'vue-property-decorator';
 	import MapManager from '../ts/graphics/MapManager';
 	import IStore from '../ts/interfaces/IStore';
 
@@ -14,6 +14,8 @@
 		components: {}
 	})
 	export default class MapCanvas extends Vue {
+		@Prop({ default: false })
+		private editable!: boolean;
 		private map!: MapManager;
 		private context!: CanvasRenderingContext2D;
 		private requestId!: number;
@@ -28,7 +30,7 @@
 			window.addEventListener('resize', this.onResize.bind(this), {
 				passive: true
 			});
-			this.map = new MapManager(this.$store.state);
+			this.map = new MapManager(this.$store.state, this.editable);
 
 			this.lastTime = Date.now();
 			this.requestId = requestAnimationFrame(this.tick.bind(this));
@@ -36,7 +38,6 @@
 		}
 
 		private tick(time: number): void {
-			// console.log('tick');
 			const dt = time - this.lastTime;
 			this.map.update(dt);
 			this.lastTime = time;

@@ -1,26 +1,17 @@
-//#region [white] Imports
 import Tile from './Tile';
 import Camera from './Camera';
 import Vector2 from '../interfaces/Vector2';
-//#endregion
 
 export default class Screen {
-	//#region [red] Constants
 	public static readonly TILE_SIZE = 64;
-	//#endregion
 
-	//#region [purple] Fields
 	public camera: Camera;
 	private context?: CanvasRenderingContext2D;
-	//#endregion
 
-	//#region [blue] Constructor
 	constructor() {
 		this.camera = new Camera();
 	}
-	//#endregion
 
-	//#region [green] Public
 	public begin(context: CanvasRenderingContext2D): void {
 		this.context = context;
 		this.context.clearRect(
@@ -92,8 +83,4 @@ export default class Screen {
 			.add(this.camera.x, this.camera.y)
 			.multiply(this.camera.s);
 	}
-	//#endregion
-
-	//#region [yellow] Private
-	//#endregion
 }

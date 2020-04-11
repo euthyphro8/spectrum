@@ -50,42 +50,42 @@
 </script>
 
 <style scoped>
-	* {
-		overflow: hidden;
-		height: 100%;
-		width: 100%;
-		margin: 0;
-		padding: 0;
-	}
 	.home {
 		background-color: #1e1e1e;
 		display: flex;
 		flex-direction: row;
+		overflow: hidden;
+		height: 100%;
+		width: 100%;
 	}
 	.master-selection {
 		background-color: #222222;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		height: 100%;
+		width: 100%;
 	}
 	.player-selection {
 		background-color: #333333;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		height: 100%;
+		width: 100%;
 	}
 	.spectator-selection {
 		background-color: #444444;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		height: 100%;
+		width: 100%;
 	}
 	.home > div:hover {
 		background-color: #777777;
 	}
 	h1 {
-		height: auto;
-		width: auto;
 		color: #cccccc;
 		letter-spacing: 0.2em;
 		text-transform: uppercase;

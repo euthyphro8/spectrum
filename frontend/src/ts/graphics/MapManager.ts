@@ -1,32 +1,28 @@
-//#region [white] Imports
 import Screen from './Screen';
 import Controller from './Controller';
 import IStore from '../interfaces/IStore';
 import Map from '../world/Map';
 import Editor from './Editor';
-//#endregion
+import Viewer from './Viewer';
 
 export default class MapManager {
-	//#region [purple] Fields
 	private store: IStore;
 	private screen: Screen;
 	private controller: Controller;
-	private editor: Editor;
+	private mutator: Editor | Viewer;
 	private map: Map;
-	//#endregion
 
-	//#region [blue] Constructor
-	constructor(store: IStore) {
+	constructor(store: IStore, editable: boolean) {
 		this.store = store;
 		this.controller = new Controller();
 		this.screen = new Screen();
 		this.map = new Map(this.store);
-		this.editor = new Editor(this.store);
+		this.mutator = editable
+			? new Editor(this.store)
+			: new Viewer(this.store);
 		this.controller.registerEvents();
 	}
-	//#endregion
 
-	//#region [green] Public
 	public setFocus(hasFocus: boolean): void {
 		this.controller.setFocus(hasFocus);
 	}
@@ -34,7 +30,7 @@ export default class MapManager {
 	public update(dt: number) {
 		// console.log('update');
 		this.controller.update(dt, this.screen.camera);
-		this.editor.update(this.screen, this.controller, this.map);
+		this.mutator.update(this.screen, this.controller, this.map);
 	}
 
 	public render(context: CanvasRenderingContext2D) {
@@ -43,11 +39,10 @@ export default class MapManager {
 		this.screen.begin(context);
 		// Render all tiles
 		this.map.render(this.screen);
-		this.editor.render(this.screen);
+		this.mutator.render(this.screen);
 		// Close the canvas context
 		this.screen.end();
 	}
 
 	public close() {}
-	//#endregion
 }

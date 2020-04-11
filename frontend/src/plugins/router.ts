@@ -3,13 +3,13 @@ import Router from 'vue-router';
 
 import Home from '@/views/Home.vue';
 import About from '@/views/About.vue';
-import Master from '@/views/Master.vue';
 import Player from '@/views/Player.vue';
 import Spectator from '@/views/Spectator.vue';
-import Editor from '@/views/Editor.vue';
 import Campaign from '@/views/Campaign.vue';
 import Selection from '@/views/Selection.vue';
 import Session from '@/views/Session.vue';
+import Editor from '@/views/Editor.vue';
+import Viewer from '@/views/Viewer.vue';
 
 Vue.use(Router);
 
@@ -41,11 +41,6 @@ export default new Router({
 			component: Session
 		},
 		{
-			path: '/master',
-			name: 'master',
-			component: Master
-		},
-		{
 			path: '/player',
 			name: 'player',
 			component: Player
@@ -59,6 +54,11 @@ export default new Router({
 			path: '/editor',
 			name: 'editor',
 			component: Editor
+		},
+		{
+			path: '/viewer',
+			name: 'viewer',
+			component: Viewer
 		}
 	]
 });

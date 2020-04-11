@@ -23,6 +23,8 @@
 	import FileBar from './FileBar.vue';
 	import TileBar from './TileBar.vue';
 	import AssetBar from './AssetBar.vue';
+	import EntityBar from './EntityBar.vue';
+	import SessionBar from './SessionBar.vue';
 	@Component({
 		name: 'TabBar',
 		components: {
@@ -55,10 +57,16 @@
 					component: AssetBar
 				},
 				{
-					name: 'Forum',
+					name: 'Entities',
 					active: false,
-					image: 'C',
-					component: AssetBar
+					image: 'E',
+					component: EntityBar
+				},
+				{
+					name: 'Sessions',
+					active: false,
+					image: 'S',
+					component: SessionBar
 				}
 			];
 		}

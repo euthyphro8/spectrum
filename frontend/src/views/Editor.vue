@@ -1,6 +1,6 @@
 <template>
 	<div class="editor">
-		<MapCanvas />
+		<MapCanvas :editable="true" />
 		<TabBar />
 	</div>
 </template>
@@ -21,6 +21,7 @@
 
 <style scoped>
 	.editor {
+		overflow: hidden;
 		width: 100%;
 		height: 100%;
 		margin: 0;
