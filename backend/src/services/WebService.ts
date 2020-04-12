@@ -17,6 +17,9 @@ export default class WebService {
 		this.app.use(bodyParser.json());
 		this.app.use(bodyParser.urlencoded({ extended: true }));
 
+		this.app.get('/createSession', this.onCreateSession.bind(this));
+		this.app.get('/joinSession', this.onJoinSession.bind(this));
+
 		this.app.get('/requestCampaigns', this.onCampaignsRequest.bind(this));
 		this.app.post('/createCampaign', this.onCampaignCreation.bind(this));
 
@@ -29,6 +32,10 @@ export default class WebService {
 
 		this.app.post('/webhook', this.onWebhookPayload.bind(this));
 	}
+
+	private onCreateSession(req: Request, res: Response): void {}
+
+	private onJoinSession(req: Request, res: Response): void {}
 
 	private onCampaignsRequest(req: Request, res: Response): void {
 		let user = req.query.user as string;

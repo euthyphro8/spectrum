@@ -87,6 +87,7 @@ export default class DatabaseService {
 			const raw = await this.tiles!.find({}).toArray();
 			const tiles: ITile[] = [];
 			for (const tile of raw) {
+				delete tile._id;
 				if (instanceOfITile(tile)) tiles.push(tile);
 				else
 					throw new Error(
@@ -111,6 +112,10 @@ export default class DatabaseService {
 			const raw = await this.templates!.find({}).toArray();
 			const templates: IMap[] = [];
 			for (const template of raw) {
+				this.context.Logger.debug(
+					`[ DTBS SVC ] RAW: ${JSON.stringify(template)}`
+				);
+				delete template._id;
 				if (instanceOfIMap(template)) templates.push(template);
 				else
 					throw new Error(
@@ -135,6 +140,7 @@ export default class DatabaseService {
 			const raw = await this.users!.find({}).toArray();
 			const users: IUser[] = [];
 			for (const user of raw) {
+				delete user._id;
 				if (instanceOfIUser(user)) users.push(user);
 				else
 					throw new Error(
@@ -162,6 +168,7 @@ export default class DatabaseService {
 			const raw = await this.campaigns!.find(query).toArray();
 			const campaigns: ICampaign[] = [];
 			for (const campaign of raw) {
+				delete campaign._id;
 				if (instanceOfICampaign(campaign)) campaigns.push(campaign);
 				else
 					throw new Error(
