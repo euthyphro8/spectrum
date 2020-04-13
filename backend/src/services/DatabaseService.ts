@@ -8,6 +8,7 @@ import ICampaign, {
 	getDefaultCampaign,
 } from '../interfaces/ICampaign';
 import IUser, { getDefaultUser, instanceOfIUser } from '../interfaces/IUser';
+import { DefaultAssetRegistry } from '../assets/DefaultAssetRegistry';
 
 export default class DatabaseService {
 	private context: Context;
@@ -20,6 +21,7 @@ export default class DatabaseService {
 	private campaigns!: Collection;
 	private maps!: Collection;
 	private users!: Collection;
+	private assets!: Collection;
 
 	constructor(context: Context) {
 		this.context = context;
@@ -45,6 +47,7 @@ export default class DatabaseService {
 				this.context.Logger.info(`[ DTBS SVC ] Got database instance.`);
 
 				this.tiles = this.database.collection('tiles');
+				this.assets = this.database.collection('assets');
 				this.templates = this.database.collection('templates');
 				this.maps = this.database.collection('maps');
 				this.campaigns = this.database.collection('campaigns');
@@ -65,6 +68,10 @@ export default class DatabaseService {
 		// Add defaults if none exist
 		var tiles = await this.getAllTiles();
 		if (tiles.length <= 0) this.tiles.insertMany(DefaultTileRegistry.tiles);
+
+		var assets = await this.getAllAssets();
+		if (assets.length <= 0)
+			this.assets.insertMany(DefaultAssetRegistry.tiles);
 
 		var temps = await this.getAllTemplates();
 		if (temps.length <= 0) this.templates.insertOne(getDefaultMap());
@@ -97,7 +104,31 @@ export default class DatabaseService {
 			return tiles;
 		} catch (generalError) {
 			this.context.Logger.error(
-				`[ DTBS SVC ] There was a general error with getting templates. 
+				`[ DTBS SVC ] There was a general error with getting tiles. 
+                    ${generalError.message || generalError}`
+			);
+			throw generalError;
+		}
+	}
+	/**
+	 * Gets all the tiles from the assets database.
+	 */
+	public async getAllAssets(): Promise<ITile[]> {
+		try {
+			const raw = await this.assets!.find({}).toArray();
+			const tiles: ITile[] = [];
+			for (const tile of raw) {
+				delete tile._id;
+				if (instanceOfITile(tile)) tiles.push(tile);
+				else
+					throw new Error(
+						`[ DTBS SVC ] Got non-tile back from assets database.`
+					);
+			}
+			return tiles;
+		} catch (generalError) {
+			this.context.Logger.error(
+				`[ DTBS SVC ] There was a general error with getting assets. 
                     ${generalError.message || generalError}`
 			);
 			throw generalError;
@@ -112,9 +143,6 @@ export default class DatabaseService {
 			const raw = await this.templates!.find({}).toArray();
 			const templates: IMap[] = [];
 			for (const template of raw) {
-				this.context.Logger.debug(
-					`[ DTBS SVC ] RAW: ${JSON.stringify(template)}`
-				);
 				delete template._id;
 				if (instanceOfIMap(template)) templates.push(template);
 				else
@@ -150,7 +178,7 @@ export default class DatabaseService {
 			return users;
 		} catch (generalError) {
 			this.context.Logger.error(
-				`[ DTBS SVC ] There was a general error with getting campaigns. 
+				`[ DTBS SVC ] There was a general error with getting users. 
                     ${generalError.message || generalError}`
 			);
 			throw generalError;
@@ -209,7 +237,7 @@ export default class DatabaseService {
 			}
 		} catch (generalError) {
 			this.context.Logger.error(
-				`[ DTBS SVC ] There was a general error with the insert. ${
+				`[ DTBS SVC ] There was a general error with the campaign insert. ${
 					generalError.message || generalError
 				}`
 			);
@@ -265,7 +293,7 @@ export default class DatabaseService {
 			}
 		} catch (generalError) {
 			this.context.Logger.error(
-				`[ DTBS SVC ] There was a general error with the insert. ${
+				`[ DTBS SVC ] There was a general error with the map insert. ${
 					generalError.message || generalError
 				}`
 			);

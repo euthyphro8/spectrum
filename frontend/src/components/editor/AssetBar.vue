@@ -2,19 +2,19 @@
 	<div class="scrollable">
 		<div class="asset-bar">
 			<div class="title">- ASSET -</div>
-			<!-- <div
+			<div
 				class="asset"
 				:class="{ highlighted: selectedIndex === id }"
-				v-for="id in Array.from(tiles().names.keys())"
+				v-for="id in Array.from(assets().names.keys())"
 				:key="id"
 			>
 				<img
 					class="icon"
-					:src="tiles().getImage(id).src"
-					:alt="tiles().getName(id)"
+					:src="assets().getImage(id).src"
+					:alt="assets().getName(id)"
 					@click="onClick(id)"
 				/>
-			</div> -->
+			</div>
 		</div>
 	</div>
 </template>
@@ -31,15 +31,15 @@
 	export default class AssetBar extends Vue {
 		private selectedIndex: number = -1;
 
-		tiles(): TileRegistry {
+		assets(): TileRegistry {
 			return this.$store.state.assets;
 		}
 
 		onClick(tileId: number): void {
 			const store: IStore = this.$store.state;
-			store.selected = tileId;
+			store.selectedAsset = tileId;
 			this.selectedIndex = tileId;
-			console.log(`Selecting tile ${tileId}`);
+			console.log(`Selecting asset ${tileId}`);
 		}
 	}
 </script>
@@ -65,20 +65,20 @@
 		background-color: #1e1e1e;
 		border: 2px solid #2d2d2d;
 	}
-	.tile-bar {
+	.asset-bar {
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
 		align-items: center;
 		height: auto;
 	}
-	.tile {
+	.asset {
 		background-color: #2c2c2c;
 		height: 128px;
 		padding: 6px 6px;
 		width: 128px;
 	}
-	.tile:hover {
+	.asset:hover {
 		background-color: #e4f03d;
 	}
 	.icon {

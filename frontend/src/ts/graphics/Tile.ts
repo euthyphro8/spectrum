@@ -1,5 +1,5 @@
 interface Tile {
-	sprite: HTMLImageElement;
+	sprite?: HTMLImageElement;
 	id: number;
 	x: number;
 	y: number;

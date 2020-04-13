@@ -10,8 +10,10 @@ import { getDefaultUser } from '@/ts/interfaces/IUser';
 import { v1 as uuidV1 } from 'uuid';
 
 Vue.use(Vuex);
-let registry = new TileRegistry();
-registry.init();
+let tileRegistry = new TileRegistry();
+let assetRegistry = new TileRegistry();
+tileRegistry.init('/requestTiles');
+assetRegistry.init('/requestAssets');
 Screenshot.Init();
 
 export default new Store<IStore>({
@@ -20,15 +22,15 @@ export default new Store<IStore>({
 		currentMap: getDefaultMap(),
 		currentCampaign: getDefaultCampaign(),
 		currentUser: getDefaultUser(),
-		tiles: registry,
-		selected: 0
+		tiles: tileRegistry,
+		assets: assetRegistry,
+		selectedTile: 0,
+		editingTiles: false,
+		selectedAsset: 0,
+		editingAssets: false
 	},
 	mutations: {},
 	actions: {
-		// loadCampaign(context, campaign: ICampaign) {
-		// 	console.log(`[ Store ] Loading campaign ${campaign.name}.`);
-		// 	context.state.currentCampaign = campaign;
-		// },
 		renameMap(context) {
 			const store: IStore = context.state;
 			const map = store.currentMap;

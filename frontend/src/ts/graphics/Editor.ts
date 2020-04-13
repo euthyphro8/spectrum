@@ -6,6 +6,7 @@ import Screen from './Screen';
 import Map from '../world/Map';
 
 export default class Editor {
+	private lastAssetEdited?: Tile;
 	private lastTileEdited?: Tile;
 	private store: IStore;
 	private cursorLocation: Vector2;
@@ -21,25 +22,48 @@ export default class Editor {
 		screen.screenToIndexSpace(this.cursorLocation);
 
 		if (controller.getClick()) {
-			// Gets the current tile being hovered over from the map
-			let tile = map.getTile(
-				this.cursorLocation.x,
-				this.cursorLocation.y
-			);
-			// Checks if the tile exists and something in the palette is selected
-			if (tile && this.store.selected) {
-				if (this.lastTileEdited !== tile) {
-					// Updates the map with the selected palette tile
-					map.updateTile(
-						this.cursorLocation.x,
-						this.cursorLocation.y,
-						this.store.selected,
-						this.store.tiles.getImage(this.store.selected)
-					);
-					this.lastTileEdited = tile;
+			// Editing assets
+			if (this.store.editingAssets) {
+				// Gets the current tile being hovered over from the map
+				let asset = map.getAsset(
+					this.cursorLocation.x,
+					this.cursorLocation.y
+				);
+				// Checks if the tile exists and something in the palette is selected
+				if (asset) {
+					if (this.lastAssetEdited !== asset) {
+						asset.sprite =
+							this.store.selectedAsset > 0
+								? this.store.assets.getImage(
+										this.store.selectedAsset
+								  )
+								: undefined;
+						this.lastAssetEdited = asset;
+					}
+				}
+			}
+			// Editing tiles
+			else if (this.store.editingTiles) {
+				// Gets the current tile being hovered over from the map
+				let tile = map.getTile(
+					this.cursorLocation.x,
+					this.cursorLocation.y
+				);
+				// Checks if the tile exists and something in the palette is selected
+				if (tile) {
+					if (this.lastTileEdited !== tile) {
+						tile.sprite =
+							this.store.selectedTile > 0
+								? this.store.tiles.getImage(
+										this.store.selectedTile
+								  )
+								: undefined;
+						this.lastTileEdited = tile;
+					}
 				}
 			}
 		} else {
+			this.lastAssetEdited = undefined;
 			this.lastTileEdited = undefined;
 		}
 

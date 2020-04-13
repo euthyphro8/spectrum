@@ -29,6 +29,7 @@ export default class WebService {
 		this.app.post('/saveMap', this.onSaveMap.bind(this));
 
 		this.app.get('/requestTiles', this.onTilesRequest.bind(this));
+		this.app.get('/requestAssets', this.onAssetsRequest.bind(this));
 
 		this.app.post('/webhook', this.onWebhookPayload.bind(this));
 	}
@@ -128,6 +129,16 @@ export default class WebService {
 		this.context.Db.getAllTiles()
 			.then((tiles) => {
 				this.context.Logger.info(`[ WEB SVC  ] Sending tiles back.`);
+				res.status(200).send({ tiles });
+			})
+			.catch(() => res.sendStatus(500));
+	}
+
+	private onAssetsRequest(req: Request, res: Response): void {
+		this.context.Logger.info(`[ WEB SVC  ] Got assets request.`);
+		this.context.Db.getAllAssets()
+			.then((tiles) => {
+				this.context.Logger.info(`[ WEB SVC  ] Sending assets back.`);
 				res.status(200).send({ tiles });
 			})
 			.catch(() => res.sendStatus(500));

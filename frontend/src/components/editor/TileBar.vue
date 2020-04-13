@@ -29,7 +29,7 @@
 		components: {}
 	})
 	export default class TileBar extends Vue {
-		private selectedIndex: number = -1;
+		private selectedIndex: number = 0;
 
 		tiles(): TileRegistry {
 			return this.$store.state.tiles;
@@ -37,7 +37,7 @@
 
 		onClick(tileId: number): void {
 			const store: IStore = this.$store.state;
-			store.selected = tileId;
+			store.selectedTile = tileId;
 			this.selectedIndex = tileId;
 			console.log(`Selecting tile ${tileId}`);
 		}

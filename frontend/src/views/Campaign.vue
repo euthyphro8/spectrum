@@ -110,11 +110,6 @@
 		private async requestTemplates(): Promise<void> {
 			try {
 				let res = await axios.get('/requestTemplates');
-				console.log(
-					`[ Campaign ] Got request templates. ${JSON.stringify(
-						res.data
-					)}`
-				);
 				if (res.data && res.data.templates) {
 					this.templates = res.data.templates;
 				}

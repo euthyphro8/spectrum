@@ -31,13 +31,15 @@ export default class Screen {
 	}
 	public renderTile(tile: Tile): void {
 		if (this.context) {
-			this.context.drawImage(
-				tile.sprite,
-				(tile.x * Screen.TILE_SIZE + this.camera.x) * this.camera.s,
-				(tile.y * Screen.TILE_SIZE + this.camera.y) * this.camera.s,
-				Screen.TILE_SIZE * this.camera.s,
-				Screen.TILE_SIZE * this.camera.s
-			);
+			if (tile.sprite) {
+				this.context.drawImage(
+					tile.sprite,
+					(tile.x * Screen.TILE_SIZE + this.camera.x) * this.camera.s,
+					(tile.y * Screen.TILE_SIZE + this.camera.y) * this.camera.s,
+					Screen.TILE_SIZE * this.camera.s,
+					Screen.TILE_SIZE * this.camera.s
+				);
+			}
 		} else {
 			console.log('[ Screen ] Begin has not been called yet this frame.');
 		}

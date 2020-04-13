@@ -25,8 +25,9 @@
 	import AssetBar from './AssetBar.vue';
 	import EntityBar from './EntityBar.vue';
 	import SessionBar from './SessionBar.vue';
+	import IStore from '../../ts/interfaces/IStore';
+
 	@Component({
-		name: 'TabBar',
 		components: {
 			Tab
 		}
@@ -84,6 +85,10 @@
 				this.currentTab = tab.component;
 				this.tabActive = true;
 			}
+
+			const store: IStore = this.$store.state;
+			store.editingTiles = this.tabs[1].active; // TileBar is active
+			store.editingAssets = this.tabs[2].active; // AssetBar is active
 		}
 	}
 </script>

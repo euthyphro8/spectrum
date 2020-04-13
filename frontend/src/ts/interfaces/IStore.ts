@@ -9,6 +9,10 @@ interface IStore {
 	currentMap: IMap;
 	currentCampaign: ICampaign;
 	tiles: TileRegistry;
-	selected: number;
+	assets: TileRegistry;
+	editingTiles: boolean;
+	selectedTile: number;
+	editingAssets: boolean;
+	selectedAsset: number;
 }
 export default IStore;

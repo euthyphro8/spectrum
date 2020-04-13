@@ -12,8 +12,8 @@ export default class TileRegistry {
 		this.loaded = false;
 	}
 
-	public async init() {
-		let res = await axios.get('/requestTiles');
+	public async init(requestPath: string) {
+		let res = await axios.get(requestPath);
 		if (res.data.tiles) {
 			for (let tile of res.data.tiles) {
 				if (instanceOfITile(tile)) {
