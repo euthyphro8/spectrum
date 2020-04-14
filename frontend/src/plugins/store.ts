@@ -8,13 +8,20 @@ import axios from 'axios';
 import Screenshot from '@/ts/util/Screenshot';
 import { getDefaultUser } from '@/ts/interfaces/IUser';
 import { v1 as uuidV1 } from 'uuid';
+import ICharacter from '@/ts/interfaces/ICharacter';
 
 Vue.use(Vuex);
-let tileRegistry = new TileRegistry();
+
 let assetRegistry = new TileRegistry();
-tileRegistry.init('/requestTiles');
-assetRegistry.init('/requestAssets');
-Screenshot.Init();
+let entityRegistry = new TileRegistry();
+let tileRegistry = new TileRegistry();
+
+(async () => {
+	assetRegistry.init('/requestAssets');
+	entityRegistry.init('/requestEntities');
+	tileRegistry.init('/requestTiles');
+	Screenshot.Init();
+})();
 
 export default new Store<IStore>({
 	state: {
@@ -22,8 +29,9 @@ export default new Store<IStore>({
 		currentMap: getDefaultMap(),
 		currentCampaign: getDefaultCampaign(),
 		currentUser: getDefaultUser(),
-		tiles: tileRegistry,
+		entities: entityRegistry,
 		assets: assetRegistry,
+		tiles: tileRegistry,
 		selectedTile: 0,
 		editingTiles: false,
 		selectedAsset: 0,

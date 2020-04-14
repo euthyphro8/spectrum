@@ -23,7 +23,7 @@
 	import FileBar from './FileBar.vue';
 	import TileBar from './TileBar.vue';
 	import AssetBar from './AssetBar.vue';
-	import EntityBar from './EntityBar.vue';
+	import CharacterBar from './CharacterBar.vue';
 	import SessionBar from './SessionBar.vue';
 	import IStore from '../../ts/interfaces/IStore';
 
@@ -58,10 +58,10 @@
 					component: AssetBar
 				},
 				{
-					name: 'Entities',
+					name: 'Characters',
 					active: false,
-					image: 'E',
-					component: EntityBar
+					image: 'C',
+					component: CharacterBar
 				},
 				{
 					name: 'Sessions',

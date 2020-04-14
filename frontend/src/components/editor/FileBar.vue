@@ -1,16 +1,18 @@
 <template>
 	<div class="file-bar">
 		<div class="title">- FILE -</div>
-		<v-text-field
-			color="primary"
-			class="mx-2"
-			v-model="mapName"
-			filled
-			dense
-			@change="onNameChanged"
-		></v-text-field>
 		<div class="button" @click="onNew()">New</div>
+		<hr class="section" />
+		<div class="container">
+			<v-text-field
+				color="primary"
+				v-model="mapName"
+				filled
+				@change="onNameChanged"
+			/>
+		</div>
 		<div class="button" @click="onSave()">Save</div>
+		<hr class="section" />
 		<div class="button" @click="onDuplicate()">Duplicate</div>
 		<div class="button" @click="onLoad()">Load</div>
 	</div>
@@ -100,5 +102,15 @@
 	.button:hover {
 		background-color: #666666;
 		color: #ffffff;
+	}
+	.container {
+		width: 182px;
+		height: 72px;
+		margin: 4px 2px -6px 2px;
+		padding: 0px;
+	}
+	.section {
+		width: 50%;
+		margin: 32px 0px;
 	}
 </style>

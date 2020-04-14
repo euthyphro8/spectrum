@@ -10,6 +10,7 @@ import Selection from '@/views/Selection.vue';
 import Session from '@/views/Session.vue';
 import Editor from '@/views/Editor.vue';
 import Viewer from '@/views/Viewer.vue';
+import Character from '@/views/Character.vue';
 
 Vue.use(Router);
 
@@ -59,6 +60,11 @@ export default new Router({
 			path: '/viewer',
 			name: 'viewer',
 			component: Viewer
+		},
+		{
+			path: '/character',
+			name: 'character',
+			component: Character
 		}
 	]
 });

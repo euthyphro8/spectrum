@@ -1,10 +1,5 @@
 <template>
 	<v-content>
-		<!-- <v-app-bar color="primary">
-			<span class="title mx-3">Spectrum</span>
-			<v-spacer />
-			<span class="title mx-3">Session</span>
-		</v-app-bar> -->
 		<v-container class="fill-height" fluid>
 			<v-row align="center" justify="center">
 				<v-col cols="12" sm="8" md="4">

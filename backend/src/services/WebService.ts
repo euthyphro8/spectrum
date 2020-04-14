@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import System from '../utils/System';
 import { instanceOfIMap } from '../interfaces/IMap';
 import ICampaign, { instanceOfICampaign } from '../interfaces/ICampaign';
+import { instanceOfICharacter } from '../interfaces/ICharacter';
 
 export default class WebService {
 	private context: Context;
@@ -28,8 +29,12 @@ export default class WebService {
 		this.app.get('/requestMaps', this.onMapsRequest.bind(this));
 		this.app.post('/saveMap', this.onSaveMap.bind(this));
 
-		this.app.get('/requestTiles', this.onTilesRequest.bind(this));
+		this.app.get('/requestCharacters', this.onCharactersRequest.bind(this));
+		this.app.post('/saveCharacter', this.onSaveCharacter.bind(this));
+
 		this.app.get('/requestAssets', this.onAssetsRequest.bind(this));
+		this.app.get('/requestTiles', this.onTilesRequest.bind(this));
+		this.app.get('/requestEntities', this.onEntitiesRequest.bind(this));
 
 		this.app.post('/webhook', this.onWebhookPayload.bind(this));
 	}
@@ -124,21 +129,70 @@ export default class WebService {
 		}
 	}
 
-	private onTilesRequest(req: Request, res: Response): void {
-		this.context.Logger.info(`[ WEB SVC  ] Got tiles request.`);
-		this.context.Db.getAllTiles()
-			.then((tiles) => {
-				this.context.Logger.info(`[ WEB SVC  ] Sending tiles back.`);
-				res.status(200).send({ tiles });
+	//TODO Again, see if character by user or campaign makes more sense.
+	private onCharactersRequest(req: Request, res: Response): void {
+		let campaignId = req.query.campaignId as string;
+		this.context.Logger.info(
+			`[ WEB SVC  ] Got characters request for ${campaignId}.`
+		);
+		this.context.Db.getAllCharacters(campaignId)
+			.then((characters) => {
+				this.context.Logger.info(
+					`[ WEB SVC  ] Sending characters back.`
+				);
+				res.status(200).send({ characters });
 			})
 			.catch(() => res.sendStatus(500));
 	}
 
+	private onSaveCharacter(req: Request, res: Response): void {
+		let character = req.body.character;
+		if (instanceOfICharacter(character)) {
+			this.context.Logger.info(
+				`[ WEB SVC  ] Got add character request for ${character.name}.`
+			);
+			this.context.Db.saveCharacter(character)
+				.then(() => {
+					this.context.Logger.info(
+						`[ WEB SVC  ] Map was successfully saved.`
+					);
+					res.sendStatus(200);
+				})
+				.catch(() => res.sendStatus(500));
+		} else {
+			this.context.Logger.warn(
+				`[ WEB SVC  ] Got malformed character request for ${
+					character ? character.name : 'UNKNOWN'
+				}.`
+			);
+			res.sendStatus(300);
+		}
+	}
 	private onAssetsRequest(req: Request, res: Response): void {
 		this.context.Logger.info(`[ WEB SVC  ] Got assets request.`);
 		this.context.Db.getAllAssets()
 			.then((tiles) => {
 				this.context.Logger.info(`[ WEB SVC  ] Sending assets back.`);
+				res.status(200).send({ tiles });
+			})
+			.catch(() => res.sendStatus(500));
+	}
+
+	private onEntitiesRequest(req: Request, res: Response): void {
+		this.context.Logger.info(`[ WEB SVC  ] Got entities request.`);
+		this.context.Db.getAllEntities()
+			.then((tiles) => {
+				this.context.Logger.info(`[ WEB SVC  ] Sending entities back.`);
+				res.status(200).send({ tiles });
+			})
+			.catch(() => res.sendStatus(500));
+	}
+
+	private onTilesRequest(req: Request, res: Response): void {
+		this.context.Logger.info(`[ WEB SVC  ] Got tiles request.`);
+		this.context.Db.getAllTiles()
+			.then((tiles) => {
+				this.context.Logger.info(`[ WEB SVC  ] Sending tiles back.`);
 				res.status(200).send({ tiles });
 			})
 			.catch(() => res.sendStatus(500));

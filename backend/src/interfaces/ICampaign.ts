@@ -18,6 +18,6 @@ export function getDefaultCampaign(): ICampaign {
 		name: 'Sample Campaign',
 		user: 'f06fa64c-c947-4a4e-9700-2cbcd55b27e3',
 		description: 'This is a sample campaign.',
-		dateModified: new Date(1577862000000) //Wed Jan 01 2020 00:00:00 GMT-0700
+		dateModified: new Date(1577862000000), //Wed Jan 01 2020 00:00:00 GMT-0700
 	};
 }

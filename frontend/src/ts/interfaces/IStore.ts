@@ -8,8 +8,9 @@ interface IStore {
 	currentUser: IUser;
 	currentMap: IMap;
 	currentCampaign: ICampaign;
-	tiles: TileRegistry;
 	assets: TileRegistry;
+	entities: TileRegistry;
+	tiles: TileRegistry;
 	editingTiles: boolean;
 	selectedTile: number;
 	editingAssets: boolean;

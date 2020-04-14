@@ -9,6 +9,8 @@ import ICampaign, {
 } from '../interfaces/ICampaign';
 import IUser, { getDefaultUser, instanceOfIUser } from '../interfaces/IUser';
 import { DefaultAssetRegistry } from '../assets/DefaultAssetRegistry';
+import { DefaultEntityRegistry } from '../assets/DefaultEntityRegistry';
+import ICharacter, { instanceOfICharacter } from '../interfaces/ICharacter';
 
 export default class DatabaseService {
 	private context: Context;
@@ -22,6 +24,8 @@ export default class DatabaseService {
 	private maps!: Collection;
 	private users!: Collection;
 	private assets!: Collection;
+	private characters!: Collection;
+	private entities!: Collection;
 
 	constructor(context: Context) {
 		this.context = context;
@@ -48,6 +52,8 @@ export default class DatabaseService {
 
 				this.tiles = this.database.collection('tiles');
 				this.assets = this.database.collection('assets');
+				this.entities = this.database.collection('entities');
+				this.characters = this.database.collection('characters');
 				this.templates = this.database.collection('templates');
 				this.maps = this.database.collection('maps');
 				this.campaigns = this.database.collection('campaigns');
@@ -72,6 +78,10 @@ export default class DatabaseService {
 		var assets = await this.getAllAssets();
 		if (assets.length <= 0)
 			this.assets.insertMany(DefaultAssetRegistry.tiles);
+
+		var entities = await this.getAllEntities();
+		if (entities.length <= 0)
+			this.entities.insertMany(DefaultEntityRegistry.tiles);
 
 		var temps = await this.getAllTemplates();
 		if (temps.length <= 0) this.templates.insertOne(getDefaultMap());
@@ -133,6 +143,88 @@ export default class DatabaseService {
 			);
 			throw generalError;
 		}
+	}
+	/**
+	 * Gets all the tiles from the entities database.
+	 */
+	public async getAllEntities(): Promise<ITile[]> {
+		try {
+			const raw = await this.entities!.find({}).toArray();
+			const tiles: ITile[] = [];
+			for (const tile of raw) {
+				delete tile._id;
+				if (instanceOfITile(tile)) tiles.push(tile);
+				else
+					throw new Error(
+						`[ DTBS SVC ] Got non-tile back from entities database.`
+					);
+			}
+			return tiles;
+		} catch (generalError) {
+			this.context.Logger.error(
+				`[ DTBS SVC ] There was a general error with getting entities. 
+                    ${generalError.message || generalError}`
+			);
+			throw generalError;
+		}
+	}
+
+	/**
+	 * Gets all the characters associated to the user id given.
+	 * @param campaignId The campaign uuid, can take wildcard to get all characters regardless
+	 * of campaign association.
+	 */
+	public async getAllCharacters(campaignId: string): Promise<ICharacter[]> {
+		try {
+			const query = { campaign: campaignId };
+			const raw = await this.characters!.find(query).toArray();
+			const characters: ICharacter[] = [];
+			for (const character of raw) {
+				delete character._id;
+				if (instanceOfICharacter(character)) characters.push(character);
+				else
+					throw new Error(
+						`[ DTBS SVC ] Got non-character back from characters database.`
+					);
+			}
+			return characters;
+		} catch (generalError) {
+			this.context.Logger.error(
+				`[ DTBS SVC ] There was a general error with getting characters. 
+                    ${generalError.message || generalError}`
+			);
+			throw generalError;
+		}
+	}
+
+	public async saveCharacter(character: ICharacter): Promise<boolean> {
+		try {
+			this.context.Logger.info(
+				`[ DTBS SVC ] Saving character ${JSON.stringify(
+					character.name
+				)}`
+			);
+			// No checks here since this will overwrite any existing version.
+			const r = await this.characters.replaceOne(
+				{
+					id: character.id,
+				},
+				character,
+				{
+					upsert: true,
+				}
+			);
+			if (r.matchedCount + r.modifiedCount + r.upsertedCount > 0) {
+				return true;
+			}
+		} catch (generalError) {
+			this.context.Logger.error(
+				`[ DTBS SVC ] There was a general error with the character insert. ${
+					generalError.message || generalError
+				}`
+			);
+		}
+		return false;
 	}
 
 	/**
@@ -276,7 +368,7 @@ export default class DatabaseService {
 	public async saveMap(map: IMap): Promise<boolean> {
 		try {
 			this.context.Logger.info(
-				`[ DTBS SVC ] Add map for ${JSON.stringify(map.name)}`
+				`[ DTBS SVC ] Savign map ${JSON.stringify(map.name)}`
 			);
 			// No checks here since this will overwrite any existing version.
 			const r = await this.maps.replaceOne(

@@ -29,7 +29,7 @@
 		components: {}
 	})
 	export default class TileBar extends Vue {
-		private selectedIndex: number = 0;
+		private selectedIndex: number = -1;
 
 		tiles(): TileRegistry {
 			return this.$store.state.tiles;
