@@ -21,7 +21,6 @@
 		getDefaultCharacter
 	} from '../../ts/interfaces/ICharacter';
 	import axios from 'axios';
-
 	@Component({
 		components: {}
 	})
@@ -29,53 +28,41 @@
 		private characters: ICharacter[] = [];
 		private selectedCharacter: number = -1;
 		private characterDialog: boolean = true;
-
 		private alphabeticalCharacters(): any[] {
-			return this.characters
-				.sort((a: ICharacter, b: ICharacter) => {
-					return b.name < a.name ? 1 : -1;
-				})
-				.map((c: ICharacter) => {
-					return { text: c.name, value: c.id };
-				});
-		}
-
-		private async mounted(): Promise<void> {
-			this.requestCharacters().catch((error) => {
-				console.log(`[ CharacterBar ] Error:\ ${error}`);
-			});
-		}
-
-		private async requestCharacters(): Promise<void> {
-			const store: IStore = this.$store.state;
-			const campaign = store.currentCampaign;
-			console.log(
-				`[ CharacterBar ] Requesting characters for campaign ${campaign.name}.`
+			return (
+				this.characters
+					// .sort((a: ICharacter, b: ICharacter) => {
+					// 	return b.name < a.name ? 1 : -1;
+					// })
+					.map((c: ICharacter) => {
+						return { text: c.name, value: c.id };
+					})
 			);
-			try {
-				let res = await axios.get('/requestCharacters', {
-					params: {
-						campaignId: campaign.id
-					}
-				});
-				if (res.data && res.data.characters) {
-					this.characters = res.data.characters;
-				}
-			} catch (error) {
-				console.log(
-					`[ CharacterBar ] Error getting characters:\ ${error}`
-				);
-				this.characters = [getDefaultCharacter()];
-			}
 		}
 
-		private onChange(): void {}
+		private mounted(): void {
+			const store: IStore = this.$store.state;
+			store.characters
+				.getCharacters(store.currentCampaign.id)
+				.then((characters) => {
+					this.characters = characters;
+				})
+				.catch((error) => {
+					console.log(`[ CharacterBar ] Error:\ ${error}`);
+					this.characters = [getDefaultCharacter()];
+				});
+		}
+
+		private onChange(value: string): void {
+			console.log(`[ CharacterBar ] Selecting character ${value}.`);
+			const store: IStore = this.$store.state;
+			store.selectedCharacter = value;
+		}
 	}
 </script>
 
 <style scoped>
 	.character-bar {
-		height: 100%;
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;

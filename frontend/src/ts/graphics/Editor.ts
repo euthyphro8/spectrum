@@ -41,9 +41,11 @@ export default class Editor {
 						this.lastAssetEdited = asset;
 					}
 				}
+			} else {
+				this.lastAssetEdited = undefined;
 			}
 			// Editing tiles
-			else if (this.store.editingTiles) {
+			if (this.store.editingTiles) {
 				// Gets the current tile being hovered over from the map
 				let tile = map.getTile(
 					this.cursorLocation.x,
@@ -63,8 +65,9 @@ export default class Editor {
 				}
 			}
 		} else {
-			this.lastAssetEdited = undefined;
 			this.lastTileEdited = undefined;
+		}
+		if (this.store.editingCharacters) {
 		}
 
 		screen.indexToScreenSpace(this.cursorLocation);

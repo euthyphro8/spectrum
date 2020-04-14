@@ -62,6 +62,7 @@
 							:value="characterName"
 							label="Name"
 							:disabled="formDisabled"
+							@change="onNameChange"
 						></v-text-field>
 						<v-select
 							:value="characterImage"
@@ -83,6 +84,7 @@
 							:v-model="characterPlayable"
 							label="Playable?"
 							:disabled="formDisabled"
+							@change="onPlayableChange"
 						></v-checkbox>
 					</form>
 				</v-col>
@@ -143,34 +145,17 @@
 				});
 		}
 
-		private async created(): Promise<void> {
-			this.requestCharacters();
-			this.characterImageSrc = this.$store.state.entities.getImage(
-				this.characterImage
-			).src;
-		}
-
-		private async requestCharacters(): Promise<void> {
+		private mounted(): void {
 			const store: IStore = this.$store.state;
-			const campaign = store.currentCampaign;
-			console.log(
-				`[ CharacterBar ] Requesting characters for campaign ${campaign.name}.`
-			);
-			try {
-				let res = await axios.get('/requestCharacters', {
-					params: {
-						campaign: campaign.id
-					}
+			store.characters
+				.getCharacters(store.currentCampaign.id)
+				.then((characters) => {
+					this.characters = characters;
+				})
+				.catch((error) => {
+					console.log(`[ Character ] Error:\ ${error}`);
+					this.characters = [getDefaultCharacter()];
 				});
-				if (res.data && res.data.characters) {
-					this.characters = res.data.characters;
-				}
-			} catch (error) {
-				console.log(
-					`[ CharacterBar ] Error getting characters:\ ${error}`
-				);
-				this.characters = [getDefaultCharacter()];
-			}
 		}
 
 		private onChange(value: ICharacter): void {
@@ -180,11 +165,20 @@
 			this.characterName = value.name;
 			this.characterImage = value.entityId;
 			this.characterPlayable = value.playable;
+			this.characterImageSrc = this.$store.state.entities.getImage(
+				this.characterImage
+			).src;
 		}
 
 		private onSave(): void {
 			if (!this.formDisabled) {
 				this.loading = true;
+				this.selectedCharacter.name = this.characterName;
+				this.selectedCharacter.entityId = this.characterImage;
+				this.selectedCharacter.playable = this.characterPlayable;
+				console.log(
+					`Saving with ${this.selectedCharacter.name}, ${this.selectedCharacter.entityId}, ${this.selectedCharacter.playable}`
+				);
 				axios
 					.post('/saveCharacter', {
 						character: this.selectedCharacter
@@ -197,7 +191,16 @@
 					})
 					.finally(() => {
 						this.loading = false;
-						this.requestCharacters();
+						const store: IStore = this.$store.state;
+						store.characters
+							.validateCache(store.currentCampaign.id)
+							.then((characters) => {
+								this.characters = characters;
+							})
+							.catch((error) => {
+								console.log(`[ Character ] Error:\ ${error}`);
+								this.characters = [getDefaultCharacter()];
+							});
 					});
 			}
 		}
@@ -221,12 +224,23 @@
 					.catch(() => {
 						// TODO Have an error message.
 						console.error(
-							'[ Character ] Failed to duplicate character!'
+							`[ Character ] Failed to duplicate character!`
 						);
 					})
 					.finally(() => {
 						this.loading = false;
-						this.requestCharacters();
+						const store: IStore = this.$store.state;
+						store.characters
+							.validateCache(store.currentCampaign.id)
+							.then((characters) => {
+								this.characters = characters;
+							})
+							.catch((error) => {
+								console.log(
+									`[ CharacterBar ] Error:\ ${error}`
+								);
+								this.characters = [getDefaultCharacter()];
+							});
 					});
 			}
 		}
@@ -261,12 +275,20 @@
 			// 		this.requestCharacters();
 			// 	});
 		}
-
+		private onNameChange(value: any): void {
+			this.characterName = value;
+			console.log(`value changed ${value}, ${this.characterName}`);
+		}
 		private onImageChange(value: any): void {
-			console.log(`value changed ${value}`);
+			this.characterImage = value;
+			console.log(`value changed ${value}, ${this.characterImage}`);
 			this.characterImageSrc = this.$store.state.entities.getImage(
 				value
 			).src;
+		}
+		private onPlayableChange(value: any): void {
+			this.characterPlayable = value;
+			console.log(`value changed ${value}, ${this.characterPlayable}`);
 		}
 		private toTitleCase(s: string) {
 			return s

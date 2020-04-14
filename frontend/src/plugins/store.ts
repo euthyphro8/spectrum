@@ -9,9 +9,11 @@ import Screenshot from '@/ts/util/Screenshot';
 import { getDefaultUser } from '@/ts/interfaces/IUser';
 import { v1 as uuidV1 } from 'uuid';
 import ICharacter from '@/ts/interfaces/ICharacter';
+import CharacterRegistry from '@/ts/util/CharacterRegistry';
 
 Vue.use(Vuex);
 
+let characterRegistry = new CharacterRegistry();
 let assetRegistry = new TileRegistry();
 let entityRegistry = new TileRegistry();
 let tileRegistry = new TileRegistry();
@@ -29,9 +31,12 @@ export default new Store<IStore>({
 		currentMap: getDefaultMap(),
 		currentCampaign: getDefaultCampaign(),
 		currentUser: getDefaultUser(),
+		characters: characterRegistry,
 		entities: entityRegistry,
 		assets: assetRegistry,
 		tiles: tileRegistry,
+		selectedCharacter: '',
+		editingCharacters: false,
 		selectedTile: 0,
 		editingTiles: false,
 		selectedAsset: 0,

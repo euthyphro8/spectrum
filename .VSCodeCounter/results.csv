@@ -1,104 +1,113 @@
-"filename", "language", "Markdown", "JSON", "JavaScript", "HTML", "Python", "TypeScript", "Shell Script", "CSS", "Vue", "XML", "comment", "blank", "total"
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\package-lock.json", "JSON", 0, 7663, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7664
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\package.json", "JSON", 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 35, 0, 43
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\public\css\app.2c343b9b.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\public\css\chunk-vendors.d984c5f3.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 1, 7
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\public\index.html", "HTML", 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\public\js\app.c8b1249f.js", "JavaScript", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\public\js\chunk-vendors.03084e7b.js", "JavaScript", 0, 0, 1806, 0, 0, 0, 0, 0, 0, 0, 10, 0, 1816
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\public\manifest.json", "JSON", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\public\precache-manifest.a6f674b34daeb4e3d41f5a069c09562b.js", "JavaScript", 0, 0, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\public\service-worker.js", "JavaScript", 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 17, 6, 35
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\scripts\update.sh", "Shell Script", 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1, 4, 8
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\src\assets\DefaultTileRegistry.ts", "TypeScript", 0, 0, 0, 0, 0, 116, 0, 0, 0, 0, 0, 1, 117
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\src\interfaces\ICampaign.ts", "TypeScript", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 3, 24
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\src\interfaces\IMap.ts", "TypeScript", 0, 0, 0, 0, 0, 56, 0, 0, 0, 0, 1, 5, 62
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\src\interfaces\ITile.ts", "TypeScript", 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 2, 11
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\src\interfaces\IUser.ts", "TypeScript", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 3, 24
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\src\main.ts", "TypeScript", 0, 0, 0, 0, 0, 41, 0, 0, 0, 0, 3, 6, 50
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\src\services\ConnectionService.ts", "TypeScript", 0, 0, 0, 0, 0, 42, 0, 0, 0, 0, 2, 8, 52
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\src\services\DatabaseService.ts", "TypeScript", 0, 0, 0, 0, 0, 232, 0, 0, 0, 0, 26, 18, 276
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\src\services\LoggerService.ts", "TypeScript", 0, 0, 0, 0, 0, 153, 0, 0, 0, 0, 5, 17, 175
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\src\services\WebService.ts", "TypeScript", 0, 0, 0, 0, 0, 128, 0, 0, 0, 0, 0, 16, 144
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\src\utils\Configuration.ts", "TypeScript", 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 1, 1, 29
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\src\utils\Context.ts", "TypeScript", 0, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 9, 59
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\src\utils\FileHelper.ts", "TypeScript", 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 17, 2, 29
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\src\utils\MessageTypes.ts", "TypeScript", 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 2, 9
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\src\utils\System.ts", "TypeScript", 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 2, 11
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\Backend\tsconfig.json", "JSON", 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 32
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\LICENSE.md", "Markdown", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\README.md", "Markdown", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\README.md", "Markdown", 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 35
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\babel.config.js", "JavaScript", 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\package-lock.json", "JSON", 0, 15607, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 15608
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\package.json", "JSON", 0, 97, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 98
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\App.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 35, 0, 0, 5, 40
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\assets\logo.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 2
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\components\DialogueBox.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 85, 0, 0, 4, 89
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\components\MapCanvas.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 81, 0, 0, 12, 93
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\components\editor\AssetBar.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 95, 0, 0, 9, 104
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\components\editor\EntityBar.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 60, 0, 0, 7, 67
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\components\editor\FileBar.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 94, 0, 0, 11, 105
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\components\editor\SessionBar.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 52, 0, 0, 6, 58
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\components\editor\Tab.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 39, 0, 0, 3, 42
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\components\editor\TabBar.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 112, 0, 0, 5, 117
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\components\editor\TileBar.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 95, 0, 0, 9, 104
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\components\master\InfoBar.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 54, 0, 1, 3, 58
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\components\master\MapCard.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 45, 0, 0, 3, 48
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\components\master\TemplateCard.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 53, 0, 0, 3, 56
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\main.ts", "TypeScript", 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 1, 3, 16
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\plugins\router.ts", "TypeScript", 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 4, 65
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\plugins\store.ts", "TypeScript", 0, 0, 0, 0, 0, 57, 0, 0, 0, 0, 4, 6, 67
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\plugins\vuetify.ts", "TypeScript", 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 3, 35
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\shims-tsx.d.ts", "TypeScript", 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 2, 2, 14
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\shims-vue.d.ts", "TypeScript", 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1, 5
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\graphics\Camera.ts", "TypeScript", 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 10, 7, 37
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\graphics\Controller.ts", "TypeScript", 0, 0, 0, 0, 0, 160, 0, 0, 0, 0, 20, 17, 197
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\graphics\Editor.ts", "TypeScript", 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 3, 6, 52
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\graphics\MapManager.ts", "TypeScript", 0, 0, 0, 0, 0, 38, 0, 0, 0, 0, 4, 7, 49
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\graphics\Screen.ts", "TypeScript", 0, 0, 0, 0, 0, 72, 0, 0, 0, 0, 4, 11, 87
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\graphics\Tile.ts", "TypeScript", 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 1, 8
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\graphics\Viewer.ts", "TypeScript", 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 1, 6, 32
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\interfaces\ICampaign.ts", "TypeScript", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 3, 24
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\interfaces\IMap.ts", "TypeScript", 0, 0, 0, 0, 0, 56, 0, 0, 0, 0, 1, 5, 62
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\interfaces\IStore.ts", "TypeScript", 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 2, 15
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\interfaces\ITile.ts", "TypeScript", 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 2, 11
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\interfaces\IUser.ts", "TypeScript", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 3, 24
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\interfaces\Vector2.ts", "TypeScript", 0, 0, 0, 0, 0, 44, 0, 0, 0, 0, 0, 8, 52
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\interfaces\ui\ITab.ts", "TypeScript", 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 1, 8
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\util\AssetRegistry.ts", "TypeScript", 0, 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 7, 42
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\util\Screenshot.ts", "TypeScript", 0, 0, 0, 0, 0, 35, 0, 0, 0, 0, 1, 2, 38
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\util\TileRegistry.ts", "TypeScript", 0, 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 7, 42
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\ts\world\Map.ts", "TypeScript", 0, 0, 0, 0, 0, 54, 0, 0, 0, 0, 0, 6, 60
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\views\About.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 1, 6
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\views\Campaign.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 195, 0, 0, 13, 208
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\views\Editor.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 28, 0, 0, 3, 31
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\views\Home.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 6, 96
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\views\Player.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 3, 19
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\views\Selection.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 172, 0, 5, 15, 192
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\views\Session.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 57, 0, 0, 4, 61
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\views\Spectator.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 3, 19
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\src\views\Viewer.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 113, 0, 0, 9, 122
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\tests\unit\example.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 2, 13
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\tsconfig.json", "JSON", 0, 29, 0, 0, 0, 0, 0, 0, 0, 0, 11, 1, 41
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\frontend\vue.config.js", "JavaScript", 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\pages\README.md", "Markdown", 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 25
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\pages\babel.config.js", "JavaScript", 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\pages\package-lock.json", "JSON", 0, 11502, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 11503
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\pages\package.json", "JSON", 0, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 46
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\pages\public\index.html", "HTML", 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 1, 1, 18
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\pages\src\App.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 107, 0, 2, 5, 114
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\pages\src\components\Post.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 68, 0, 0, 1, 69
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\pages\src\main.js", "JavaScript", 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 3, 13
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\pages\src\plugins\printer.js", "JavaScript", 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 0, 3, 20
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\pages\src\plugins\router.js", "JavaScript", 0, 0, 48, 0, 0, 0, 0, 0, 0, 0, 0, 5, 53
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\pages\src\views\About.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 38, 0, 0, 2, 40
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\pages\src\views\Home.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 65, 0, 0, 2, 67
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\pages\src\views\contracts\Contract.v1.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 219, 0, 1, 7, 227
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\pages\src\views\contracts\Contract.v2.vue", "Vue", 0, 0, 0, 0, 0, 0, 0, 0, 291, 0, 1, 9, 301
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\pages\vue.config.js", "JavaScript", 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 2, 10
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\scripts\build.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\scripts\package.py", "Python", 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 6, 6, 21
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\scripts\release.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
-"c:\Users\Josh\Storage\Repos\HTML\Spectrum\scripts\utils.py", "Python", 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 11, 38
-"Total", "-", 50, 34972, 1939, 17, 36, 1804, 3, 4, 2380, 1, 213, 450, 41869
+"filename", "language", "Markdown", "JavaScript", "JSON", "Python", "Vue", "TypeScript", "HTML", "Shell Script", "XML", "CSS", "Sass", "comment", "blank", "total"
+"c:\Storage\Repos\Web\Spectrum\LICENSE.md", "Markdown", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3
+"c:\Storage\Repos\Web\Spectrum\README.md", "Markdown", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4
+"c:\Storage\Repos\Web\Spectrum\backend\package-lock.json", "JSON", 0, 0, 7667, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7668
+"c:\Storage\Repos\Web\Spectrum\backend\package.json", "JSON", 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 37, 0, 45
+"c:\Storage\Repos\Web\Spectrum\backend\public\css\app.df348b63.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1
+"c:\Storage\Repos\Web\Spectrum\backend\public\css\chunk-vendors.d984c5f3.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 1, 7
+"c:\Storage\Repos\Web\Spectrum\backend\public\index.html", "HTML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1
+"c:\Storage\Repos\Web\Spectrum\backend\public\js\app.e0cbcff7.js", "JavaScript", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2
+"c:\Storage\Repos\Web\Spectrum\backend\public\js\chunk-vendors.30d3daf3.js", "JavaScript", 0, 1806, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 1816
+"c:\Storage\Repos\Web\Spectrum\backend\public\manifest.json", "JSON", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Storage\Repos\Web\Spectrum\backend\public\precache-manifest.22153a6990dd6a0adeb1666452f522e6.js", "JavaScript", 0, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26
+"c:\Storage\Repos\Web\Spectrum\backend\public\service-worker.js", "JavaScript", 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 6, 35
+"c:\Storage\Repos\Web\Spectrum\backend\scripts\update.sh", "Shell Script", 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1, 4, 8
+"c:\Storage\Repos\Web\Spectrum\backend\src\assets\DefaultAssetRegistry.ts", "TypeScript", 0, 0, 0, 0, 0, 39, 0, 0, 0, 0, 0, 0, 1, 40
+"c:\Storage\Repos\Web\Spectrum\backend\src\assets\DefaultEntityRegistry.ts", "TypeScript", 0, 0, 0, 0, 0, 109, 0, 0, 0, 0, 0, 0, 1, 110
+"c:\Storage\Repos\Web\Spectrum\backend\src\assets\DefaultTileRegistry.ts", "TypeScript", 0, 0, 0, 0, 0, 116, 0, 0, 0, 0, 0, 0, 1, 117
+"c:\Storage\Repos\Web\Spectrum\backend\src\interfaces\ICampaign.ts", "TypeScript", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 3, 24
+"c:\Storage\Repos\Web\Spectrum\backend\src\interfaces\ICharacter.ts", "TypeScript", 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 3, 28
+"c:\Storage\Repos\Web\Spectrum\backend\src\interfaces\IMap.ts", "TypeScript", 0, 0, 0, 0, 0, 81, 0, 0, 0, 0, 0, 2, 6, 89
+"c:\Storage\Repos\Web\Spectrum\backend\src\interfaces\ISession.ts", "TypeScript", 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 2, 16
+"c:\Storage\Repos\Web\Spectrum\backend\src\interfaces\ITile.ts", "TypeScript", 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 2, 11
+"c:\Storage\Repos\Web\Spectrum\backend\src\interfaces\IUser.ts", "TypeScript", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 3, 24
+"c:\Storage\Repos\Web\Spectrum\backend\src\main.ts", "TypeScript", 0, 0, 0, 0, 0, 41, 0, 0, 0, 0, 0, 3, 6, 50
+"c:\Storage\Repos\Web\Spectrum\backend\src\services\ConnectionService.ts", "TypeScript", 0, 0, 0, 0, 0, 42, 0, 0, 0, 0, 0, 2, 8, 52
+"c:\Storage\Repos\Web\Spectrum\backend\src\services\DatabaseService.ts", "TypeScript", 0, 0, 0, 0, 0, 336, 0, 0, 0, 0, 0, 38, 22, 396
+"c:\Storage\Repos\Web\Spectrum\backend\src\services\LoggerService.ts", "TypeScript", 0, 0, 0, 0, 0, 153, 0, 0, 0, 0, 0, 5, 17, 175
+"c:\Storage\Repos\Web\Spectrum\backend\src\services\SessionService.ts", "TypeScript", 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 5, 37
+"c:\Storage\Repos\Web\Spectrum\backend\src\services\WebService.ts", "TypeScript", 0, 0, 0, 0, 0, 192, 0, 0, 0, 0, 0, 1, 23, 216
+"c:\Storage\Repos\Web\Spectrum\backend\src\utils\Configuration.ts", "TypeScript", 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 1, 1, 29
+"c:\Storage\Repos\Web\Spectrum\backend\src\utils\Context.ts", "TypeScript", 0, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 9, 59
+"c:\Storage\Repos\Web\Spectrum\backend\src\utils\FileHelper.ts", "TypeScript", 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 17, 2, 29
+"c:\Storage\Repos\Web\Spectrum\backend\src\utils\MessageTypes.ts", "TypeScript", 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 2, 9
+"c:\Storage\Repos\Web\Spectrum\backend\src\utils\System.ts", "TypeScript", 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 2, 11
+"c:\Storage\Repos\Web\Spectrum\backend\tsconfig.json", "JSON", 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 32
+"c:\Storage\Repos\Web\Spectrum\frontend\README.md", "Markdown", 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 35
+"c:\Storage\Repos\Web\Spectrum\frontend\babel.config.js", "JavaScript", 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4
+"c:\Storage\Repos\Web\Spectrum\frontend\package-lock.json", "JSON", 0, 0, 15607, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 15608
+"c:\Storage\Repos\Web\Spectrum\frontend\package.json", "JSON", 0, 0, 97, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 98
+"c:\Storage\Repos\Web\Spectrum\frontend\src\App.vue", "Vue", 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 5, 40
+"c:\Storage\Repos\Web\Spectrum\frontend\src\assets\logo.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 2
+"c:\Storage\Repos\Web\Spectrum\frontend\src\components\DialogueBox.vue", "Vue", 0, 0, 0, 0, 85, 0, 0, 0, 0, 0, 0, 0, 4, 89
+"c:\Storage\Repos\Web\Spectrum\frontend\src\components\MapCanvas.vue", "Vue", 0, 0, 0, 0, 81, 0, 0, 0, 0, 0, 0, 0, 12, 93
+"c:\Storage\Repos\Web\Spectrum\frontend\src\components\editor\AssetBar.vue", "Vue", 0, 0, 0, 0, 95, 0, 0, 0, 0, 0, 0, 0, 9, 104
+"c:\Storage\Repos\Web\Spectrum\frontend\src\components\editor\CharacterBar.vue", "Vue", 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 3, 6, 109
+"c:\Storage\Repos\Web\Spectrum\frontend\src\components\editor\FileBar.vue", "Vue", 0, 0, 0, 0, 106, 0, 0, 0, 0, 0, 0, 0, 11, 117
+"c:\Storage\Repos\Web\Spectrum\frontend\src\components\editor\SessionBar.vue", "Vue", 0, 0, 0, 0, 52, 0, 0, 0, 0, 0, 0, 0, 6, 58
+"c:\Storage\Repos\Web\Spectrum\frontend\src\components\editor\Tab.vue", "Vue", 0, 0, 0, 0, 39, 0, 0, 0, 0, 0, 0, 0, 3, 42
+"c:\Storage\Repos\Web\Spectrum\frontend\src\components\editor\TabBar.vue", "Vue", 0, 0, 0, 0, 115, 0, 0, 0, 0, 0, 0, 0, 7, 122
+"c:\Storage\Repos\Web\Spectrum\frontend\src\components\editor\TileBar.vue", "Vue", 0, 0, 0, 0, 95, 0, 0, 0, 0, 0, 0, 0, 9, 104
+"c:\Storage\Repos\Web\Spectrum\frontend\src\components\master\InfoBar.vue", "Vue", 0, 0, 0, 0, 54, 0, 0, 0, 0, 0, 0, 1, 3, 58
+"c:\Storage\Repos\Web\Spectrum\frontend\src\components\master\MapCard.vue", "Vue", 0, 0, 0, 0, 45, 0, 0, 0, 0, 0, 0, 0, 3, 48
+"c:\Storage\Repos\Web\Spectrum\frontend\src\components\master\TemplateCard.vue", "Vue", 0, 0, 0, 0, 53, 0, 0, 0, 0, 0, 0, 0, 3, 56
+"c:\Storage\Repos\Web\Spectrum\frontend\src\main.ts", "TypeScript", 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 1, 3, 16
+"c:\Storage\Repos\Web\Spectrum\frontend\src\plugins\router.ts", "TypeScript", 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 4, 71
+"c:\Storage\Repos\Web\Spectrum\frontend\src\plugins\store.ts", "TypeScript", 0, 0, 0, 0, 0, 74, 0, 0, 0, 0, 0, 0, 8, 82
+"c:\Storage\Repos\Web\Spectrum\frontend\src\plugins\vuetify.ts", "TypeScript", 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 3, 35
+"c:\Storage\Repos\Web\Spectrum\frontend\src\shims-tsx.d.ts", "TypeScript", 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 2, 2, 14
+"c:\Storage\Repos\Web\Spectrum\frontend\src\shims-vue.d.ts", "TypeScript", 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 1, 5
+"c:\Storage\Repos\Web\Spectrum\frontend\src\styles\variables.sass", "Sass", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\graphics\Camera.ts", "TypeScript", 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 10, 7, 37
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\graphics\Controller.ts", "TypeScript", 0, 0, 0, 0, 0, 160, 0, 0, 0, 0, 0, 20, 17, 197
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\graphics\Editor.ts", "TypeScript", 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 6, 6, 79
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\graphics\MapManager.ts", "TypeScript", 0, 0, 0, 0, 0, 38, 0, 0, 0, 0, 0, 4, 7, 49
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\graphics\Screen.ts", "TypeScript", 0, 0, 0, 0, 0, 97, 0, 0, 0, 0, 0, 4, 11, 112
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\graphics\Tile.ts", "TypeScript", 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 1, 8
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\graphics\Viewer.ts", "TypeScript", 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 1, 6, 32
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\interfaces\ICampaign.ts", "TypeScript", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 3, 24
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\interfaces\ICharacter.ts", "TypeScript", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 3, 24
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\interfaces\IMap.ts", "TypeScript", 0, 0, 0, 0, 0, 118, 0, 0, 0, 0, 0, 2, 6, 126
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\interfaces\IStore.ts", "TypeScript", 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 2, 25
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\interfaces\ITile.ts", "TypeScript", 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 2, 11
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\interfaces\IUser.ts", "TypeScript", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 3, 24
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\interfaces\Vector2.ts", "TypeScript", 0, 0, 0, 0, 0, 44, 0, 0, 0, 0, 0, 0, 8, 52
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\interfaces\ui\ITab.ts", "TypeScript", 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 1, 8
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\util\AssetRegistry.ts", "TypeScript", 0, 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 7, 42
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\util\CharacterRegistry.ts", "TypeScript", 0, 0, 0, 0, 0, 51, 0, 0, 0, 0, 0, 0, 6, 57
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\util\Screenshot.ts", "TypeScript", 0, 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 1, 2, 38
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\util\TileRegistry.ts", "TypeScript", 0, 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 7, 42
+"c:\Storage\Repos\Web\Spectrum\frontend\src\ts\world\Map.ts", "TypeScript", 0, 0, 0, 0, 0, 145, 0, 0, 0, 0, 0, 1, 10, 156
+"c:\Storage\Repos\Web\Spectrum\frontend\src\views\About.vue", "Vue", 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 6
+"c:\Storage\Repos\Web\Spectrum\frontend\src\views\Campaign.vue", "Vue", 0, 0, 0, 0, 190, 0, 0, 0, 0, 0, 0, 0, 13, 203
+"c:\Storage\Repos\Web\Spectrum\frontend\src\views\Character.vue", "Vue", 0, 0, 0, 0, 277, 0, 0, 0, 0, 0, 0, 19, 13, 309
+"c:\Storage\Repos\Web\Spectrum\frontend\src\views\Editor.vue", "Vue", 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 3, 31
+"c:\Storage\Repos\Web\Spectrum\frontend\src\views\Home.vue", "Vue", 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 6, 96
+"c:\Storage\Repos\Web\Spectrum\frontend\src\views\Player.vue", "Vue", 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 3, 19
+"c:\Storage\Repos\Web\Spectrum\frontend\src\views\Selection.vue", "Vue", 0, 0, 0, 0, 199, 0, 0, 0, 0, 0, 0, 6, 15, 220
+"c:\Storage\Repos\Web\Spectrum\frontend\src\views\Session.vue", "Vue", 0, 0, 0, 0, 52, 0, 0, 0, 0, 0, 0, 0, 4, 56
+"c:\Storage\Repos\Web\Spectrum\frontend\src\views\Spectator.vue", "Vue", 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 3, 19
+"c:\Storage\Repos\Web\Spectrum\frontend\src\views\Viewer.vue", "Vue", 0, 0, 0, 0, 113, 0, 0, 0, 0, 0, 0, 0, 9, 122
+"c:\Storage\Repos\Web\Spectrum\frontend\tests\unit\example.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 2, 13
+"c:\Storage\Repos\Web\Spectrum\frontend\tsconfig.json", "JSON", 0, 0, 29, 0, 0, 0, 0, 0, 0, 0, 0, 11, 1, 41
+"c:\Storage\Repos\Web\Spectrum\frontend\vue.config.js", "JavaScript", 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3
+"c:\Storage\Repos\Web\Spectrum\pages\README.md", "Markdown", 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 25
+"c:\Storage\Repos\Web\Spectrum\pages\babel.config.js", "JavaScript", 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6
+"c:\Storage\Repos\Web\Spectrum\pages\package-lock.json", "JSON", 0, 0, 11502, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 11503
+"c:\Storage\Repos\Web\Spectrum\pages\package.json", "JSON", 0, 0, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 46
+"c:\Storage\Repos\Web\Spectrum\pages\public\index.html", "HTML", 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 1, 1, 18
+"c:\Storage\Repos\Web\Spectrum\pages\src\App.vue", "Vue", 0, 0, 0, 0, 107, 0, 0, 0, 0, 0, 0, 2, 5, 114
+"c:\Storage\Repos\Web\Spectrum\pages\src\components\Post.vue", "Vue", 0, 0, 0, 0, 68, 0, 0, 0, 0, 0, 0, 0, 1, 69
+"c:\Storage\Repos\Web\Spectrum\pages\src\main.js", "JavaScript", 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 13
+"c:\Storage\Repos\Web\Spectrum\pages\src\plugins\printer.js", "JavaScript", 0, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 20
+"c:\Storage\Repos\Web\Spectrum\pages\src\plugins\router.js", "JavaScript", 0, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 53
+"c:\Storage\Repos\Web\Spectrum\pages\src\views\About.vue", "Vue", 0, 0, 0, 0, 38, 0, 0, 0, 0, 0, 0, 0, 2, 40
+"c:\Storage\Repos\Web\Spectrum\pages\src\views\Home.vue", "Vue", 0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 0, 0, 2, 67
+"c:\Storage\Repos\Web\Spectrum\pages\src\views\contracts\Contract.v1.vue", "Vue", 0, 0, 0, 0, 219, 0, 0, 0, 0, 0, 0, 1, 7, 227
+"c:\Storage\Repos\Web\Spectrum\pages\src\views\contracts\Contract.v2.vue", "Vue", 0, 0, 0, 0, 291, 0, 0, 0, 0, 0, 0, 1, 9, 301
+"c:\Storage\Repos\Web\Spectrum\pages\vue.config.js", "JavaScript", 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 10
+"c:\Storage\Repos\Web\Spectrum\scripts\build.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Storage\Repos\Web\Spectrum\scripts\package.py", "Python", 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 6, 6, 21
+"c:\Storage\Repos\Web\Spectrum\scripts\release.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Storage\Repos\Web\Spectrum\scripts\utils.py", "Python", 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 11, 38
+"Total", "-", 50, 1939, 34976, 36, 2729, 2523, 17, 3, 1, 4, 0, 253, 505, 43036

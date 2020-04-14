@@ -1,55 +1,57 @@
 # Summary
 
-Date : 2020-04-11 19:44:01
+Date : 2020-04-14 17:29:48
 
-Directory c:\Users\Josh\Storage\Repos\HTML\Spectrum
+Directory c:\Storage\Repos\Web\Spectrum
 
-Total : 102 files,  41206 codes, 213 comments, 450 blanks, all 41869 lines
+Total : 111 files,  42278 codes, 253 comments, 505 blanks, all 43036 lines
 
 [details](details.md)
 
 ## Languages
 | language | files | code | comment | blank | total |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| JSON | 9 | 34,972 | 58 | 6 | 35,036 |
-| Vue | 28 | 2,380 | 10 | 163 | 2,553 |
+| JSON | 9 | 34,976 | 60 | 6 | 35,042 |
+| Vue | 29 | 2,729 | 33 | 177 | 2,939 |
+| TypeScript | 47 | 2,523 | 121 | 257 | 2,901 |
 | JavaScript | 11 | 1,939 | 28 | 21 | 1,988 |
-| TypeScript | 40 | 1,804 | 106 | 217 | 2,127 |
 | Markdown | 4 | 50 | 0 | 17 | 67 |
 | Python | 4 | 36 | 6 | 19 | 61 |
 | HTML | 2 | 17 | 1 | 1 | 19 |
 | CSS | 2 | 4 | 3 | 1 | 8 |
 | Shell Script | 1 | 3 | 1 | 4 | 8 |
 | XML | 1 | 1 | 0 | 1 | 2 |
+| Sass | 1 | 0 | 0 | 1 | 1 |
 
 ## Directories
 | path | files | code | comment | blank | total |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| . | 102 | 41,206 | 213 | 450 | 41,869 |
-| Backend | 27 | 10,467 | 134 | 107 | 10,708 |
-| Backend\public | 8 | 1,851 | 31 | 7 | 1,889 |
-| Backend\public\css | 2 | 4 | 3 | 1 | 8 |
-| Backend\public\js | 2 | 1,807 | 11 | 0 | 1,818 |
-| Backend\scripts | 1 | 3 | 1 | 4 | 8 |
-| Backend\src | 15 | 922 | 55 | 95 | 1,072 |
-| Backend\src\assets | 1 | 116 | 0 | 1 | 117 |
-| Backend\src\interfaces | 4 | 107 | 1 | 13 | 121 |
-| Backend\src\services | 4 | 555 | 33 | 59 | 647 |
-| Backend\src\utils | 5 | 103 | 18 | 16 | 137 |
-| frontend | 54 | 18,241 | 68 | 272 | 18,581 |
-| frontend\src | 47 | 2,464 | 57 | 258 | 2,779 |
+| . | 111 | 42,278 | 253 | 505 | 43,036 |
+| backend | 32 | 10,883 | 150 | 131 | 11,164 |
+| backend\public | 8 | 1,851 | 31 | 7 | 1,889 |
+| backend\public\css | 2 | 4 | 3 | 1 | 8 |
+| backend\public\js | 2 | 1,807 | 11 | 0 | 1,818 |
+| backend\scripts | 1 | 3 | 1 | 4 | 8 |
+| backend\src | 20 | 1,334 | 69 | 119 | 1,522 |
+| backend\src\assets | 3 | 264 | 0 | 3 | 267 |
+| backend\src\interfaces | 6 | 171 | 2 | 19 | 192 |
+| backend\src\services | 5 | 755 | 46 | 75 | 876 |
+| backend\src\utils | 5 | 103 | 18 | 16 | 137 |
+| frontend | 58 | 18,897 | 92 | 303 | 19,292 |
+| frontend\src | 51 | 3,120 | 81 | 289 | 3,490 |
 | frontend\src\assets | 1 | 1 | 0 | 1 | 2 |
-| frontend\src\components | 12 | 865 | 1 | 75 | 941 |
-| frontend\src\components\editor | 7 | 547 | 0 | 50 | 597 |
+| frontend\src\components | 12 | 920 | 4 | 76 | 1,000 |
+| frontend\src\components\editor | 7 | 602 | 3 | 51 | 656 |
 | frontend\src\components\master | 3 | 152 | 1 | 9 | 162 |
-| frontend\src\plugins | 3 | 150 | 4 | 13 | 167 |
-| frontend\src\ts | 18 | 695 | 44 | 101 | 840 |
-| frontend\src\ts\graphics | 7 | 365 | 42 | 55 | 462 |
-| frontend\src\ts\interfaces | 7 | 171 | 1 | 24 | 196 |
+| frontend\src\plugins | 3 | 173 | 0 | 15 | 188 |
+| frontend\src\styles | 1 | 0 | 0 | 1 | 1 |
+| frontend\src\ts | 20 | 979 | 49 | 115 | 1,143 |
+| frontend\src\ts\graphics | 7 | 414 | 45 | 55 | 514 |
+| frontend\src\ts\interfaces | 8 | 264 | 2 | 28 | 294 |
 | frontend\src\ts\interfaces\ui | 1 | 7 | 0 | 1 | 8 |
-| frontend\src\ts\util | 3 | 105 | 1 | 16 | 122 |
-| frontend\src\ts\world | 1 | 54 | 0 | 6 | 60 |
-| frontend\src\views | 9 | 692 | 5 | 57 | 754 |
+| frontend\src\ts\util | 4 | 156 | 1 | 22 | 179 |
+| frontend\src\ts\world | 1 | 145 | 1 | 10 | 156 |
+| frontend\src\views | 10 | 986 | 25 | 70 | 1,081 |
 | frontend\tests | 1 | 11 | 0 | 2 | 13 |
 | frontend\tests\unit | 1 | 11 | 0 | 2 | 13 |
 | pages | 15 | 12,458 | 5 | 49 | 12,512 |
