@@ -89,6 +89,7 @@
 			const store: IStore = this.$store.state;
 			store.editingTiles = this.tabs[1].active; // TileBar is active
 			store.editingAssets = this.tabs[2].active; // AssetBar is active
+			store.editingCharacters = this.tabs[3].active; // AssetBar is active
 		}
 	}
 </script>

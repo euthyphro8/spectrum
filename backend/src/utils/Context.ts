@@ -3,6 +3,7 @@ import WebService from '@/services/WebService';
 import LoggerService from '@/services/LoggerService';
 import Configuration from '@/utils/Configuration';
 import DatabaseService from '@/services/DatabaseService';
+import SessionService from '@/services/SessionService';
 
 export default class Context {
 	private _Config!: Configuration;
@@ -20,6 +21,12 @@ export default class Context {
 	private _Connection!: ConnectionService;
 	get Connection(): ConnectionService {
 		if (this.injected) return this._Connection;
+		else throw new Error('Accessing ambient context before injection.');
+	}
+
+	private _Session!: SessionService;
+	get Session(): SessionService {
+		if (this.injected) return this._Session;
 		else throw new Error('Accessing ambient context before injection.');
 	}
 
@@ -46,11 +53,13 @@ export default class Context {
 		logger: LoggerService,
 		connection: ConnectionService,
 		db: DatabaseService,
+		session: SessionService,
 		web: WebService
 	): void {
 		this._Config = config;
 		this._Logger = logger;
 		this._Connection = connection;
+		this._Session = session;
 		this._Db = db;
 		this._Web = web;
 		this.injected = true;

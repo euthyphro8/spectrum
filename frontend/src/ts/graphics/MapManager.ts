@@ -4,15 +4,16 @@ import IStore from '../interfaces/IStore';
 import Map from '../world/Map';
 import Editor from './Editor';
 import Viewer from './Viewer';
+import { Store } from 'vuex';
 
 export default class MapManager {
-	private store: IStore;
+	private store: Store<IStore>;
 	private screen: Screen;
 	private controller: Controller;
 	private mutator: Editor | Viewer;
 	private map: Map;
 
-	constructor(store: IStore, editable: boolean) {
+	constructor(store: Store<IStore>, editable: boolean) {
 		this.store = store;
 		this.controller = new Controller();
 		this.screen = new Screen();
@@ -34,7 +35,7 @@ export default class MapManager {
 	}
 
 	public render(context: CanvasRenderingContext2D) {
-		if (!this.store.tiles.hasLoaded()) return;
+		if (!this.store.state.tiles.hasLoaded()) return;
 		// Begin the render context
 		this.screen.begin(context);
 		// Render all tiles

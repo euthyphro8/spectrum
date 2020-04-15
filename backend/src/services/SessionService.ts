@@ -27,6 +27,27 @@ export default class SessionService {
 		return newSession;
 	}
 
+	public joinSession(
+		userId: string,
+		playerCode: string
+	): ISession | undefined {
+		for (let s of this.sessions.values()) {
+			if (s.playerCode === playerCode) {
+				s.players.push(userId);
+				return s;
+			}
+		}
+		return undefined;
+	}
+
+	public requestSession(sessionId: string): ISession | undefined {
+		return this.sessions.get(sessionId);
+	}
+
+	public updateSession(session: ISession): void {
+		this.sessions.set(session.id, session);
+	}
+
 	private generateAlphaNumericCode(n: number): string {
 		const lb = Math.pow(36, n - 1);
 		const ub = Math.pow(36, n) - 1;

@@ -4,6 +4,7 @@ import ICampaign from './ICampaign';
 import IUser from './IUser';
 import ICharacter from './ICharacter';
 import CharacterRegistry from '../util/CharacterRegistry';
+import ISession from './ISession';
 
 interface IStore {
 	welcomeMessage: boolean;
@@ -20,5 +21,6 @@ interface IStore {
 	selectedTile: number;
 	editingAssets: boolean;
 	selectedAsset: number;
+	currentSession?: ISession;
 }
 export default IStore;

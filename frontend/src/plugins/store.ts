@@ -40,7 +40,8 @@ export default new Store<IStore>({
 		selectedTile: 0,
 		editingTiles: false,
 		selectedAsset: 0,
-		editingAssets: false
+		editingAssets: false,
+		currentSession: undefined
 	},
 	mutations: {},
 	actions: {

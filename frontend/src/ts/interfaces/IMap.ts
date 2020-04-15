@@ -28,8 +28,8 @@ export function coordToCharacterId(map: IMap, x: number, y: number): string {
 		const xp = parseInt(pos.split(',')[0]);
 		const yp = parseInt(pos.split(',')[1]);
 		if (x === xp && y === yp) return cId;
-		return '';
 	}
+	return '';
 }
 export function coordToTileId(map: IMap, x: number, y: number): number {
 	return map.tiles[y * map.width + x];

@@ -5,6 +5,7 @@ import System from '../utils/System';
 import { instanceOfIMap } from '../interfaces/IMap';
 import ICampaign, { instanceOfICampaign } from '../interfaces/ICampaign';
 import { instanceOfICharacter } from '../interfaces/ICharacter';
+import { instanceOfISession } from '../interfaces/ISession';
 
 export default class WebService {
 	private context: Context;
@@ -18,15 +19,13 @@ export default class WebService {
 		this.app.use(bodyParser.json());
 		this.app.use(bodyParser.urlencoded({ extended: true }));
 
-		this.app.get('/createSession', this.onCreateSession.bind(this));
-		this.app.get('/joinSession', this.onJoinSession.bind(this));
-
 		this.app.get('/requestCampaigns', this.onCampaignsRequest.bind(this));
 		this.app.post('/createCampaign', this.onCampaignCreation.bind(this));
 
 		this.app.get('/requestTemplates', this.onTemplatesRequest.bind(this));
 
 		this.app.get('/requestMaps', this.onMapsRequest.bind(this));
+		this.app.get('/requestMap', this.onMapRequest.bind(this));
 		this.app.post('/saveMap', this.onSaveMap.bind(this));
 
 		this.app.get('/requestCharacters', this.onCharactersRequest.bind(this));
@@ -36,12 +35,66 @@ export default class WebService {
 		this.app.get('/requestTiles', this.onTilesRequest.bind(this));
 		this.app.get('/requestEntities', this.onEntitiesRequest.bind(this));
 
+		this.app.get('/createSession', this.onCreateSession.bind(this));
+		this.app.get('/joinSession', this.onJoinSession.bind(this));
+		this.app.get('/requestSession', this.onRequestSession.bind(this));
+		this.app.post('/updateSession', this.onUpdateSession.bind(this));
+
 		this.app.post('/webhook', this.onWebhookPayload.bind(this));
 	}
 
-	private onCreateSession(req: Request, res: Response): void {}
+	private onCreateSession(req: Request, res: Response): void {
+		let userId = req.query.userId as string;
+		let mapId = req.query.mapId as string;
+		this.context.Logger.info(
+			`[ WEB SVC  ] Got create session for ${userId}.`
+		);
+		const session = this.context.Session.createSession(userId, mapId);
+		res.status(200).send({ session });
+	}
 
-	private onJoinSession(req: Request, res: Response): void {}
+	private onJoinSession(req: Request, res: Response): void {
+		let userId = req.query.userId as string;
+		let playerCode = req.query.playerCode as string;
+		this.context.Logger.info(
+			`[ WEB SVC  ] Got join session for ${playerCode} from ${userId}.`
+		);
+		const session = this.context.Session.joinSession(userId, playerCode);
+		if (session) {
+			res.status(200).send({ session });
+		} else {
+			this.context.Logger.warn(
+				`[ WEB SVC  ] Got malformed session join.`
+			);
+			res.status(300).send();
+		}
+	}
+
+	private onRequestSession(req: Request, res: Response): void {
+		let sessionId = req.query.sessionId as string;
+		let session = this.context.Session.requestSession(sessionId);
+		if (session) {
+			res.status(200).send({ session });
+		} else {
+			this.context.Logger.warn(
+				`[ WEB SVC  ] Got malformed session request.`
+			);
+			res.sendStatus(300);
+		}
+	}
+
+	private onUpdateSession(req: Request, res: Response): void {
+		let session = req.body.session;
+		if (instanceOfISession(session)) {
+			this.context.Session.updateSession(session);
+			res.sendStatus(200);
+		} else {
+			this.context.Logger.warn(
+				`[ WEB SVC  ] Got malformed session update.`
+			);
+			res.sendStatus(300);
+		}
+	}
 
 	private onCampaignsRequest(req: Request, res: Response): void {
 		let user = req.query.user as string;
@@ -88,6 +141,17 @@ export default class WebService {
 					`[ WEB SVC  ] Sending templates back.`
 				);
 				res.status(200).send({ templates });
+			})
+			.catch(() => res.sendStatus(500));
+	}
+
+	private onMapRequest(req: Request, res: Response): void {
+		let mapId = req.query.mapId as string;
+		this.context.Logger.info(`[ WEB SVC  ] Got map request for ${mapId}.`);
+		this.context.Db.getMap(mapId)
+			.then((map) => {
+				this.context.Logger.info(`[ WEB SVC  ] Sending map back.`);
+				res.status(200).send({ map });
 			})
 			.catch(() => res.sendStatus(500));
 	}

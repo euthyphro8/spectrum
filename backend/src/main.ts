@@ -5,6 +5,7 @@ import LoggerService from './services/LoggerService';
 import ConnectionService from './services/ConnectionService';
 import DatabaseService from './services/DatabaseService';
 import WebService from './services/WebService';
+import SessionService from './services/SessionService';
 
 // Gets the env vars from the .env file
 config();
@@ -21,9 +22,10 @@ const logger = new LoggerService(
 const server = new ConnectionService(context);
 const db = new DatabaseService(context);
 const web = new WebService(context);
+const session = new SessionService(context);
 
 // Add all micro-services to the ambient context
-context.inject(configuration, logger, server, db, /* file,*/ web);
+context.inject(configuration, logger, server, db, session, web);
 
 logger.notice(
 	`\n ::::::::  :::::::::  :::::::::: :::::::: ::::::::::: :::::::::  :::    ::: ::::    ::::  \n` +

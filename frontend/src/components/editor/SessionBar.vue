@@ -8,6 +8,7 @@
 <script lang="ts">
 	import { Component, Vue } from 'vue-property-decorator';
 	import IStore from '../../ts/interfaces/IStore';
+	import axios from 'axios';
 
 	@Component({
 		name: 'SessionBar',
@@ -16,7 +17,25 @@
 	export default class SessionBar extends Vue {
 		mounted(): void {}
 
-		onCreate(): void {}
+		onCreate(): void {
+			// Creating a session from a map assumes it should be saved.
+			this.$store.dispatch('saveMap');
+
+			const store: IStore = this.$store.state;
+			axios
+				.get('/createSession', {
+					params: {
+						userId: store.currentUser.id,
+						mapId: store.currentMap.id
+					}
+				})
+				.then((res) => {
+					if (res.data && res.data.session) {
+						store.currentSession = res.data.session;
+						this.$router.push('/viewer');
+					}
+				});
+		}
 	}
 </script>
 

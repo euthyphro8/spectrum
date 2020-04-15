@@ -4,12 +4,13 @@ import Vector2 from '../interfaces/Vector2';
 import IStore from '../interfaces/IStore';
 import Screen from './Screen';
 import Map from '../world/Map';
+import { Store } from 'vuex';
 
 export default class Viewer {
-	private store: IStore;
+	private store: Store<IStore>;
 	private cursorLocation: Vector2;
 
-	constructor(store: IStore) {
+	constructor(store: Store<IStore>) {
 		this.store = store;
 		this.cursorLocation = new Vector2();
 	}

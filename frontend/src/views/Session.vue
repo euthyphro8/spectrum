@@ -31,6 +31,8 @@
 <script lang="ts">
 	import { Component, Vue, Prop } from 'vue-property-decorator';
 	import { mdiSend } from '@mdi/js';
+	import axios from 'axios';
+	import IStore from '../ts/interfaces/IStore';
 
 	@Component({
 		data: () => {
@@ -48,6 +50,21 @@
 			'Enter the Session Code for the Campaign you would like to join (The DM should create a session and have the code).';
 		onSubmit(event: any) {
 			console.log(`submitting with ${this.code}`);
+
+			const store: IStore = this.$store.state;
+			axios
+				.get('/joinSession', {
+					params: {
+						userId: store.currentUser.id,
+						playerCode: this.code
+					}
+				})
+				.then((res) => {
+					if (res.data && res.data.session) {
+						store.currentSession = res.data.session;
+						this.$router.push('/viewer');
+					}
+				});
 		}
 	}
 </script>

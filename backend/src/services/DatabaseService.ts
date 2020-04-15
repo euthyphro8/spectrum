@@ -365,6 +365,29 @@ export default class DatabaseService {
 		}
 	}
 
+	/**
+	 * Gets a single map associated to the map id given.
+	 * @param mapId The map uuid.
+	 */
+	public async getMap(mapId: string): Promise<IMap> {
+		try {
+			const query = { id: mapId };
+			const raw = await this.maps!.findOne(query);
+			delete raw._id;
+			if (instanceOfIMap(raw)) return raw;
+			else
+				throw new Error(
+					`[ DTBS SVC ] Got non-map back from maps database.`
+				);
+		} catch (generalError) {
+			this.context.Logger.error(
+				`[ DTBS SVC ] There was a general error with getting maps. 
+                    ${generalError.message || generalError}`
+			);
+			throw generalError;
+		}
+	}
+
 	public async saveMap(map: IMap): Promise<boolean> {
 		try {
 			this.context.Logger.info(

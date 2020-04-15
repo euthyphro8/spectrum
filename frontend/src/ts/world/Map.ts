@@ -12,6 +12,7 @@ import {
 } from '../interfaces/IMap';
 import IStore from '../interfaces/IStore';
 import ICharacter from '../interfaces/ICharacter';
+import { Store } from 'vuex';
 
 /**
  * A renderable map class responsible for interfacing with the stored
@@ -19,10 +20,10 @@ import ICharacter from '../interfaces/ICharacter';
  * Simply in interacting with it.
  */
 export default class Map {
-	private store: IStore;
+	private store: Store<IStore>;
 	private assets: Tile[];
 	private tiles: Tile[];
-	private characters: ICharacter[];
+	private characters: (ICharacter | undefined)[];
 	private width: number;
 	private height: number;
 	private loaded: boolean;
@@ -33,12 +34,12 @@ export default class Map {
 	 * to updating the map itself.
 	 * @param store The active vuex store.
 	 */
-	constructor(store: IStore) {
+	constructor(store: Store<IStore>) {
 		this.loaded = false;
 		this.store = store;
-		let assetRegistry = store.assets;
-		let tileRegistry = store.tiles;
-		let map = store.currentMap;
+		let assetRegistry = store.state.assets;
+		let tileRegistry = store.state.tiles;
+		let map = store.state.currentMap;
 		this.width = map.width;
 		this.height = map.height;
 		this.assets = new Array<Tile>(this.width * this.height);
@@ -69,8 +70,8 @@ export default class Map {
 		// Has to be loaded async since the characters may not be cached and
 		// could be requested from the server.
 		this.characters = new Array<ICharacter>(this.width * this.height);
-		store.characters
-			.getCharacters(store.currentCampaign.id)
+		store.state.characters
+			.getCharacters(store.state.currentMap.campaign)
 			.then((characters) => {
 				for (let entry of map.characters) {
 					try {
@@ -147,7 +148,7 @@ export default class Map {
 		if (tile) {
 			tile.id = id;
 			tile.sprite = sprite;
-			updateAssetId(this.store.currentMap, xi, yi, id);
+			updateAssetId(this.store.state.currentMap, xi, yi, id);
 		}
 	}
 
@@ -158,23 +159,38 @@ export default class Map {
 	 * @param id id of character object being used to replace
 	 */
 	public updateCharacter(xi: number, yi: number, id: string): void {
-		removeCharacterCoord(this.store.currentMap, xi, yi);
-		removeCharacterId(this.store.currentMap, id);
-		addCharacterId(this.store.currentMap, xi, yi, id);
-		this.store.characters
-			.getCharacters(this.store.currentMap.campaign)
+		// Removes any character that may had been at this position
+		removeCharacterCoord(this.store.state.currentMap, xi, yi);
+		// Removes the new character if it was in some other position
+		removeCharacterId(this.store.state.currentMap, id);
+		// Then adds the charcter to the IMap
+		addCharacterId(this.store.state.currentMap, xi, yi, id);
+
+		// Then mirrors the update for the renderable model.
+		this.store.state.characters
+			.getCharacters(this.store.state.currentMap.campaign)
 			.then((characters) => {
 				let updated = false;
 				for (let c of characters) {
+					// Finds the ICharacter object matching the Id
 					if (c.id === id) {
+						// Finds rid of any other entries in the map that this character may hold
+						for (let i = 0; i < this.characters.length; i++) {
+							const oc = this.characters[i];
+							if (oc && oc.id === c.id) {
+								// Obviously, to avoid duplicates
+								this.characters[i] = undefined;
+							}
+						}
+						// Then places this character at the desired position.
 						this.characters[this.width * yi + xi] = c;
 						updated = true;
 					}
 				}
+				// FIXME probably handle with a dialog box?
 				if (!updated) {
-					// TODO if this happens find an efficient
-					// (can't set to undefined but also shouldn't reinstantiate the array)
-					// way to remove the old entry from the list.
+					// In order to keep IMap synced with the renderable map.
+					this.characters[this.width * yi + xi] = undefined;
 					console.log(
 						`[ Map ] Failed to find character ${id} in registry.`
 					);
@@ -199,7 +215,7 @@ export default class Map {
 		if (tile) {
 			tile.id = id;
 			tile.sprite = sprite;
-			updateTileId(this.store.currentMap, xi, yi, id);
+			updateTileId(this.store.state.currentMap, xi, yi, id);
 		}
 	}
 
@@ -215,7 +231,9 @@ export default class Map {
 					screen.renderTile(this.getAsset(x, y)!);
 					const c = this.getCharacter(x, y);
 					if (c) {
-						let entity = this.store.entities.getImage(c.entityId);
+						let entity = this.store.state.entities.getImage(
+							c.entityId
+						);
 						screen.renderRawTile(x, y, entity);
 					}
 				}

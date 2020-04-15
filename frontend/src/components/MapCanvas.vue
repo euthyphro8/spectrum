@@ -30,7 +30,7 @@
 			window.addEventListener('resize', this.onResize.bind(this), {
 				passive: true
 			});
-			this.map = new MapManager(this.$store.state, this.editable);
+			this.map = new MapManager(this.$store, this.editable);
 
 			this.lastTime = Date.now();
 			this.requestId = requestAnimationFrame(this.tick.bind(this));

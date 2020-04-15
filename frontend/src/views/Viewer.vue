@@ -41,13 +41,19 @@
 				</div>
 			</div>
 		</v-system-bar>
-		<MapCanvas :editable="false" />
+		<template v-if="session !== undefined">
+			<MapCanvas :editable="false" />
+		</template>
 	</v-content>
 </template>
 
 <script lang="ts">
 	import { Component, Vue } from 'vue-property-decorator';
 	import MapCanvas from '../components/MapCanvas.vue';
+	import IStore from '../ts/interfaces/IStore';
+	import axios from 'axios';
+	import IMap, { instanceOfIMap } from '../ts/interfaces/IMap';
+	import ISession from '../ts/interfaces/ISession';
 	@Component({
 		components: {
 			MapCanvas
@@ -56,21 +62,72 @@
 	export default class Viewer extends Vue {
 		private startTime: number = Date.now();
 		private elapsedTime: string = '';
-		private sessionCode: string = 'A8X3';
+		private sessionCode: string = '';
+		private session!: ISession;
 
-		private players = ['Trevor', 'Reece', 'Rama', 'Aidan'];
-		private spectators = [
-			'xxxpussyslayer69xxx',
-			'holyfuckthat42_',
-			'sugardredaddy4420'
-		];
+		private players: string[] = [];
+		private spectators: string[] = [];
 
 		private menuOpen: boolean = false;
 
-		private created(): void {
-			setInterval(() => {
-				this.elapsedTime = this.getElapsed();
-			}, 1000);
+		private async created(): Promise<void> {
+			const store: IStore = this.$store.state;
+			const session = store.currentSession;
+			if (session) {
+				let map = await this.requestMap(session.map);
+				if (map) {
+					store.currentMap = map;
+				} else {
+					console.error('[ Viewer ] Unable to retrieve session map.');
+					this.$router.back();
+					return;
+				}
+				this.session = session;
+				this.sessionCode = session.playerCode;
+				this.players = session.players;
+				this.spectators = session.spectators;
+				this.startTime = session.dateCreated;
+				setInterval(this.tick.bind(this), 1000);
+			} else {
+				console.error('[ Viewer ] No active session to join.');
+				this.$router.back();
+			}
+		}
+
+		private async requestMap(mapId: string): Promise<IMap | undefined> {
+			console.log(`[ Viewer ] Requesting map ${mapId}.`);
+			try {
+				let res = await axios.get('/requestMap', {
+					params: {
+						mapId: mapId
+					}
+				});
+				if (res.data && res.data.map) {
+					let map = res.data.map;
+					if (instanceOfIMap(map)) {
+						console.log(`[ Viewer ] Got map from server.`);
+						return map;
+					}
+				}
+			} catch (error) {
+				console.log(`[ Viewer ] Error:\ ${error}`);
+			}
+			return undefined;
+		}
+
+		tick(): void {
+			this.elapsedTime = this.getElapsed();
+			axios
+				.get('/requestSession', {
+					params: {
+						sessionId: this.session.id
+					}
+				})
+				.then((res) => {
+					if (res && res.data && res.data.session) {
+						this.players = res.data.session.players;
+					}
+				});
 		}
 
 		private getElapsed(): string {
