@@ -1,12 +1,12 @@
 <template>
 	<div class="home">
-		<div class="master-selection" @click="onSelection('/selection')">
+		<div class="master-selection" @click="onSelection('master')">
 			<h1>Game Master</h1>
 		</div>
-		<div class="player-selection" @click="onSelection('/session')">
+		<div class="player-selection" @click="onSelection('player')">
 			<h1>Player</h1>
 		</div>
-		<div class="spectator-selection" @click="onSelection('/session')">
+		<div class="spectator-selection" @click="onSelection('spectator')">
 			<h1>Spectator</h1>
 		</div>
 		<DialogueBox
@@ -25,6 +25,7 @@
 <script lang="ts">
 	import { Component, Vue } from 'vue-property-decorator';
 	import DialogueBox from '../components/DialogueBox.vue';
+	import IStore from '../ts/interfaces/IStore';
 	@Component({
 		name: 'Home',
 		components: {
@@ -43,8 +44,12 @@
 			this.showDialogue = true;
 		}
 
-		onSelection(path: string) {
-			this.$router.push(path);
+		onSelection(role: string) {
+			const store: IStore = this.$store.state;
+			store.sessionRole = role;
+			if (role === 'master') this.$router.push('/selection');
+			if (role === 'player') this.$router.push('/session');
+			if (role === 'spectator') this.$router.push('/session');
 		}
 	}
 </script>

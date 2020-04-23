@@ -29,7 +29,6 @@ export default class MapManager {
 	}
 
 	public update(dt: number) {
-		// console.log('update');
 		this.controller.update(dt, this.screen.camera);
 		this.mutator.update(this.screen, this.controller, this.map);
 	}

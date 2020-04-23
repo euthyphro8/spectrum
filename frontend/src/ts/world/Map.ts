@@ -20,10 +20,10 @@ import { Store } from 'vuex';
  * Simply in interacting with it.
  */
 export default class Map {
+	public characters: (ICharacter | undefined)[];
 	private store: Store<IStore>;
 	private assets: Tile[];
 	private tiles: Tile[];
-	private characters: (ICharacter | undefined)[];
 	private width: number;
 	private height: number;
 	private loaded: boolean;
@@ -144,10 +144,10 @@ export default class Map {
 		id: number,
 		sprite?: HTMLImageElement
 	): void {
-		let tile = this.getTile(xi, yi);
-		if (tile) {
-			tile.id = id;
-			tile.sprite = sprite;
+		let asset = this.getAsset(xi, yi);
+		if (asset) {
+			asset.id = id;
+			asset.sprite = sprite;
 			updateAssetId(this.store.state.currentMap, xi, yi, id);
 		}
 	}

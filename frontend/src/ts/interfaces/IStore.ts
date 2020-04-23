@@ -21,6 +21,8 @@ interface IStore {
 	selectedTile: number;
 	editingAssets: boolean;
 	selectedAsset: number;
+	sessionRole: string;
 	currentSession?: ISession;
+	characterCache?: ICharacter[];
 }
 export default IStore;

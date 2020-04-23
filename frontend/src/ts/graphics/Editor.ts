@@ -23,9 +23,6 @@ export default class Editor {
 		screen.screenToIndexSpace(this.cursorLocation);
 
 		if (controller.getClick()) {
-			//FIXME The assets and tiles checks can be simplified with the updated Map class
-			// (using Update* instead of get*).
-
 			// Editing assets
 			if (this.store.state.editingAssets) {
 				// Gets the current asset being hovered over from the map
@@ -46,12 +43,6 @@ export default class Editor {
 								  )
 								: undefined
 						);
-						// asset.sprite =
-						// 	this.store.state.selectedAsset > 0
-						// 		? this.store.state.assets.getImage(
-						// 				this.store.state.selectedAsset
-						// 		  )
-						// 		: undefined;
 						this.lastAssetEdited = asset;
 					}
 				}
@@ -78,13 +69,6 @@ export default class Editor {
 								  )
 								: undefined
 						);
-						// tile.sprite =
-						// 	this.store.state.selectedTile > 0
-						// 		? this.store.state.tiles.getImage(
-						// 				this.store.state.selectedTile
-						// 		  )
-						// 		: undefined;
-						// this.lastTileEdited = tile;
 					}
 				}
 			} else {

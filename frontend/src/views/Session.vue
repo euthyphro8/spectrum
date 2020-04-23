@@ -56,7 +56,8 @@
 				.get('/joinSession', {
 					params: {
 						userId: store.currentUser.id,
-						playerCode: this.code
+						code: this.code,
+						isPlayer: store.sessionRole === 'player'
 					}
 				})
 				.then((res) => {

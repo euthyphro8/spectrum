@@ -1,8 +1,9 @@
 {
 	"name": "backend",
-	"version": "0.1.8",
+	"version": "0.9.0",
 	"description": "Backend web server for spectrum software.",
 	"main": "dist/main.js",
+	"bin": "dist/main.js",
 	"author": "Josh Hess",
 	"scripts": {
 		"prebuild": "cd ../frontend && npm run build && cd ../backend && rm -r public && mkdir public && cp -r ../frontend/dist/* public",
@@ -40,5 +41,10 @@
 		"ts-jest": "^24.1.0",
 		"tslint": "^5.20.0",
 		"typescript": "^3.7.2"
+	},
+	"pkg": {
+		"assets": [
+			"public/**/*"
+		]
 	}
 }

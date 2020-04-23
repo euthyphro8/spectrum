@@ -1,14 +1,17 @@
 import Context from '../utils/Context';
 import ISession from '../interfaces/ISession';
 import { v1 as uuidV1 } from 'uuid';
+import ICharacter from '../interfaces/ICharacter';
 
 export default class SessionService {
 	private context: Context;
 	private sessions: Map<string, ISession>;
+	private characters: Map<string, ICharacter[]>;
 
 	public constructor(context: Context) {
 		this.context = context;
 		this.sessions = new Map<string, ISession>();
+		this.characters = new Map<string, ICharacter[]>();
 	}
 
 	public createSession(dmId: string, mapId: string): ISession {
@@ -19,8 +22,8 @@ export default class SessionService {
 			map: mapId,
 			players: [],
 			spectators: [],
-			playerCode: this.generateAlphaNumericCode(4), // TODO Check this against all other sessions to verify uniqueness
-			spectatorCode: this.generateAlphaNumericCode(4), // TODO Same as playercode
+			playerCode: this.generateAlphaNumericCode(4),
+			spectatorCode: this.generateAlphaNumericCode(4),
 			dateCreated: Date.now(),
 		};
 		this.sessions.set(newSession.id, newSession);
@@ -29,23 +32,37 @@ export default class SessionService {
 
 	public joinSession(
 		userId: string,
-		playerCode: string
+		code: string,
+		isPlayer: boolean
 	): ISession | undefined {
 		for (let s of this.sessions.values()) {
-			if (s.playerCode === playerCode) {
-				s.players.push(userId);
-				return s;
+			if (isPlayer) {
+				if (s.playerCode === code) {
+					s.players.push(userId);
+					return s;
+				}
+			} else {
+				if (s.spectatorCode === code) {
+					s.spectators.push(userId);
+					return s;
+				}
 			}
 		}
 		return undefined;
 	}
 
-	public requestSession(sessionId: string): ISession | undefined {
+	public requestSession(sessionId: string): any {
 		return this.sessions.get(sessionId);
 	}
 
-	public updateSession(session: ISession): void {
-		this.sessions.set(session.id, session);
+	public requestLatestSessionCharcters(
+		sessionId: string
+	): ICharacter[] | undefined {
+		return this.characters.get(sessionId);
+	}
+
+	public updateSession(sessionId: string, characters: ICharacter[]): void {
+		this.characters.set(sessionId, characters);
 	}
 
 	private generateAlphaNumericCode(n: number): string {

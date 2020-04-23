@@ -124,8 +124,15 @@
 					}
 				})
 				.then((res) => {
-					if (res && res.data && res.data.session) {
-						this.players = res.data.session.players;
+					let store: IStore = this.$store.state;
+					if (res && res.data) {
+						if (res.data.session) {
+							this.players = res.data.session.players;
+							this.spectators = res.data.session.spectators;
+						}
+						if (res.data.characters) {
+							store.characterCache = res.data.characters;
+						}
 					}
 				});
 		}

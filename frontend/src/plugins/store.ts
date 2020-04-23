@@ -41,10 +41,58 @@ export default new Store<IStore>({
 		editingTiles: false,
 		selectedAsset: 0,
 		editingAssets: false,
-		currentSession: undefined
+		currentSession: undefined,
+		sessionRole: 'spectator',
+		characterCache: undefined
 	},
 	mutations: {},
 	actions: {
+		updateSession(context, characters) {
+			let session = context.state.currentSession;
+			if (session) {
+				axios.post('/updateSession', {
+					sessionId: session.id,
+					characters
+				});
+			}
+		},
+		resizeMap(context, newDims) {
+			const store: IStore = context.state;
+			const map = store.currentMap;
+
+			// Resize the map and its content
+			const ol = map.width * map.height;
+			const nl = newDims.width * newDims.height;
+			map.width = newDims.width;
+			map.height = newDims.height;
+			// Pad
+			if (nl >= ol) {
+				map.tiles = [
+					...map.tiles,
+					...new Array<number>(nl - ol).fill(1)
+				];
+				map.assets = [
+					...map.assets,
+					...new Array<number>(nl - ol).fill(0)
+				];
+			}
+			// Or truncate
+			else {
+				map.tiles = map.tiles.splice(0, nl);
+				map.assets = map.assets.splice(0, nl);
+			}
+
+			// Retake the thumbnail
+			const tiles = store.tiles;
+			const thumbnail = Screenshot.CreateThumbnail(200, 200, map, tiles);
+
+			map.thumbnail = thumbnail;
+			map.campaign = store.currentCampaign.id;
+
+			axios.post('/saveMap', {
+				map: map
+			});
+		},
 		renameMap(context) {
 			const store: IStore = context.state;
 			const map = store.currentMap;

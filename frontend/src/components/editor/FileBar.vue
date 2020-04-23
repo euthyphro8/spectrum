@@ -6,10 +6,33 @@
 		<div class="container">
 			<v-text-field
 				color="primary"
+				label="Name"
 				v-model="mapName"
 				filled
 				@change="onNameChanged"
 			/>
+		</div>
+		<div class="half-container-container">
+			<div class="half-container">
+				<v-text-field
+					color="primary"
+					label="Width"
+					v-model="mapWidth"
+					type="number"
+					filled
+					@change="onSizeChanged"
+				/>
+			</div>
+			<div class="half-container">
+				<v-text-field
+					color="primary"
+					label="Height"
+					v-model="mapHeight"
+					type="number"
+					filled
+					@change="onSizeChanged"
+				/>
+			</div>
 		</div>
 		<div class="button" @click="onSave()">Save</div>
 		<hr class="section" />
@@ -28,10 +51,14 @@
 	})
 	export default class FileBar extends Vue {
 		private mapName: string = '';
+		private mapWidth: number = 0;
+		private mapHeight: number = 0;
 
 		mounted(): void {
 			const state: IStore = this.$store.state;
 			this.mapName = state.currentMap.name;
+			this.mapWidth = state.currentMap.width;
+			this.mapHeight = state.currentMap.height;
 		}
 
 		onNameChanged(): void {
@@ -39,6 +66,17 @@
 			const state: IStore = this.$store.state;
 			state.currentMap.name = this.mapName;
 			this.$store.dispatch('renameMap');
+		}
+
+		onSizeChanged(): void {
+			console.log(
+				`Changing size to: ${this.mapWidth}x${this.mapHeight}.`
+			);
+			const newDims = {
+				width: this.mapWidth,
+				height: this.mapHeight
+			};
+			this.$store.dispatch('resizeMap', newDims);
 		}
 
 		onNew(): void {
@@ -102,6 +140,16 @@
 	.button:hover {
 		background-color: #666666;
 		color: #ffffff;
+	}
+	.half-container-container {
+		display: flex;
+		flex-direction: row;
+	}
+	.half-container {
+		width: 86px;
+		height: 72px;
+		padding: 0px;
+		margin: 4px 2px -6px 2px;
 	}
 	.container {
 		width: 182px;

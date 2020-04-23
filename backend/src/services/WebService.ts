@@ -55,11 +55,16 @@ export default class WebService {
 
 	private onJoinSession(req: Request, res: Response): void {
 		let userId = req.query.userId as string;
-		let playerCode = req.query.playerCode as string;
+		let code = req.query.code as string;
+		let isPlayer = req.query.isPlayer as boolean;
 		this.context.Logger.info(
-			`[ WEB SVC  ] Got join session for ${playerCode} from ${userId}.`
+			`[ WEB SVC  ] Got join session for ${code} from ${userId}.`
 		);
-		const session = this.context.Session.joinSession(userId, playerCode);
+		const session = this.context.Session.joinSession(
+			userId,
+			code,
+			isPlayer
+		);
 		if (session) {
 			res.status(200).send({ session });
 		} else {
@@ -74,7 +79,10 @@ export default class WebService {
 		let sessionId = req.query.sessionId as string;
 		let session = this.context.Session.requestSession(sessionId);
 		if (session) {
-			res.status(200).send({ session });
+			let characters = this.context.Session.requestLatestSessionCharcters(
+				sessionId
+			);
+			res.status(200).send({ session, characters });
 		} else {
 			this.context.Logger.warn(
 				`[ WEB SVC  ] Got malformed session request.`
@@ -84,16 +92,10 @@ export default class WebService {
 	}
 
 	private onUpdateSession(req: Request, res: Response): void {
-		let session = req.body.session;
-		if (instanceOfISession(session)) {
-			this.context.Session.updateSession(session);
-			res.sendStatus(200);
-		} else {
-			this.context.Logger.warn(
-				`[ WEB SVC  ] Got malformed session update.`
-			);
-			res.sendStatus(300);
-		}
+		let sessionId = req.body.sessionId as string;
+		let characters = req.body.characters;
+		this.context.Session.updateSession(sessionId, characters);
+		res.sendStatus(200);
 	}
 
 	private onCampaignsRequest(req: Request, res: Response): void {
