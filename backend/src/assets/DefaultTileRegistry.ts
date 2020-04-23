@@ -78,14 +78,14 @@ export const DefaultTileRegistry = {
 				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABqSURBVDhPY6zOrWAgBTBBqHefvqEhiDgmAGkQFOIR4uNCQ0+fPYOoQANQG4gHtNGA7CWiPA30EpTFwEBusBIPcGpAcyEQQcSxa8ATM9RzEi5AJQ3v331B8zEQQaRw2oDmYyCSlpJiYGAAAJCmVcNdTIYFAAAAAElFTkSuQmCC',
 		},
 		{
-			id: 12,
+			id: 11,
 			name: 'stone_smooth',
 			discriminator: 'spectrum.tile',
 			image:
 				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA9SURBVDhPY+ypb2EAg/fvvkAY+AEThCJSNRCANBCv+t2nb1AbiAejGogBw0IDSQkJSDJW51bAOQTB9y8fAG2wGa++bO1aAAAAAElFTkSuQmCC',
 		},
 		{
-			id: 13,
+			id: 12,
 			name: 'wall_stone',
 			discriminator: 'spectrum.tile',
 			image:

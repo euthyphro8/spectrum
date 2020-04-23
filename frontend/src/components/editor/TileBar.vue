@@ -10,7 +10,7 @@
 			>
 				<img
 					class="icon"
-					:src="tiles().getImage(id).src"
+					:src="getSrc(id)"
 					:alt="tiles().getName(id)"
 					@click="onClick(id)"
 				/>
@@ -40,6 +40,13 @@
 			store.selectedTile = tileId;
 			this.selectedIndex = tileId;
 			console.log(`Selecting tile ${tileId}`);
+		}
+		getSrc(tileId: number): string {
+			let state: IStore = this.$store.state;
+			let tiles = state.tiles;
+			let img = tiles.getImage(tileId);
+			if (img) return img.src;
+			return '';
 		}
 	}
 </script>
